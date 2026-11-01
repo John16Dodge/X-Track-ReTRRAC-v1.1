@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-accent="blue">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X-Track For ReTRRAC</title>
+<script src="https://cdn.jsdelivr.net/npm/animejs@4.0.2/dist/bundles/anime.umd.min.js"></script>
+<script>window.A4=window.anime;window.anime=undefined</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<style>
+:root{--bg:#f3f5f9;--card:#fff;--tx:#17202e;--mu:#5d6b82;--bd:#dbe1ec;--ac:#2563eb;--ac2:#dbe7ff;--ok:#16803c;--wa:#b45309;--er:#c0262d}
+[data-theme=dark]{--bg:#0d1320;--card:#161e30;--tx:#e8edf7;--mu:#93a1bb;--bd:#27324a;--ac2:#1d2a4a}
+[data-accent=blue]{--ac:#2563eb}[data-accent=green]{--ac:#15935a}[data-accent=purple]{--ac:#7c3aed}[data-accent=orange]{--ac:#d9660b}[data-accent=red]{--ac:#d32f3f}
+[data-theme=dark][data-accent=blue]{--ac:#5b8dff}[data-theme=dark][data-accent=green]{--ac:#3ccf8e}[data-theme=dark][data-accent=purple]{--ac:#a78bfa}[data-theme=dark][data-accent=orange]{--ac:#ff9340}[data-theme=dark][data-accent=red]{--ac:#ff6b78}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 "Segoe UI",system-ui,sans-serif}
+header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid var(--bd);background:var(--card);flex-wrap:wrap}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.5px;cursor:pointer}.logo b{color:var(--ac)}
+.tools{display:flex;gap:8px;align-items:center}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--card);outline:1px solid var(--bd);cursor:pointer;padding:0}
+main{max-width:1000px;margin:0 auto;padding:20px}
+h1{font-size:clamp(32px,6vw,54px);line-height:1.05;margin:0 0 12px;letter-spacing:-1.5px}
+h2{margin:0 0 10px;font-size:20px}h3{margin:0 0 8px;font-size:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.row>*{flex:1 1 150px}
+label{display:block;font-size:13px;color:var(--mu)}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx);font:inherit}
+input[type=checkbox]{width:auto}
+button{font:inherit;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:6px;padding:8px 14px;position:relative;overflow:hidden;transition:translate .15s ease-out,scale .12s,box-shadow .25s,border-color .2s,color .2s}
+button:active{scale:.96}
+button.p{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}
+button.big{padding:14px 26px;font-size:17px}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;padding:30px 0}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.hero p{color:var(--mu);max-width:46ch}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--ac2);color:var(--ac)}
+.pill.ok{color:var(--ok)}.pill.wa{color:var(--wa)}.pill.er{color:var(--er)}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:5px 6px;border-bottom:1px solid var(--bd);text-align:left}
+.score{font-size:44px;font-weight:800;color:var(--ac);line-height:1}
+.bar{height:8px;background:var(--bd);border-radius:5px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--ac)}
+.mu{color:var(--mu)}.sm{font-size:13px}.mt{margin-top:10px}
+.cover{text-align:center;padding:40px 10px}
+.av{width:44px;height:44px;border-radius:50%;background:var(--ac2);display:inline-grid;place-items:center;vertical-align:middle;margin-right:10px}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:none}
+.aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;display:none;pointer-events:none}
+.home #bg,.home .aurora{display:block}
+.aurora i{position:absolute;left:-8%;top:-12%;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.2;background:var(--ac);animation:drift 22s ease-in-out infinite alternate}
+[data-theme=dark] .aurora i{opacity:.3}
+.aurora i:nth-child(2){background:#f59e0b;left:55%;top:25%;opacity:.14;animation-duration:28s;animation-delay:-8s}
+.aurora i:nth-child(3){background:#06b6d4;left:-10%;top:55%;opacity:.14;animation-duration:34s;animation-delay:-14s}
+@keyframes drift{to{transform:translate(18vw,-12vh) scale(1.2)}}
+@keyframes fl{to{translate:0 -10px}}
+@keyframes grow{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
+.float{animation:fl 6s ease-in-out infinite alternate;filter:drop-shadow(0 24px 40px rgba(0,0,0,.18))}
+.bars rect{transform-box:fill-box;transform-origin:bottom;animation:grow 2.4s ease-in-out infinite alternate}
+.bars rect:nth-child(2){animation-delay:.3s}.bars rect:nth-child(3){animation-delay:.6s}.bars rect:nth-child(4){animation-delay:.9s}
+.chip{position:absolute;padding:6px 12px;border-radius:99px;font-size:12px;font-weight:700;background:var(--card);border:1px solid var(--bd);box-shadow:0 8px 24px rgba(0,0,0,.14);animation:fl 5s ease-in-out infinite alternate}
+.c1{top:0;right:0;color:var(--wa)}.c2{bottom:24%;left:0;color:var(--ok);animation-delay:-2s}.c3{bottom:0;right:8%;color:var(--ac);animation-delay:-3.5s}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:10px}
+.feats .card{backdrop-filter:blur(10px);background:color-mix(in srgb,var(--card) 75%,transparent);margin:0}
+.feats p{margin:0;color:var(--mu);font-size:14px}
+@media(prefers-reduced-motion:reduce){.aurora i,.float,.bars rect,.chip{animation:none!important}}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--card) 80%,transparent);backdrop-filter:blur(12px)}
+.home main{max-width:1180px}
+#spot{position:fixed;inset:0;z-index:-1;pointer-events:none;display:none;background:radial-gradient(460px circle at var(--mx,50%) var(--my,40%),color-mix(in srgb,var(--ac) 20%,transparent),transparent 70%)}
+.home #spot{display:block}
+#wipe{position:fixed;inset:0;z-index:50;background:var(--ac);transform:translateX(-101%);pointer-events:none}
+.floor{position:absolute;left:-50%;right:-50%;bottom:-8%;height:58%;background-image:linear-gradient(var(--ac) 1px,transparent 1px),linear-gradient(90deg,var(--ac) 1px,transparent 1px);background-size:64px 64px;transform:perspective(420px) rotateX(64deg);transform-origin:bottom;opacity:.3;-webkit-mask-image:linear-gradient(to top,#000 10%,transparent 85%);mask-image:linear-gradient(to top,#000 10%,transparent 85%);animation:floor 2.4s linear infinite}
+@keyframes floor{to{background-position:0 64px}}
+.stage{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;min-height:calc(100vh - 110px);padding:20px 0}
+@media(max-width:860px){.stage{grid-template-columns:1fr;min-height:0}}
+.stage h1{font-size:clamp(38px,6vw,70px);letter-spacing:-2.5px;max-width:13ch;margin:14px 0}
+.copy p{font-size:18px;color:var(--mu);max-width:44ch}
+.stats{display:flex;gap:30px;margin-top:32px;flex-wrap:wrap}.stats b{display:block;font-size:26px;letter-spacing:-1px}.stats span{font-size:13px;color:var(--mu)}
+.demo{perspective:1100px}
+.tilt{position:relative;transform-style:preserve-3d;transition:transform .15s ease-out}
+.panel{background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:18px;padding:18px;box-shadow:0 40px 80px rgba(0,0,0,.25),0 0 0 1px color-mix(in srgb,var(--ac) 25%,transparent)}
+.ph{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--mu);margin-bottom:10px}.ph i{width:9px;height:9px;border-radius:50%;background:var(--bd)}.ph i:first-child{background:var(--ac)}.ph span{margin-left:8px}
+.ring{position:relative;width:150px;height:150px;margin:6px auto 14px}.ring svg{transform:rotate(-90deg);width:100%}
+.ring circle{fill:none;stroke-width:9}.rb{stroke:var(--bd)}.rf{stroke:var(--ac);stroke-linecap:round;stroke-dasharray:314;stroke-dashoffset:50}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;letter-spacing:-1px;padding-bottom:16px}.ring small{position:absolute;left:0;right:0;top:64%;text-align:center;font-size:11px;color:var(--mu)}
+.mrow{display:grid;grid-template-columns:34px 1fr 42px;gap:10px;align-items:center;margin-top:10px}.mrow b{font-size:13px}.mrow em{font-style:normal;font-weight:700;font-size:13px;text-align:right}
+.mrow .av{width:34px;height:34px;margin:0;font-size:12px;font-weight:700;color:var(--ac)}
+.tilt .chip{transform:translateZ(70px)}
+.tilt .c1{top:-14px;right:-14px}.tilt .c2{left:-26px;bottom:96px}.tilt .c3{right:26px;bottom:-16px}
+@media(prefers-reduced-motion:reduce){.floor{animation:none!important}}
+#bg{display:block;opacity:.32;transition:opacity .5s}.home #bg{opacity:1}
+[data-sc=warp] .floor,[data-sc=rain] .floor{display:none}
+#sc{width:auto;padding:6px 8px}
+button::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);translate:-130% 0;transition:translate .6s;pointer-events:none}
+.rip{position:absolute;width:10px;height:10px;border-radius:50%;background:currentColor;opacity:.28;translate:-50% -50%;scale:0;animation:rip .6s ease-out forwards;pointer-events:none}
+@keyframes rip{to{scale:30;opacity:0}}
+@media(hover:hover){
+ button:hover{translate:0 -2px;border-color:var(--ac);color:var(--ac);box-shadow:0 8px 22px color-mix(in srgb,var(--ac) 28%,transparent)}
+ button:hover::after{translate:130% 0}
+ button.p:hover{color:#fff;box-shadow:0 10px 30px color-mix(in srgb,var(--ac) 55%,transparent);filter:brightness(1.08)}
+ .dot:hover{scale:1.2}
+ .card{transition:translate .2s,border-color .2s}.feats .card:hover{translate:0 -4px;border-color:var(--ac)}}
+body{overflow-x:hidden}td{overflow-wrap:anywhere}
+@media(max-width:860px){.tilt .c1{right:0}.tilt .c2{left:0}.tilt .c3{right:10px}.demo{max-width:460px;margin:0 auto;width:100%}}
+@media(max-width:640px){
+ header{padding:8px 12px}.tools{width:100%;justify-content:space-between;flex-wrap:wrap}
+ main{padding:12px}.copy p{font-size:16px}.btns button{flex:1 1 100%}.stats{gap:20px}
+ .card{padding:12px}.score{font-size:36px}td,th{padding:4px 3px;font-size:13px}.cover{padding:24px 6px}}
+@media(max-width:480px){.row>*{flex-basis:100%}}
+@media(pointer:coarse){button,select,input{min-height:42px}.dot{min-height:0;width:26px;height:26px}input[type=checkbox]{min-height:0;width:20px;height:20px}}
+@media(prefers-reduced-motion:reduce){button::after,.rip{display:none}}
+.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:6px 0}
+.imgs figure{margin:0;display:grid;gap:4px;align-content:start;break-inside:avoid}
+.imgs img{width:100%;height:150px;object-fit:contain;background:var(--bg);border-radius:8px;border:1px solid var(--bd)}
+@media print{.imgs{grid-template-columns:repeat(3,1fr)}.imgs input,.rev select{border:0!important;background:none!important;padding:2px 0}.rev select{appearance:none}}
+.mb{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:6px 0}.mb button{padding:3px 11px;font-size:13px;border-radius:99px}
+button.sel,button.sel:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.5);display:grid;place-items:center;padding:16px}
+.mbox{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:20px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.mbox p{margin:0 0 16px}.acts{display:flex;gap:10px;justify-content:flex-end}.y.d{background:var(--er);border-color:var(--er)}
+@media print{.modal{display:none}}
+.tw{overflow-x:auto;margin:4px 0}
+.tw table th,.tw table td{padding:3px 6px;white-space:nowrap;font-size:13px;text-align:center}
+.tw table th:first-child,.tw table td:first-child{text-align:left}
+.tw th label{display:flex;gap:4px;align-items:center;justify-content:center;color:inherit;font-size:13px;margin:0}
+.tw input[type=checkbox]{width:16px;height:16px;min-height:0;vertical-align:middle}
+.tw select{width:auto;min-height:30px;padding:3px 6px;font-size:13px}
+.tw input:not([type=checkbox]){width:110px;min-height:30px;padding:3px 6px;font-size:13px;margin-left:4px}
+.tw input.num{width:64px;margin:0}
+.tw .mb{margin:0;flex-wrap:nowrap;justify-content:center}.mb button{padding:1px 8px;font-size:12px;min-height:26px}
+.sat tr:nth-child(even) td{background:color-mix(in srgb,var(--bd) 22%,transparent)}
+.lines{position:absolute;inset:0;width:100%;height:100%}
+.lines path{fill:none;stroke:var(--ac);stroke-width:2;stroke-linecap:round;opacity:.45}
+.trend{width:100%;height:36px;margin:0 0 4px}
+.trend polyline{fill:none;stroke:var(--ac);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+button.dng{color:var(--er)}button.dng:hover{color:var(--er);border-color:var(--er);box-shadow:0 8px 22px rgba(192,38,45,.28)}
+@media print{.aurora,#bg,#spot,#wipe{display:none!important}}
+@media print{header,.noprint{display:none!important}body{background:#fff;color:#000}.card{break-inside:avoid;box-shadow:none}.cover{break-after:page}textarea{border:0;resize:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="aurora"><i></i><i></i><i></i><b class="floor"></b><svg class="lines" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true"><path d="M0,330 C220,240 420,440 640,310 S1010,200 1200,270"/><path d="M0,420 C240,330 440,540 680,400 S1040,290 1200,360"/><path d="M0,510 C200,420 400,620 620,490 S1000,380 1200,450"/><path d="M0,600 C230,510 430,710 660,580 S1030,470 1200,540"/><path d="M0,690 C210,600 420,790 650,670 S1020,560 1200,630"/></svg></div><canvas id="bg" aria-hidden="true"></canvas><div id="spot"></div><div id="wipe"></div>
+<header class="noprint">
+  <div style="display:flex;gap:10px;align-items:center"><button id="bk" onclick="back()" hidden aria-label="Go back">← Back</button><div class="logo" onclick="hist=[];nav('home')">X<b>-Track</b> <span class="sm mu" style="font-weight:600;letter-spacing:0">For ReTRRAC</span></div></div>
+  <div class="tools">
+    <button onclick="openList()">Project</button><button onclick="go('report')">Report</button>
+    <select id="sc" aria-label="Background scene" onchange="S.bg=this.value;save();setScene()"><option value="warp">Warp</option><option value="rain">Data rain</option><option value="waves">Waves</option><option value="net">Network</option></select><span id="dots" style="display:flex;gap:6px"></span>
+    <button id="tg" onclick="toggleTheme()" aria-label="Switch dark or light mode">Dark</button>
+  </div>
+</header>
+<main id="app"></main>
+<script>
+const KEY='xtrack-v1';
+const ACC={blue:'#2563eb',green:'#15935a',purple:'#7c3aed',orange:'#d9660b',red:'#d32f3f'};
+const DOCS=['Extensive AML screening','POA check','POI check','Risk assessment sheet','Client report (optional)'];
+const REASONS=['Expired document (no deduction)','I forgot','I am new here and need more experience','I might have missed this check','Other'];
+let S={projects:[],cur:null,theme:'light',accent:'blue'},view='home';
+const uid=()=>Math.random().toString(36).slice(2,9);
+const newP=()=>({id:uid(),client:'',tl:{name:'',role:'Team Lead',company:''},members:[],created:new Date().toISOString().slice(0,10)});
+function migrate(d){if(d.members&&!d.projects){d.projects=[{...newP(),client:d.client||'',tl:d.tl||newP().tl,members:d.members}]}delete d.client;delete d.tl;delete d.members;delete d.cur;return d}
+try{const x=localStorage.getItem(KEY);if(x)S=Object.assign(S,migrate(JSON.parse(x)))}catch(e){}
+const cur=()=>S.projects[S.cur];
+Object.defineProperties(S,{client:{get:()=>cur().client,set:v=>{cur().client=v}},tl:{get:()=>cur().tl},members:{get:()=>cur().members}});
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let warned=0;const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){if(!warned){warned=1;tell('Browser storage is full, so recent changes are not saved there. Use Save to laptop to keep this project.')}}};
+
+function expand(t){const out=[];String(t).split(/[,\n]+/).map(s=>s.trim()).filter(Boolean).forEach(p=>{
+  const m=p.match(/^(\D*?)(\d+)\s*(?:to|-|–)\s*(\D*?)(\d+)$/i);
+  if(m&&+m[4]-+m[2]<500&&+m[4]>=+m[2]){for(let i=+m[2];i<=+m[4];i++)out.push(m[1]+i)}else out.push(p)});return out}
+function sync(arr,ids,mk){const old=Object.fromEntries(arr.map(c=>[c.id,c]));return ids.map(id=>old[id]||mk(id))}
+
+function calc(m){
+  const dirs=m.ltd.reduce((a,c)=>a+(+c.dir||0),0),sa=m.sa.length,units=dirs+sa;
+  const min=dirs*6+sa*6,max=dirs*10+sa*15,t=(parseFloat(m.time)||0)*60;
+  let ded=0;m.sa.forEach(c=>ded+=dedOf(m,c));
+  const r={dirs,sa,min,max,t,ded,status:'wait',score:null,clients:m.ltd.length+sa};
+  if(!t||!min)return r;
+  if(t<min){r.status='flag';return r}
+  let s;
+  if(t<=max){s=100-(t-min)/((max-min)||1)*20;r.status='ok'}
+  else{r.status='delayed';s=(m.delay&&m.delay.dec==='accept')?80:80-(t-max)/max*100}
+  r.score=Math.max(0,Math.round(s-ded));return r}
+function band(s){return s>95?['Outstanding','ok','Recommendation line for HR']:s>=90?['Excellent','ok','Resume line']:s>=80?['Good, with room to improve','ok','Some areas can be improved']:s>=70?['Acceptable','wa','Monitor, no action needed']:s>=50?['Needs improvement','wa','Chance given, review after an agreed period']:['Critical','er','Flagged for HR review']}
+
+/* ---------- views ---------- */
+const avatar=`<span class="av"><svg width="24" height="24" viewBox="0 0 24 24" fill="var(--ac)"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.6 3.8-7 8.5-7s8.5 2.4 8.5 7z"/></svg></span>`;
+
+function home(){return `<section class="stage"><div class="copy">
+<span class="pill reveal" style="font-size:15px;padding:5px 14px">X-Track For ReTRRAC</span>
+<h1 class="reveal">See how efficiently your team really works.</h1>
+<p class="reveal">Assign client IDs, log the time, and X-Track turns it into fair scores, clear flags and a PDF report your managers and HR can trust.</p>
+<div class="btns"><button class="p big reveal" onclick="openList()">Work with the Team</button><button class="big reveal" onclick="go('report')">Create Report</button>
+<button class="big reveal" onclick="$('#ld').click()">Load Saved Project</button><input id="ld" type="file" accept=".json" hidden onchange="loadFile(this)"></div>
+<div class="stats reveal"><div><b>${S.projects.length}</b><span>project${S.projects.length==1?'':'s'} created</span></div><div><b>6–10 min</b><span>per director</span></div><div><b>6–15 min</b><span>per SA client</span></div><div><b>6 bands</b><span>Outstanding to Critical</span></div></div>
+</div>
+<div class="demo reveal"><div class="float"><div class="tilt" id="tilt"><div class="panel">
+<div class="ph"><i></i><i></i><i></i><span>Team report · Acme Ltd</span></div>
+<div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="rb"/><circle cx="60" cy="60" r="50" class="rf" id="rf"/></svg><b id="rn">84%</b><small>Team efficiency</small></div>
+<svg class="trend" viewBox="0 0 220 40" aria-label="Efficiency trend"><polyline points="2,34 32,26 62,30 92,16 122,22 152,9 182,13 218,4"/></svg>
+<div class="mrow"><span class="av">MK</span><div><b>Mahesh Kumar</b><div class="bar"><i data-w="94" style="width:94%"></i></div></div><em>94%</em></div>
+<div class="mrow"><span class="av">PN</span><div><b>Priya Nair</b><div class="bar"><i data-w="88" style="width:88%"></i></div></div><em>88%</em></div>
+<div class="mrow"><span class="av">AR</span><div><b>Arun Raj</b><div class="bar"><i data-w="71" style="width:71%"></i></div></div><em>71%</em></div>
+</div><span class="chip c1">Flagged for review</span><span class="chip c2">Delay accepted</span><span class="chip c3">96% Outstanding</span></div></div></div></section>
+<div class="feats"><div class="card reveal"><h3>1. Add the team</h3><p>Start a project, name the client and add each member.</p></div>
+<div class="card reveal"><h3>2. Log the work</h3><p>Type client IDs, directors and time. Flags appear on their own.</p></div>
+<div class="card reveal"><h3>3. Share the report</h3><p>Review scores, add comments and save the PDF for HR.</p></div></div>`}
+
+function project(){return cur()?editor():projectList()}
+function editor(){
+  let h=`<div class="card"><div class="row noprint" style="margin-bottom:8px"><div style="flex:0 0 auto"><button onclick="closeP()">← All projects</button></div><div style="flex:0 0 auto"><button class="dng" onclick="delP(S.cur)">Delete project</button></div></div><h2>Edit project</h2><div class="row">
+<div><label>Client name</label><input value="${esc(S.client)}" onchange="S.client=this.value;save()"></div>
+<div><label>Team Lead name</label><input value="${esc(S.tl.name)}" onchange="S.tl.name=this.value;save()"></div>
+<div><label>Role</label><input value="${esc(S.tl.role)}" onchange="S.tl.role=this.value;save()"></div>
+<div><label>Company</label><input value="${esc(S.tl.company)}" onchange="S.tl.company=this.value;save()"></div></div>
+<div class="row mt"><div><label>Add team member by name</label><input id="nm" placeholder="e.g. Mahesh Kumar" onkeydown="if(event.key==='Enter')addM()"></div>
+<div style="flex:0 0 auto"><button class="p" onclick="addM()">Add member</button></div>
+<div style="flex:0 0 auto" class="noprint"><button onclick="saveFile()">Save all to laptop</button></div><div style="flex:0 0 auto" class="noprint"><button class="dng" onclick="delTeam()">Delete team</button></div></div></div>`;
+  if(!S.members.length)h+=`<div class="card mu">No team members yet. Add one above to start assigning clients.</div>`;
+  S.members.forEach((m,i)=>{const c=calc(m);
+    h+=`<div class="card"><div class="row"><div style="flex:2">${avatar}<b>${esc(m.name)}</b></div>
+<div><label>Role</label><input value="${esc(m.role)}" onchange="mset(${i},'role',this.value)"></div>
+<div style="flex:0 0 auto"><button onclick="delM(${i})">Remove</button></div></div>
+<h3 class="mt">Limited company clients</h3>
+<div class="row"><div><label>IDs (range like A1 to A10, or separate IDs)</label><input value="${esc(m.ltdIds)}" onchange="setIds(${i},'ltd',this.value)"></div></div>
+${ltdTable(m,i)}
+<h3 class="mt">SA clients</h3>
+<div class="row"><div><label>IDs</label><input value="${esc(m.saIds)}" onchange="setIds(${i},'sa',this.value)"></div></div>
+${saTable(m,i)}
+<h3 class="mt">Time</h3>
+<div class="row"><div><label>Total time taken (hours, e.g. 2.5)</label><input type="number" step="0.05" min="0" value="${esc(m.time)}" onchange="mset(${i},'time',this.value)"></div>
+<div class="sm mu">Clients: ${c.clients} · Units: ${c.dirs+c.sa} · Expected ${c.min}–${c.max} min${c.t&&c.clients?` · ${(c.t/c.clients).toFixed(1)} min per client`:''}</div></div>
+${c.status==='flag'?`<p><span class="pill wa">Flagged for review</span> <span class="sm mu">Time is under the minimum, so no score is calculated. Check the entry.</span></p>`:''}
+${c.status==='delayed'?`<div class="row mt"><div style="flex:2"><label>Reason for delay</label><input value="${esc(m.delay.reason)}" onchange="S.members[${i}].delay.reason=this.value;save()"></div>
+<div><label>Team Lead decision</label><select onchange="S.members[${i}].delay.dec=this.value;save();render()"><option value="">Pending</option><option value="accept" ${m.delay.dec==='accept'?'selected':''}>Accept</option><option value="reject" ${m.delay.dec==='reject'?'selected':''}>Reject</option></select></div></div>`:''}
+${c.score!=null?`<div class="mt">Efficiency <b>${c.score}%</b> · ${band(c.score)[0]}${c.score<75?' <span class="pill er">Below 75%: add a review in the report</span>':''}</div>`:''}</div>`});
+  return h}
+
+function report(){if(!cur())return reportPick();
+  const d=new Date().toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'});
+  let h=`<div class="noprint row" style="margin-bottom:12px"><div style="flex:0 0 auto"><button class="p" onclick="window.print()">Download PDF</button></div><div style="flex:0 0 220px"><label>Project</label><select onchange="S.cur=+this.value;save();render()">${S.projects.map((p,i)=>`<option value="${i}" ${i==S.cur?'selected':''}>${esc(p.client||'Untitled project')}</option>`).join('')}</select></div><div class="sm mu" style="flex:2">Choose “Save as PDF” in the print window to share with managers and HR.</div></div>
+<div class="card cover"><div class="pill">X-Track For ReTRRAC</div><h1 style="margin-top:14px">${esc(S.client||'Untitled client')}</h1>
+<p class="mu">Team members: ${S.members.map(m=>esc(m.name)).join(', ')||'none yet'}</p>
+<p><b>${esc(S.tl.name||'Team Lead')}</b>, ${esc(S.tl.role)}, ${esc(S.tl.company)}<br><span class="mu">Generated ${d}</span></p></div>`;
+  S.members.forEach((m,i)=>{const c=calc(m),b=c.score!=null?band(c.score):null;
+    const line=m.line||(c.score>=90?`Completed ${c.clients} client checks with ${c.score}% efficiency as ${m.role} at ${S.tl.company||'[Company]'}, consistently meeting time and accuracy standards.`:'');
+    const hr=m.hr||(c.score>95?`Recommended by ${S.tl.name||'[Team Lead]'}: ${m.name} consistently delivers at ${c.score}% efficiency and is an outstanding performer.`:'');
+    h+=`<div class="card"><div class="row"><div style="flex:2">${avatar}<b>${esc(m.name)}</b><div class="sm mu">${esc(m.role)}, ${esc(S.tl.company)}</div></div>
+<div style="text-align:right"><div class="score count" data-v="${c.score??0}">${c.score!=null?c.score+'%':'–'}</div>${b?`<span class="pill ${b[1]}">${b[0]}</span>`:`<span class="pill ${c.status==='flag'?'wa':''}">${c.status==='flag'?'Flagged for review':'No score yet'}</span>`}</div></div>
+${c.score!=null?`<div class="bar"><i style="width:${c.score}%"></i></div>`:''}
+<table class="mt"><tr><td>Clients assigned / completed</td><td>${c.clients}</td></tr><tr><td>Time taken</td><td>${c.t?(c.t/60).toFixed(2)+' h ('+(c.clients?(c.t/c.clients).toFixed(1):0)+' min per client)':'–'}</td></tr>
+<tr><td>Expected time</td><td>${c.min}–${c.max} min</td></tr><tr><td>Document deductions</td><td>${c.ded}%</td></tr>
+${c.status==='delayed'?`<tr><td>Delay</td><td>${esc(m.delay.reason||'No reason given')} (${m.delay.dec==='accept'?'Accepted':m.delay.dec==='reject'?'Rejected':'Pending'})</td></tr>`:''}
+${[...m.ltd,...m.sa].map(x=>`<tr><td>${esc(x.id)} multi bureau check</td><td>${(x.mb||[]).join(', ')||'None selected'}</td></tr>`).join('')}
+${m.sa.filter(x=>reviewed(x)&&missN(x)).map(x=>`<tr><td>${esc(x.id)} missing: ${DOCS.slice(0,4).filter((d,k)=>!x.docs[k]).join(', ')}</td><td>${esc(x.reason||'No reason given')}${x.note?': '+esc(x.note):''}, deduction ${dedOf(m,x)}%</td></tr>`).join('')}</table>
+<div class="row mt"><div><label>Why this score</label><textarea rows="2" onchange="mset(${i},'why',this.value,1)">${esc(m.why)}</textarea></div>
+<div><label>How it can be improved</label><textarea rows="2" onchange="mset(${i},'how',this.value,1)">${esc(m.how)}</textarea></div></div>
+${b?`<p class="sm mu">Suggested action: ${b[2]}. Guidance only; the final decision stays with the Team Lead, managers and HR.</p>`:''}
+${c.score!=null&&c.score<75?reviewBox(m,i):''}
+${c.score>=80&&c.score<90?`<label>Areas to improve</label><textarea rows="2" onchange="mset(${i},'imp',this.value,1)">${esc(m.imp)}</textarea>`:''}
+${line?`<label class="mt">Resume line</label><textarea rows="2" onchange="mset(${i},'line',this.value,1)">${esc(line)}</textarea>`:''}
+${hr?`<label class="mt">HR recommendation</label><textarea rows="2" onchange="mset(${i},'hr',this.value,1)">${esc(hr)}</textarea>`:''}</div>`});
+  return h}
+
+/* ---------- actions ---------- */
+function startDraw(sel,dur,gap){if(rm)return;const A=window.A4;
+  if(A&&A.svg&&A.svg.createDrawable&&A.animate){
+    A.animate(A.svg.createDrawable(sel),{draw:['0 0','0 1','1 1'],ease:'inOutQuad',duration:dur,delay:A.stagger(gap),loop:true})}
+  else if(window.anime){
+    anime({targets:sel,strokeDashoffset:[anime.setDashoffset,0],easing:'easeInOutSine',duration:dur,delay:(e,i)=>i*gap,loop:true,direction:'alternate'})}}
+function openList(){S.cur=null;save();if(view==='project')render(true);else go('project')}
+function newProject(){S.projects.push(newP());S.cur=S.projects.length-1;save();render(true)}
+function openP(i){S.cur=i;save();render(true)}
+function openR(i){S.cur=i;save();if(view==='report')render(true);else go('report')}
+function closeP(){S.cur=null;save();render(true)}
+function ask(msg,ok){return new Promise(res=>{const m=document.createElement('div');m.className='modal';
+  m.innerHTML='<div class="mbox" role="alertdialog" aria-modal="true"><p></p><div class="acts"><button class="n">Cancel</button><button class="p y"></button></div></div>';
+  m.querySelector('p').textContent=msg;const y=m.querySelector('.y'),n=m.querySelector('.n');y.textContent=ok||'OK';if(!ok)n.remove();else if(/^(Delete|Remove)/.test(ok))y.classList.add('d');
+  const kd=e=>{if(e.key==='Escape'){e.stopPropagation();done(false)}};
+  const done=v=>{m.remove();document.removeEventListener('keydown',kd,true);res(v)};
+  y.onclick=()=>done(true);n.onclick=()=>done(false);m.onclick=e=>{if(e.target===m)done(false)};
+  document.addEventListener('keydown',kd,true);document.body.appendChild(m);y.focus()})}
+function tell(msg){return ask(msg)}
+async function delP(i){const p=S.projects[i];if(!p)return;
+  if(!await ask('Delete project "'+(p.client||'Untitled project')+'" and all of its team data? This cannot be undone.','Delete project'))return;
+  S.projects.splice(i,1);S.cur=null;save();render()}
+async function delTeam(){const n=S.members.length;if(!n){tell('This project has no team members to delete.');return}
+  if(!await ask('Delete the whole team ('+n+' member'+(n>1?'s':'')+') with all their clients, times and reviews? The project itself stays.','Delete team'))return;
+  cur().members=[];save();render()}
+async function delM(i){const m=S.members[i];if(!m)return;
+  if(!await ask('Remove '+m.name+' and all of their clients, times and reviews?','Remove member'))return;
+  S.members.splice(i,1);save();render()}
+function projectList(){const n=S.projects.length;
+  return `<div class="card"><div class="row"><div style="flex:2"><h2 style="margin:0">Projects</h2><span class="mu sm">Every project you create is listed here.</span></div>
+<div style="flex:0 0 auto;text-align:center"><div class="score">${n}</div><span class="sm mu">project${n==1?'':'s'} created</span></div>
+<div style="flex:0 0 auto"><button class="p" onclick="newProject()">Start a project</button></div>
+<div style="flex:0 0 auto"><button onclick="saveFile()">Save all to laptop</button></div></div></div>`+
+  (n?S.projects.map((p,i)=>{const cl=p.members.reduce((a,m)=>a+m.ltd.length+m.sa.length,0);
+    return `<div class="card"><div class="row"><div style="flex:2"><h3 style="margin:0">${esc(p.client||'Untitled project')}</h3>
+<div class="sm mu">Team Lead: ${esc(p.tl.name||'not set')}, ${p.members.length} team member${p.members.length==1?'':'s'}, ${cl} client${cl==1?'':'s'}, created ${esc(p.created||'')}</div></div>
+<div style="flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap"><button onclick="openP(${i})">Edit</button><button onclick="openR(${i})">Report</button><button class="dng" onclick="delP(${i})">Delete</button></div></div></div>`}).join('')
+   :`<div class="card mu">No projects yet. Choose Start a project to create your first one.</div>`)}
+function reportPick(){return S.projects.length?`<div class="card"><h2>Create report</h2><p class="mu" style="margin:0">Choose a project to review.</p></div>`+
+  S.projects.map((p,i)=>`<div class="card"><div class="row"><div style="flex:2"><b>${esc(p.client||'Untitled project')}</b></div><div style="flex:0 0 auto"><button class="p" onclick="openR(${i})">View report</button></div></div></div>`).join('')
+  :`<div class="card mu">No projects yet. Start a project first.<div class="mt"><button class="p" onclick="openList()">Go to projects</button></div></div>`}
+const MB=['Experian','Equifax','TransUnion'];
+const MBS={Experian:'EXP',Equifax:'EQF',TransUnion:'TU'};
+const mkL=id=>({id,dir:1,isNew:false,mb:[]}),mkSA=id=>({id,isNew:false,docs:[false,false,false,false,false],reason:'',note:'',dm:'auto',mb:[]});
+const missN=x=>x.docs.slice(0,4).filter(d=>!d).length,reviewed=x=>x.docs.some(Boolean)||!!x.reason;
+const dedAuto=(m,x)=>{const n=missN(x);return !n||!reviewed(x)||/^Expired/.test(x.reason||'')?0:n*(+m.rate||1)};
+const dedOf=(m,x)=>{if(!missN(x)||!reviewed(x))return 0;return x.dm!=null&&x.dm!=='auto'?+x.dm:dedAuto(m,x)};
+function mbMini(i,t,j,x){const a=x.mb||[],all=a.length===MB.length;
+  return `<span class="mb">`+MB.map(n=>`<button class="${a.includes(n)?'sel':''}" title="${n}" aria-label="${n}" aria-pressed="${a.includes(n)}" onclick="toggleMb(${i},'${t}',${j},'${n}')">${MBS[n]}</button>`).join('')+`<button class="${all?'sel':''}" aria-pressed="${all}" onclick="toggleMb(${i},'${t}',${j},'all')">All</button></span>`}
+function ltdTable(m,i){if(!m.ltd.length)return'';
+  return `<div class="tw"><table><tr><th>Client</th><th>Directors</th><th>Time range</th><th>New</th><th>Multi bureau check</th></tr>`+
+  m.ltd.map((x,j)=>`<tr><td><b>${esc(x.id)}</b></td><td><input class="num" type="number" min="0" value="${x.dir}" onchange="S.members[${i}].ltd[${j}].dir=+this.value;save();render()"></td><td class="sm">${x.dir*6}–${x.dir*10} min</td><td><input type="checkbox" aria-label="New client" ${x.isNew?'checked':''} onchange="S.members[${i}].ltd[${j}].isNew=this.checked;save()"></td><td>${mbMini(i,'ltd',j,x)}</td></tr>`).join('')+`</table></div>`}
+function allDoc(i,k,v){S.members[i].sa.forEach(x=>x.docs[k]=v);save();render()}
+function saTable(m,i){if(!m.sa.length)return'';
+  const n=m.sa.length,T=DOCS,H=['AML','POA','POI','Risk','Report'],tot=m.sa.reduce((a,x)=>a+dedOf(m,x),0),pend=m.sa.filter(x=>!reviewed(x)).length;
+  return `<div class="row sm" style="align-items:center;margin-bottom:6px"><div style="flex:0 0 200px"><label>Auto deduction per missing check</label><select onchange="mset(${i},'rate',+this.value)">${[1,2].map(v=>`<option value="${v}" ${(m.rate||1)==v?'selected':''}>${v}%</option>`).join('')}</select></div>
+<div class="mu" style="flex:3 1 260px">${n} client${n==1?'':'s'}, ${pend} not reviewed yet. Deduction so far: <b>−${tot}%</b>. Tick the documents received. Each missing compulsory document is deducted automatically unless the reason is Expired.</div></div>
+<div class="tw"><table class="sat"><tr><th>Client</th>${H.map((h,k)=>`<th title="${T[k]}"><label><input type="checkbox" ${m.sa.every(x=>x.docs[k])?'checked':''} onchange="allDoc(${i},${k},this.checked)"> ${h}</label></th>`).join('')}<th>Multi bureau check</th><th>Issue</th><th>Deduct</th></tr>`+
+  m.sa.map((x,j)=>{const need=missN(x)&&reviewed(x);
+    return `<tr><td><b>${esc(x.id)}</b></td>${x.docs.map((v,k)=>`<td><input type="checkbox" aria-label="${T[k]}" ${v?'checked':''} onchange="S.members[${i}].sa[${j}].docs[${k}]=this.checked;save();render()"></td>`).join('')}<td>${mbMini(i,'sa',j,x)}</td>
+<td>${need?`<select onchange="S.members[${i}].sa[${j}].reason=this.value;save();render()"><option value="">Choose reason</option>${REASONS.map(r=>`<option ${x.reason===r?'selected':''}>${r}</option>`).join('')}</select>${x.reason==='Other'?`<input placeholder="Note" value="${esc(x.note)}" onchange="S.members[${i}].sa[${j}].note=this.value;save()">`:''}`:'<span class="mu">–</span>'}</td>
+<td>${need?`<select onchange="S.members[${i}].sa[${j}].dm=this.value;save();render()"><option value="auto">Auto (−${dedAuto(m,x)}%)</option>${[0,1,2].map(v=>`<option value="${v}" ${x.dm==String(v)?'selected':''}>−${v}%</option>`).join('')}</select>`:'<span class="mu">–</span>'}</td></tr>`}).join('')+`</table></div>`}
+function repair(){S.projects.forEach(p=>p.members.forEach(m=>{m.sa=sync(m.sa||[],expand(m.saIds||''),mkSA);m.ltd=sync(m.ltd||[],expand(m.ltdIds||''),mkL);m.imgs=m.imgs||[]}))}
+function toggleMb(i,t,j,n){const x=S.members[i][t][j];let a=x.mb||[];
+  a=n==='all'?(a.length===MB.length?[]:[...MB]):(a.includes(n)?a.filter(v=>v!==n):[...a,n]);x.mb=a;save();render()}
+function reviewBox(m,i){const im=m.imgs||[];
+  return `<div class="rev card" style="margin:12px 0 0;border-color:var(--er)"><h3>Review: efficiency is below 75%</h3>
+<div class="row"><div style="flex:0 0 200px"><label>Concern raised by</label><select onchange="mset(${i},'by',this.value,1)">${['Team Lead','Manager','HR'].map(x=>`<option ${m.by===x?'selected':''}>${x}</option>`).join('')}</select></div></div>
+<label class="mt">Review: what the problem is and why it happened</label><textarea rows="4" onchange="mset(${i},'rev',this.value,1)">${esc(m.rev)}</textarea>
+<label class="mt">Evidence images (${im.length} of 5)</label>
+<div class="imgs">${im.map((x,j)=>`<figure><img src="${x.src}" alt="Evidence ${j+1}"><input placeholder="What this image shows" value="${esc(x.cap)}" onchange="S.members[${i}].imgs[${j}].cap=this.value;save()"><button class="noprint" onclick="delImg(${i},${j})">Remove</button></figure>`).join('')}</div>
+${im.length<5?`<input type="file" accept="image/*" multiple class="noprint mt" onchange="addImgs(${i},this)">`:'<p class="sm mu noprint">Maximum of 5 images reached.</p>'}</div>`}
+function shrink(f){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=()=>{const im=new Image();im.onerror=no;
+  im.onload=()=>{const k=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.72))};im.src=r.result};r.readAsDataURL(f)})}
+async function addImgs(i,el){const m=S.members[i];m.imgs=m.imgs||[];const room=5-m.imgs.length,fs=[...el.files].filter(f=>f.type.startsWith('image/'));
+  if(fs.length>room)tell('Only 5 images are allowed per person. The first '+room+' were added.');
+  for(const f of fs.slice(0,room))try{m.imgs.push({src:await shrink(f),cap:''})}catch(e){tell('Could not read '+f.name)}
+  save();render()}
+function delImg(i,j){S.members[i].imgs.splice(j,1);save();render()}
+function addM(){const n=$('#nm').value.trim();if(!n)return;S.members.push({name:n,role:'Compliance Analyst',ltdIds:'',saIds:'',ltd:[],sa:[],time:'',delay:{reason:'',dec:''},why:'',how:'',imp:'',line:'',hr:'',rev:'',by:'Team Lead',imgs:[]});save();render()}
+function mset(i,k,v,quiet){S.members[i][k]=v;save();if(!quiet)render()}
+function setIds(i,type,v){const m=S.members[i],ids=expand(v);m[type+'Ids']=v;
+  if(type==='ltd')m.ltd=sync(m.ltd,ids,mkL);
+  else m.sa=sync(m.sa,ids,mkSA);save();render()}
+function saveFile(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({projects:S.projects},null,1)],{type:'application/json'}));a.download='x-track-projects.json';a.click()}
+function loadFile(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=migrate(JSON.parse(r.result));if(!Array.isArray(d.projects))throw 0;
+  d.projects.forEach(p=>S.projects.push({...newP(),...p,id:uid()}));repair();save();tell(d.projects.length+' project(s) loaded.');openList()}catch(e){tell('That file is not a valid X-Track project file.')}};r.readAsText(f);el.value=''}
+function applyTheme(){document.documentElement.dataset.theme=S.theme;document.documentElement.dataset.accent=S.accent;$('#tg').textContent=S.theme==='dark'?'Light':'Dark';ACOL=getComputedStyle(document.documentElement).getPropertyValue('--ac').trim()}
+function toggleTheme(){S.theme=S.theme==='dark'?'light':'dark';save();applyTheme()}
+let hist=[],busy=0;
+function go(v){if(v!==view){hist.push(view);nav(v)}}
+function back(){nav(hist.pop()||'home')}
+function nav(v){if(busy||v===view)return;
+  if(!window.anime||matchMedia('(prefers-reduced-motion:reduce)').matches){view=v;scrollTo(0,0);render(true);return}
+  busy=1;anime({targets:'#wipe',translateX:['-101%','0%'],duration:220,easing:'easeInQuad',complete:()=>{view=v;scrollTo(0,0);render(true);
+    anime({targets:'#wipe',translateX:['0%','101%'],duration:260,easing:'easeOutQuad',complete:()=>busy=0})}})}
+function demo(){const o={n:0},c={duration:1800,loop:true,direction:'alternate',endDelay:1600,easing:'easeInOutQuad'};
+  anime({...c,targets:o,n:84,round:1,update:()=>{const e=$('#rn');if(e)e.textContent=o.n+'%'}});
+  anime({...c,targets:'#rf',strokeDashoffset:[314,50]});
+  document.querySelectorAll('.mrow .bar i').forEach((e,k)=>anime({...c,targets:e,width:['0%',e.dataset.w+'%'],delay:k*150}))}
+function render(anim){
+  const f={home,project,report}[view];$('#app').innerHTML=f();document.body.classList.toggle('home',view==='home');$('#bk').hidden=view==='home';
+  if(window.anime){
+    if(view==='home'){demo();startDraw('.trend polyline',2200,0)}
+    if(view==='home')anime({targets:'.reveal',opacity:[0,1],translateY:[18,0],duration:600,delay:anime.stagger(90),easing:'easeOutCubic'});
+    else if(anim)anime({targets:'#app>.card',opacity:[0,1],translateX:[16,0],duration:350,delay:anime.stagger(40),easing:'easeOutQuad'});
+    document.querySelectorAll('.count').forEach(e=>{const v=+e.dataset.v;if(!v)return;const o={n:0};anime({targets:o,n:v,round:1,duration:900,easing:'easeOutExpo',update:()=>e.textContent=o.n+'%'})});
+    document.querySelectorAll('.bar i').forEach(e=>anime({targets:e,width:['0%',e.style.width],duration:900,easing:'easeOutQuad'}));
+  }}
+$('#dots').innerHTML=Object.keys(ACC).map(k=>`<button class="dot" style="background:${ACC[k]}" aria-label="${k} theme" onclick="S.accent='${k}';save();applyTheme()"></button>`).join('');
+/* ---------- immersive backgrounds ---------- */
+let ACOL='#2563eb';
+const cv=$('#bg'),cx=cv.getContext('2d'),rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let W,H,mx=-999,my=-999,T=0,sc,st;
+const SC={
+ warp:{init(){st=Array.from({length:Math.min(520,W/3|0)},()=>({x:(Math.random()-.5)*2*W,y:(Math.random()-.5)*2*W,z:Math.random()*W+1}))},
+  draw(){cx.clearRect(0,0,W,H);const ox=mx>0?W/2+(mx-W/2)*.35:W/2,oy=my>0?H/2+(my-H/2)*.35:H/2,k=W*.55,
+    sp=3+(mx>0?Math.hypot(mx-W/2,my-H/2)/W*16:0);cx.strokeStyle=ACOL;
+    for(const s of st){s.z-=sp;
+      const px=ox+s.x/s.z*k,py=oy+s.y/s.z*k;
+      if(s.z<1||px<0||px>W||py<0||py>H){s.x=(Math.random()-.5)*2*W;s.y=(Math.random()-.5)*2*W;s.z=W;continue}
+      const qx=ox+s.x/(s.z+sp*3)*k,qy=oy+s.y/(s.z+sp*3)*k,a=1-s.z/W;
+      cx.globalAlpha=Math.min(1,a*1.3);cx.lineWidth=.5+a*2.6;cx.beginPath();cx.moveTo(qx,qy);cx.lineTo(px,py);cx.stroke()}}},
+ rain:{init(){st=Array.from({length:Math.ceil(W/20)},(_,i)=>({x:i*20+4,y:Math.random()*H,v:1.5+Math.random()*3.5}));cx.clearRect(0,0,W,H)},
+  draw(){cx.globalAlpha=1;cx.globalCompositeOperation='destination-out';cx.fillStyle='rgba(0,0,0,.09)';cx.fillRect(0,0,W,H);cx.globalCompositeOperation='source-over';
+    cx.font='14px monospace';cx.fillStyle=ACOL;const G=['A','B','C','0','1','6','10','15','%','✓','Δ','94','80','X'];
+    for(const c of st){cx.globalAlpha=.9;cx.fillText(G[Math.random()*G.length|0],c.x,c.y);
+      c.y+=c.v*(mx>0&&Math.abs(mx-c.x)<90?2.6:1);if(c.y>H+20&&Math.random()>.97)c.y=-10}}},
+ waves:{init(){},
+  draw(){cx.clearRect(0,0,W,H);const a=mx>0?mx/W:.5,b=my>0?my/H:.5;cx.fillStyle=ACOL;
+    for(let l=0;l<6;l++){cx.globalAlpha=.06+l*.035;cx.beginPath();cx.moveTo(0,H);
+      for(let x=0;x<=W;x+=12)cx.lineTo(x,H*(.5+l*.08)+Math.sin(x*.004+T*.6*(1+l*.15)+l+a*3)*(34+l*8+b*40)+Math.sin(x*.011-T*.9+l*2)*16);
+      cx.lineTo(W,H);cx.closePath();cx.fill()}}},
+ net:{init(){st=Array.from({length:Math.min(110,W*H/13000|0)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:1.5+Math.random()*2}))},
+  draw(){cx.clearRect(0,0,W,H);cx.fillStyle=cx.strokeStyle=ACOL;
+    for(const p of st){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+      const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);
+      if(d<170){cx.globalAlpha=(1-d/170)*.6;cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(mx,my);cx.stroke();p.x+=dx/d*.8;p.y+=dy/d*.8}
+      cx.globalAlpha=.6;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()}
+    for(let i=0;i<st.length;i++)for(let j=i+1;j<st.length;j++){const a=st[i],b=st[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<120){cx.globalAlpha=(1-d/120)*.3;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}}}}
+};
+function setScene(){const k=SC[S.bg]?S.bg:'warp';sc=SC[k];$('#sc').value=k;document.body.dataset.sc=k;sizeBg()}
+function sizeBg(){W=cv.width=innerWidth;H=cv.height=innerHeight;sc.init();if(rm)sc.draw()}
+function tick(){requestAnimationFrame(tick);T+=.016;sc.draw()}
+addEventListener('resize',()=>sc&&sizeBg());
+document.addEventListener('mouseleave',()=>{mx=my=-999});
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;
+  const r=document.documentElement.style;r.setProperty('--mx',mx+'px');r.setProperty('--my',my+'px');
+  const t=$('#tilt');if(t)t.style.transform=`perspective(1100px) rotateY(${(mx/innerWidth-.5)*16}deg) rotateX(${-(my/innerHeight-.5)*12}deg)`});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&view!=='home'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))back()});
+let mag=null;
+document.addEventListener('pointermove',e=>{const b=e.target.closest&&e.target.closest('button.big');
+  if(mag&&mag!==b){mag.style.translate='';mag=null}
+  if(b&&!rm&&matchMedia('(hover:hover)').matches){const r=b.getBoundingClientRect();
+    b.style.translate=`${(e.clientX-r.left-r.width/2)*.18}px ${(e.clientY-r.top-r.height/2)*.28}px`;mag=b}});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(!b||rm)return;
+  const r=b.getBoundingClientRect(),i=document.createElement('i');i.className='rip';
+  i.style.left=e.clientX-r.left+'px';i.style.top=e.clientY-r.top+'px';b.appendChild(i);setTimeout(()=>i.remove(),600)});
+repair();save();applyTheme();setScene();render(true);startDraw('.lines path',2800,140);
+if(!rm)tick();
+</script>
+</body>
+</html>
