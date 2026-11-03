@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>X-Track For ReTRRAC</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Segoe UI,Arial,sans-serif' font-weight='800' font-size='30' letter-spacing='-1' fill='white'%3EXT%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/animejs@4.0.2/dist/bundles/anime.umd.min.js"></script>
 <script>window.A4=window.anime;window.anime=undefined</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
@@ -136,22 +137,368 @@ button.dng{color:var(--er)}button.dng:hover{color:var(--er);border-color:var(--e
 @media print{.aurora,#bg,#spot,#wipe{display:none!important}}
 @media print{header,.noprint{display:none!important}body{background:#fff;color:#000}.card{break-inside:avoid;box-shadow:none}.cover{break-after:page}textarea{border:0;resize:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* limited company clients and directors */
+.row>*{min-width:0}
+.ltdc{border:1px solid var(--bd);border-radius:10px;padding:12px;margin-top:10px;background:color-mix(in srgb,var(--bg) 55%,transparent)}
+.lh{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.lh label.inl{display:flex;align-items:center;gap:8px;margin:0;color:var(--tx)}
+.lh input.num{width:76px;min-width:0}
+.seg2{border:1px solid var(--bd);border-radius:10px;padding:12px;margin-top:12px;break-inside:avoid}.seg2 h3{font-size:16px}
+@media print{.seg2{border-color:#999}}
+.need{margin-top:10px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--ac) 40%,var(--bd));border-radius:8px;background:color-mix(in srgb,var(--ac) 8%,var(--card));font-size:13px}.need ul{margin:6px 0 0;padding-left:18px}.need span{font-weight:600}.need em{color:var(--mu);font-style:normal}
+.rt{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:var(--tx)}.rt select{width:auto}
+.lt{font-size:13px;font-weight:700;color:var(--mu);margin:14px 0 6px}
+.ckg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px}
+.ckg.wide{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.ck{display:flex;align-items:center;gap:8px;margin:0;padding:8px 10px;min-height:40px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);font-size:14px;cursor:pointer;transition:border-color .2s,background .2s}
+.ck input{flex:0 0 auto;width:18px;height:18px;min-height:0;margin:0}
+.ck em{margin-left:auto;font-style:normal;font-size:11px;color:var(--mu)}
+.ck.on{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 9%,var(--card))}
+.ck.ex{border-color:var(--wa);background:color-mix(in srgb,var(--wa) 11%,var(--card))}
+.dk{display:flex;gap:6px;align-items:stretch}.dk .ck{flex:1 1 auto;min-width:0}
+.xb{flex:0 0 auto;min-height:40px;padding:4px 10px;font-size:12px;border-radius:8px}
+.xb.sel,.xb.sel:hover{background:var(--wa);border-color:var(--wa);color:#fff}
+.dir{margin-top:8px;padding:10px;border:1px dashed var(--bd);border-radius:10px;background:var(--card)}
+.dh{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:8px}
+.dh b{white-space:nowrap}.dh input{flex:1 1 150px;min-width:0}
+.seg{display:inline-flex;flex:0 0 auto;border:1px solid var(--bd);border-radius:99px;overflow:hidden}
+.seg button{border:0;border-radius:0;padding:6px 16px;min-height:34px}
+.note{margin:8px 0 0;padding:8px 10px;border-left:3px solid var(--ac);border-radius:0 8px 8px 0;background:var(--ac2);font-size:13px}
+.ltdc .rs{margin-top:10px}
+@media(pointer:coarse){.ck input{width:22px;height:22px}}
+@media(max-width:640px){.ltdc{padding:10px}.dir{padding:8px}.seg{display:flex;width:100%}.seg button{flex:1}.xb{padding:4px 8px}}
+@media print{.ltdc,.dir{break-inside:avoid}}
+/* SA table: stacked cards on small screens */
+@media(max-width:700px){
+ .tw table.sat,.tw table.sat tbody{display:block;width:100%}
+ .tw table.sat tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 14px;padding:10px 2px;border-bottom:1px solid var(--bd)}
+ .tw table.sat tr:first-child{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:4px 2px}
+ .tw table.sat tr:first-child th{display:block;padding:0;border:0}
+ .tw table.sat tr:first-child th:first-child,.tw table.sat tr:first-child th:nth-last-child(-n+3){display:none}
+ .tw table.sat td,.tw table.sat tr:nth-child(even) td{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 0;border:0;background:none;text-align:left;white-space:normal}
+ .tw table.sat td::before{content:attr(data-l);font-size:12px;color:var(--mu)}
+ .tw table.sat td:first-child{grid-column:1/-1;justify-content:flex-start;font-size:15px}
+ .tw table.sat td:first-child::before{content:none}
+ .tw table.sat td:nth-last-child(-n+3){grid-column:1/-1}
+ .tw table.sat td select,.tw table.sat td input:not([type=checkbox]){width:100%;margin:0}
+ .tw .sat .mb{flex-wrap:wrap}}
+
+/* simpler screens */
+summary{list-style:none;cursor:pointer}summary::-webkit-details-marker{display:none}
+details>summary .chev{margin-left:auto;color:var(--mu);transition:rotate .2s}details[open]>summary .chev{rotate:180deg}
+.mem>summary,.ltdc>summary{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mem>summary .av{margin:0}.who{flex:1 1 180px;min-width:0}.who b,.who span{display:block}
+.mbody{margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)}
+.lbody{margin-top:12px}.sec{margin-top:18px}.sec>h3{margin-bottom:8px}
+.pbar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.acts2{display:flex;gap:8px;align-items:center}
+.lnk{border:0;background:none;padding:6px 0;color:var(--mu)}
+.menu{position:relative}
+.menu>summary{display:inline-flex;align-items:center;padding:8px 14px;border:1px solid var(--bd);border-radius:6px;background:var(--card);color:var(--tx);user-select:none}
+.menu[open]>summary{border-color:var(--ac);color:var(--ac)}
+.pop{position:absolute;right:0;top:calc(100% + 6px);z-index:30;min-width:220px;display:grid;gap:4px;padding:8px;background:var(--card);border:1px solid var(--bd);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.pop>button{text-align:left;border:0;background:none;padding:8px 10px}
+.prow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:4px 6px;font-size:14px}.prow select{width:auto}
+@media(hover:hover){.lnk:hover,.pop>button:hover{translate:none;box-shadow:none}.lnk:hover{color:var(--tx);border-color:transparent}.pop>button:hover{background:var(--ac2)}}
+@media(pointer:coarse){.menu>summary{min-height:42px}}
+body:not(.home) #bg{display:none}
+@media print{.pbar,.menu{display:none!important}}
+
+/* ---------- refreshed design ---------- */
+:root{--r:14px;--sh:0 1px 2px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.07)}
+[data-theme=dark]{--sh:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35)}
+body{font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif}
+h1,h2,h3{letter-spacing:-.02em}
+.card{border-radius:var(--r);box-shadow:var(--sh);background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(8px)}
+.card>h2{font-size:22px}
+header button{border-radius:99px;padding:6px 14px}
+header button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+button{border-radius:10px}
+button.p{background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 86%,#fff),var(--ac));box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 6px 16px color-mix(in srgb,var(--ac) 30%,transparent)}
+input,select,textarea{border-radius:10px;padding:10px 12px;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 25%,transparent)}
+label{font-weight:600;font-size:12.5px}
+.mem{border-left:4px solid var(--ac)}
+.sec{margin-top:18px;padding-top:14px;border-top:1px solid var(--bd)}
+.sec>h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);margin:0 0 10px}
+.tw table{border-radius:10px;overflow:hidden}
+.tw th{background:color-mix(in srgb,var(--ac) 9%,var(--card));font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--mu)}
+.cover{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 16%,var(--card)),var(--card) 60%);border-left:6px solid var(--ac);text-align:left;padding:44px 32px}
+.cover h1{font-size:clamp(30px,5vw,46px);letter-spacing:-1.5px}
+.seg2{border-radius:12px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--bg) 50%,transparent)}
+.card.mu{border-style:dashed;box-shadow:none;text-align:center;padding:28px}
+@media print{.card{box-shadow:none;backdrop-filter:none;background:#fff}.cover,.seg2,.bar i,.pill,.tw th{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* ================= macOS skin ================= */
+:root{--bg:#f2f2f7;--card:#fff;--tx:#1d1d1f;--mu:#6e6e73;--bd:rgba(60,60,67,.16);--ac2:rgba(0,122,255,.12);--ok:#248a3d;--wa:#b25000;--er:#d70015;--btn:#fff;--btnh:#f0f0f2;--btnb:rgba(0,0,0,.15);--inp:#fff;--glass:color-mix(in srgb,var(--card) 62%,transparent)}
+[data-theme=dark]{--bg:#1c1c1e;--card:#2c2c2e;--tx:#f5f5f7;--mu:#a1a1a6;--bd:rgba(235,235,245,.16);--ac2:rgba(10,132,255,.24);--ok:#30d158;--wa:#ff9f0a;--er:#ff453a;--btn:#48484a;--btnh:#58585b;--btnb:rgba(255,255,255,.12);--inp:#1c1c1e}
+[data-accent=blue]{--ac:#007aff}[data-accent=green]{--ac:#25a244}[data-accent=purple]{--ac:#af52de}[data-accent=orange]{--ac:#f08300}[data-accent=red]{--ac:#ff3b30}
+[data-theme=dark][data-accent=blue]{--ac:#0a84ff}[data-theme=dark][data-accent=green]{--ac:#30d158}[data-theme=dark][data-accent=purple]{--ac:#bf5af2}[data-theme=dark][data-accent=orange]{--ac:#ff9f0a}[data-theme=dark][data-accent=red]{--ac:#ff453a}
+html{-webkit-font-smoothing:antialiased}
+body{font:14.5px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",system-ui,sans-serif;background:radial-gradient(1100px 700px at 10% -10%,rgba(10,132,255,.22),transparent 60%),radial-gradient(900px 600px at 95% 0,rgba(191,90,242,.18),transparent 60%),radial-gradient(900px 700px at 55% 110%,rgba(255,159,10,.16),transparent 60%),var(--bg) fixed}
+[data-theme=dark] body{background:radial-gradient(1100px 700px at 10% -10%,rgba(10,132,255,.28),transparent 60%),radial-gradient(900px 600px at 95% 0,rgba(191,90,242,.22),transparent 60%),radial-gradient(900px 700px at 55% 110%,rgba(255,159,10,.10),transparent 60%),var(--bg) fixed}
+h1,h2,h3{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",sans-serif;letter-spacing:-.022em}
+.aurora,#spot,#wipe{display:none!important}
+#bg{opacity:.3}.home #bg{opacity:.5}
+main{padding:22px 20px 120px}
+/* menu bar */
+header{height:34px;padding:0 14px;flex-wrap:nowrap;gap:6px;font-size:13px;background:color-mix(in srgb,var(--card) 60%,transparent);backdrop-filter:saturate(180%) blur(28px);border-bottom:.5px solid var(--bd)}
+.lg{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:6px;background:linear-gradient(#5ac8fa,var(--ac));color:#fff;font-size:9px;font-weight:800;letter-spacing:-.3px;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.4),0 1px 2px rgba(0,0,0,.25)}
+.logo{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:0;white-space:nowrap}.logo b{color:var(--tx);font-weight:700}.logo .sm{font-size:12px}
+.tools{gap:2px}
+header button,.menu>summary{border:0;background:transparent;box-shadow:none;border-radius:6px;padding:2px 10px;min-height:0;font-size:13px;font-weight:500;color:var(--tx)}
+header button:hover,.menu>summary:hover,.menu[open]>summary{background:rgba(128,128,128,.2);color:var(--tx);border-color:transparent;box-shadow:none;translate:none}
+header button.on{background:rgba(128,128,128,.22);color:var(--tx);border:0}
+header .pop button{padding:6px 12px}
+.clk{margin-left:10px;font-size:13px;color:var(--tx);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(pointer:coarse){header button,.menu>summary{min-height:28px}}
+@media(max-width:640px){header{padding:0 10px}.tools{width:auto;flex-wrap:nowrap}.clk,.logo .sm{display:none}}
+.pop{border-radius:12px;background:color-mix(in srgb,var(--card) 78%,transparent);backdrop-filter:saturate(180%) blur(30px);border:.5px solid var(--bd);box-shadow:0 12px 40px rgba(0,0,0,.28)}
+/* controls */
+button{border-radius:8px;background:var(--btn);border:.5px solid var(--btnb);box-shadow:0 .5px 1px rgba(0,0,0,.12),0 1px 3px rgba(0,0,0,.06);font-weight:500;font-size:13.5px;padding:6px 14px}
+button::after,.rip{display:none!important}
+button:hover{translate:none;box-shadow:0 .5px 1px rgba(0,0,0,.12),0 1px 3px rgba(0,0,0,.06);color:var(--tx);border-color:var(--btnb);background:var(--btnh)}
+button:active{scale:.98;background:var(--btnh)}
+button.p,button.p:hover{background:var(--ac);color:#fff;border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 1px 3px rgba(0,0,0,.2)}
+button.p:hover{filter:brightness(1.07)}
+button.big{padding:11px 22px;font-size:16px;border-radius:12px}
+button.dng:hover{box-shadow:0 .5px 1px rgba(0,0,0,.12)}
+.lnk,.lnk:hover{background:none;box-shadow:none;border:0}
+.dot{box-shadow:inset 0 0 0 .5px rgba(0,0,0,.2)}
+.menu>summary{border:.5px solid var(--btnb)}
+input,select,textarea{border-radius:7px;border:.5px solid var(--btnb);background:var(--inp);padding:7px 10px;font-size:14px;box-shadow:inset 0 .5px 1.5px rgba(0,0,0,.1)}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3.5px color-mix(in srgb,var(--ac) 35%,transparent)}
+select{appearance:none;-webkit-appearance:none;padding-right:26px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='14' viewBox='0 0 10 14' fill='none' stroke='%238e8e93' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 5l3-3 3 3M2 9l3 3 3-3'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.tw select,.prow select{padding-right:24px}#sc{padding-right:24px}
+input[type=checkbox],input[type=radio]{accent-color:var(--ac)}
+label{font-weight:500;font-size:12.5px}
+.card{border-radius:12px;border:.5px solid var(--bd);background:var(--glass);backdrop-filter:saturate(180%) blur(24px);box-shadow:0 1px 3px rgba(0,0,0,.06),0 10px 30px rgba(0,0,0,.06)}
+.card>h2{font-size:20px;font-weight:700}
+.mem,.cover,.seg2{border-left:.5px solid var(--bd)}
+.cover{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 14%,var(--card)),var(--card) 65%)}
+.pill{padding:2px 10px;background:var(--ac2)}
+.pill.ok{background:color-mix(in srgb,var(--ok) 14%,transparent)}.pill.wa{background:color-mix(in srgb,var(--wa) 15%,transparent)}.pill.er{background:color-mix(in srgb,var(--er) 14%,transparent)}
+.seg{background:rgba(120,120,128,.18);border:0;padding:2px;gap:2px;border-radius:9px}
+.seg button,.seg button:hover{border:0;border-radius:7px;background:transparent;box-shadow:none;min-height:28px;padding:4px 14px;color:var(--tx)}
+.seg button.sel,.seg button.sel:hover{background:var(--btn);color:var(--tx);box-shadow:0 .5px 2px rgba(0,0,0,.28)}
+.bar{height:6px}
+.modal{background:rgba(0,0,0,.3);backdrop-filter:blur(6px)}
+.mbox{border-radius:14px;border:.5px solid var(--bd);background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(30px);box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.ck{border-radius:9px}.ltdc,.dir{border-radius:12px}
+/* landing */
+.stage{min-height:calc(100vh - 170px);gap:48px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 5px;border-radius:99px;background:var(--glass);border:.5px solid var(--bd);backdrop-filter:blur(20px);font-size:13px;font-weight:600}
+.stage h1{font-size:clamp(42px,6.2vw,72px);font-weight:750;letter-spacing:-.04em;line-height:1.02;max-width:12ch;margin:18px 0 16px}
+.gt{background:linear-gradient(90deg,var(--ac),#bf5af2 62%,#ff9f0a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.copy p{font-size:19px;line-height:1.45;max-width:44ch}
+.stats{gap:10px;margin-top:30px}
+.stats>div{padding:10px 16px;border-radius:12px;background:var(--glass);border:.5px solid var(--bd);backdrop-filter:blur(20px)}
+.stats b{font-size:19px;letter-spacing:-.02em}
+.float{filter:none}
+.win{border-radius:12px;overflow:hidden;background:color-mix(in srgb,var(--card) 74%,transparent);backdrop-filter:saturate(180%) blur(30px);box-shadow:0 0 0 .5px rgba(0,0,0,.28),0 34px 80px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.12)}
+.wbar{position:relative;display:flex;align-items:center;height:38px;padding:0 14px;border-bottom:.5px solid var(--bd);background:color-mix(in srgb,var(--card) 55%,transparent)}
+.tl{display:flex;gap:8px;z-index:1}.tl i{width:12px;height:12px;border-radius:50%;background:#ff5f57;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.18)}.tl i:nth-child(2){background:#febc2e}.tl i:nth-child(3){background:#28c840}
+.wt{position:absolute;left:0;right:0;text-align:center;font-size:13px;font-weight:600;pointer-events:none}
+.wbody{display:grid;grid-template-columns:148px 1fr}
+.side{display:flex;flex-direction:column;gap:2px;padding:12px 8px;font-size:12.5px;background:color-mix(in srgb,var(--bg) 55%,transparent);border-right:.5px solid var(--bd)}
+.side small{padding:8px 8px 4px;font-size:11px;font-weight:600;color:var(--mu)}
+.it{display:flex;align-items:center;gap:7px;padding:4px 8px;border-radius:6px}.it svg{stroke:currentColor;flex:none}.it u{width:8px;height:8px;border-radius:50%;margin:0 3px}
+.it.on{background:var(--ac);color:#fff}
+.wmain{padding:16px 18px}
+@media(max-width:520px){.wbody{grid-template-columns:1fr}.side{display:none}}
+.chip{display:flex;align-items:center;gap:7px;background:color-mix(in srgb,var(--card) 80%,transparent);backdrop-filter:blur(20px);border:.5px solid var(--bd);box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.eh{margin:34px 0 14px;font-size:24px;font-weight:700}
+.feats .card{padding:18px;background:var(--glass)}
+.feats small{display:block;margin-top:14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--mu)}
+.feats h3{font-size:18px;margin:2px 0 4px}
+.ico{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.4),0 3px 8px rgba(0,0,0,.2)}
+.ico.b{background:linear-gradient(#5ac8fa,#007aff)}.ico.o{background:linear-gradient(#ffd60a,#ff9500)}.ico.g{background:linear-gradient(#67e08a,#25a244)}
+.foot{text-align:center;color:var(--mu);font-size:13px;margin:26px 0 0}
+/* dock */
+.dock{position:fixed;left:50%;bottom:10px;translate:-50% 0;z-index:40;display:flex;align-items:flex-end;gap:8px;padding:7px 10px 11px;border-radius:22px;background:color-mix(in srgb,var(--card) 50%,transparent);backdrop-filter:saturate(180%) blur(28px);border:.5px solid rgba(255,255,255,.45);box-shadow:0 14px 44px rgba(0,0,0,.26)}
+.dock button,.dock button:hover,.dock button:active{position:relative;overflow:visible;padding:0;min-height:0;border:0;background:none;box-shadow:none;scale:1;filter:none}
+.dock .app{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;transform-origin:bottom;transition:transform .2s cubic-bezier(.3,1.5,.6,1);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.4),0 3px 8px rgba(0,0,0,.28)}
+.a1{background:linear-gradient(#5ac8fa,#007aff)}.a2{background:linear-gradient(#ffd60a,#ff9500)}.a3{background:linear-gradient(#67e08a,#25a244)}.a4{background:linear-gradient(#d28cff,#8e44ec)}.a5{background:linear-gradient(#8e8e93,#3a3a3c)}
+.dock button:hover .app{transform:scale(1.45) translateY(-2px)}
+.dock button:hover+button .app,.dock button:has(+button:hover) .app{transform:scale(1.18)}
+.dock em{position:absolute;bottom:calc(100% + 16px);left:50%;translate:-50% 0;padding:3px 10px;border-radius:7px;background:rgba(40,40,42,.88);color:#fff;font:500 12px/1.4 inherit;font-style:normal;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+.dock button:hover em{opacity:1}
+.dock button.on::before{content:"";position:absolute;bottom:-7px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--tx);opacity:.65}
+.dsep{align-self:stretch;width:1px;margin:4px 2px;background:var(--bd)}
+@media(max-width:640px){.dock{gap:5px;padding:6px 8px 10px;bottom:6px}.dock .app{width:40px;height:40px;border-radius:10px}.dock button:hover .app{transform:none}.stage{gap:28px}.stats>div{flex:1 1 120px}}
+@media(prefers-reduced-motion:reduce){.dock .app{transition:none}}
+
+/* refinements: calmer gradients + delayed menu pop-up */
+body{background:radial-gradient(900px 520px at 50% -8%,color-mix(in srgb,var(--ac) 11%,transparent),transparent 70%),linear-gradient(180deg,#f8f9fc 0%,#eceef4 100%) fixed}
+[data-theme=dark] body{background:radial-gradient(900px 520px at 50% -8%,color-mix(in srgb,var(--ac) 16%,transparent),transparent 70%),linear-gradient(180deg,#1f1f23 0%,#141416 100%) fixed}
+.gt{background:linear-gradient(90deg,var(--ac),color-mix(in srgb,var(--ac) 55%,#5ac8fa));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover{background:color-mix(in srgb,var(--ac) 7%,var(--card))}
+.menu .pop{display:none}
+.menu[open] .pop{display:grid;animation:popIn .5s cubic-bezier(.2,.8,.2,1) .3s both;transform-origin:top right}
+@keyframes popIn{from{opacity:0;transform:translateY(-6px) scale(.96)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.menu[open] .pop{animation:none}}
+
+/* ===== roomier, Settings-style lists (less congestion) ===== */
+.sec{margin-top:30px;padding-top:22px}
+.sec>h3{margin-bottom:14px}
+.row{gap:14px 16px}
+.lt{margin:26px 0 12px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--mu);padding-left:4px}
+.mem{padding:22px}
+.mem>summary{gap:14px;min-height:44px}
+.ltdc{margin-top:12px;padding:6px 18px;border:.5px solid var(--bd);border-radius:14px;background:color-mix(in srgb,var(--card) 70%,transparent);box-shadow:0 1px 2px rgba(0,0,0,.04);transition:background .2s,box-shadow .2s}
+.ltdc[open]{padding:6px 18px 22px;background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.06),0 12px 32px rgba(0,0,0,.08)}
+.ltdc>summary{gap:6px 12px;min-height:50px;font-size:14.5px}
+.ltdc>summary b{min-width:22px;font-size:15px}
+.ltdc>summary .pill{font-size:11.5px;padding:2px 10px}
+.ltdc>summary .sm{font-size:13px}
+.lbody{margin-top:8px;padding-top:18px;border-top:.5px solid var(--bd)}
+.lh{gap:12px 22px;margin-bottom:6px}
+.lh input.num{width:84px}
+.need{margin:18px 0 6px;padding:16px 18px;border:0;border-radius:12px;background:color-mix(in srgb,var(--ac) 9%,var(--card));font-size:13.5px;line-height:1.55}
+.need b{display:block;margin-bottom:8px;font-size:14px}
+.need ul{margin:0;padding-left:20px}.need li{margin:6px 0}
+.ckg,.ckg.wide{gap:12px}
+.ck{min-height:50px;padding:12px 16px;border:.5px solid var(--bd);border-radius:12px;font-size:14px;background:color-mix(in srgb,var(--card) 90%,transparent)}
+.ck.on{background:color-mix(in srgb,var(--ok) 12%,var(--card));border-color:color-mix(in srgb,var(--ok) 55%,var(--bd))}
+.ck.ex{background:color-mix(in srgb,var(--wa) 12%,var(--card));border-color:color-mix(in srgb,var(--wa) 55%,var(--bd))}
+.tw{margin:6px 0;border:.5px solid var(--bd);border-radius:12px;background:color-mix(in srgb,var(--card) 80%,transparent)}
+.tw table{border-radius:12px}
+.tw table th,.tw table td{padding:12px 12px;border-bottom:.5px solid var(--bd)}
+.tw table tr:last-child td{border-bottom:0}
+.tw table th{padding:10px 12px;background:transparent;font-size:11px;font-weight:600;letter-spacing:.06em}
+.tw table th:first-child,.tw table td:first-child{padding-left:16px}
+.tw select{min-height:34px;padding:5px 26px 5px 10px}
+.dir{margin-top:14px;padding:16px;border-radius:12px}
+.dh{gap:10px 14px;margin-bottom:12px}
+.note{margin:14px 0 0;padding:12px 16px;border:0;border-radius:10px;background:color-mix(in srgb,var(--ac) 10%,var(--card));font-size:13.5px;line-height:1.5}
+.rs{margin-top:22px}
+.ltdc .rs{margin-top:22px}
+.ltdc .rs label{margin-bottom:6px}
+.ltdc .rs+*,.ltdc .rs~p{margin-top:12px}
+.rt{margin:16px 0 4px}
+.seg2{padding:18px;margin-top:16px}
+.card{padding:20px;margin-bottom:18px}
+@media(max-width:640px){
+ main{padding:14px 12px 120px}.card,.mem{padding:16px}
+ .ltdc,.ltdc[open]{padding-left:14px;padding-right:14px}.ltdc[open]{padding-bottom:18px}
+ .need{padding:14px}.ck{padding:12px 14px}.dir{padding:12px}
+}
+
+/* toasts */
+#toasts{position:fixed;top:44px;right:14px;z-index:200;display:flex;flex-direction:column;gap:10px;width:min(360px,calc(100vw - 28px));pointer-events:none}
+.toast{pointer-events:auto;display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--card) 78%,transparent);backdrop-filter:saturate(180%) blur(30px);border:.5px solid var(--bd);box-shadow:0 12px 40px rgba(0,0,0,.25);animation:tIn .45s cubic-bezier(.2,.9,.25,1) both}
+.toast.out{animation:tOut .3s ease-in forwards}
+@keyframes tIn{from{opacity:0;transform:translateX(40px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes tOut{to{opacity:0;transform:translateX(40px) scale(.96)}}
+.ti{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(#5ac8fa,var(--ac));box-shadow:inset 0 0 0 .5px rgba(255,255,255,.4)}
+.toast.ok .ti{background:linear-gradient(#67e08a,#25a244)}.toast.warn .ti{background:linear-gradient(#ffd60a,#ff9500)}.toast.bad .ti{background:linear-gradient(#ff7a70,#ff3b30)}
+.tb{flex:1;min-width:0;font-size:13px;line-height:1.4}.tb b{display:block;font-size:13.5px}.tb span{color:var(--mu)}
+.toast .tx,.toast .tx:hover,.toast .tx:active{flex:none;min-height:0;padding:0 4px;border:0;background:none;box-shadow:none;font-size:18px;line-height:1;color:var(--mu);scale:1}
+@media(prefers-reduced-motion:reduce){.toast,.toast.out{animation:none}}
+@media(max-width:640px){#toasts{right:8px;left:8px;width:auto;top:40px}}
+
+/* ===== Finder-style sidebar ===== */
+body:not(.home) main{max-width:1280px}
+.shell{display:grid;grid-template-columns:268px minmax(0,1fr);gap:24px;align-items:start}
+.pane{min-width:0}
+.sb{position:sticky;top:48px;display:flex;flex-direction:column;max-height:calc(100vh - 150px);border-radius:14px;border:.5px solid var(--bd);background:color-mix(in srgb,var(--card) 55%,transparent);backdrop-filter:saturate(180%) blur(30px);box-shadow:0 1px 3px rgba(0,0,0,.06),0 12px 32px rgba(0,0,0,.07);overflow:hidden}
+.sbh{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 8px 18px;font-size:12px;font-weight:600;color:var(--mu)}
+.sbl{flex:1;overflow-y:auto;padding:4px 8px 8px;display:flex;flex-direction:column;gap:2px}
+.sbe{margin:10px;color:var(--mu);font-size:13px;line-height:1.5;text-align:center}
+.sb button,.sb button:hover,.sb button:active{box-shadow:none}
+.sbi,.sbi:hover{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;text-align:left;border:0;border-radius:9px;background:transparent;overflow:visible}
+.sbi:hover{background:rgba(128,128,128,.14)}
+.sbic{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(#5ac8fa,var(--ac))}
+.sbt{min-width:0;flex:1}.sbt b{display:block;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sbt small{display:block;font-size:11.5px;color:var(--mu)}
+.sbi.on,.sbi.on:hover{background:var(--ac);color:#fff}.sbi.on small{color:rgba(255,255,255,.8)}.sbi.on .sbic{background:rgba(255,255,255,.22)}
+.sbn,.sbn:hover{width:24px;height:24px;min-height:0;padding:0;border-radius:50%;font-size:17px;line-height:1;display:grid;place-items:center;background:var(--btn)}
+.sbf{display:flex;gap:8px;padding:10px 12px;border-top:.5px solid var(--bd)}.sbf button{flex:1;padding:5px 8px;font-size:12.5px}
+@media(max-width:900px){
+ .shell{grid-template-columns:1fr;gap:14px}
+ .sb{position:static;max-height:none;border-radius:12px}
+ .sbl{flex-direction:row;overflow-x:auto;padding:2px 10px 10px}.sbi,.sbi:hover{flex:none;width:200px}
+ .sbf{display:none}
+}
+@media print{.shell{display:block}.sb{display:none}}
+
+/* list toolbar */
+.lbar{position:sticky;top:44px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;margin:0 0 6px;padding:8px 12px;border-radius:12px;border:.5px solid var(--bd);background:color-mix(in srgb,var(--card) 70%,transparent);backdrop-filter:saturate(180%) blur(24px);box-shadow:0 4px 16px rgba(0,0,0,.07)}
+.lbar .sp{flex:1}.lbar>button{padding:5px 12px;font-size:13px}
+@media(max-width:640px){.lbar .sp{display:none}.lbar>button{flex:1}.lbar .seg{width:100%}}
+
+/* ===== print / Save as PDF: always clean, light, flat ===== */
+@media print{
+ html[data-theme],html[data-theme=dark],html[data-theme=light]{--bg:#fff;--card:#fff;--tx:#000;--mu:#555;--bd:#cfd4dc;--btn:#fff;--inp:#fff;--glass:#fff;--ok:#16803c;--wa:#b45309;--er:#c0262d}
+ html,body{background:#fff!important;color:#000!important}
+ body{font-size:12.5px}
+ *,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;text-shadow:none!important;animation:none!important}
+ header,.dock,#toasts,.sb,.lbar,.noprint,.pbar,.menu,#bg,.aurora,#spot,#wipe,.modal{display:none!important}
+ main,.home main,body:not(.home) main{max-width:none!important;margin:0!important;padding:0!important}
+ .shell{display:block!important}.pane{display:block!important}
+ #app{opacity:1!important}
+ .card,.mem,.cover,.seg2,.ltdc,.tw,.dir,.need,.note,.ck{background:#fff!important;box-shadow:none!important;opacity:1!important;transform:none!important}
+ .card{border:1px solid #cfd4dc!important;margin-bottom:12px;break-inside:avoid}
+ .cover{background:#f3f6fb!important}
+ .need,.note{background:#f3f6fb!important}
+ .tw{border:0!important;overflow:visible!important}
+ input,select,textarea{background:#fff!important;color:#000!important;box-shadow:none!important}
+ select{background-image:none!important;padding-right:6px!important}
+ .gt{color:#000!important;-webkit-text-fill-color:#000!important;background:none!important}
+ .reveal{opacity:1!important;transform:none!important}
+}
+
+/* tidy report tables */
+table.mt{table-layout:fixed;width:100%;margin-top:6px}
+table.mt td{padding:11px 6px;vertical-align:top;overflow-wrap:anywhere;word-break:break-word;border-bottom:.5px solid var(--bd)}
+table.mt tr:last-child td{border-bottom:0}
+table.mt td:first-child{width:38%;color:var(--mu);font-size:13.5px}
+table.mt td:last-child{font-weight:500}
+@media(max-width:640px){table.mt td:first-child{width:42%}table.mt td{padding:9px 4px;font-size:13.5px}}
+
+/* dashboard */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:18px}
+.kpi{margin:0;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.kpi small{font-size:12px;font-weight:600;color:var(--mu)}.kpi b{font-size:34px;line-height:1;letter-spacing:-.03em}
+.bigtrend{position:relative;height:150px;margin-top:14px;border-radius:10px;background:repeating-linear-gradient(transparent 0 74px,var(--bd) 74px 75px)}
+.bigtrend .spark{width:100%;height:100%}
+.bigtrend i{position:absolute;right:6px;font-style:normal;font-size:11px;color:var(--mu)}
+.spark{display:block;width:100%;height:100%}
+.spark polyline{fill:none;stroke:var(--ac);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.spark .sa{fill:color-mix(in srgb,var(--ac) 14%,transparent);stroke:none}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.dp{margin:0}.dscore{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:14px 0 6px}
+.dscore .score{font-size:40px;margin-bottom:6px}.dsp{flex:1;max-width:150px;height:46px;text-align:right}
+.alist{display:flex;flex-direction:column}
+.arow{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:.5px solid var(--bd)}.arow:first-child{border-top:0}
+.arow .av{margin:0}.arow .who{flex:1;min-width:0}.arow .who b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:640px){.arow{flex-wrap:wrap}.arow .who{flex:1 1 140px}.kpi b{font-size:28px}}
+.a6{background:linear-gradient(#ff7a70,#ff3b30)}
+@media print{.kpis,.dgrid{display:none}}
+header .menu>summary{border:0}
 </style>
 </head>
 <body>
 <div class="aurora"><i></i><i></i><i></i><b class="floor"></b><svg class="lines" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true"><path d="M0,330 C220,240 420,440 640,310 S1010,200 1200,270"/><path d="M0,420 C240,330 440,540 680,400 S1040,290 1200,360"/><path d="M0,510 C200,420 400,620 620,490 S1000,380 1200,450"/><path d="M0,600 C230,510 430,710 660,580 S1030,470 1200,540"/><path d="M0,690 C210,600 420,790 650,670 S1020,560 1200,630"/></svg></div><canvas id="bg" aria-hidden="true"></canvas><div id="spot"></div><div id="wipe"></div>
 <header class="noprint">
-  <div style="display:flex;gap:10px;align-items:center"><button id="bk" onclick="back()" hidden aria-label="Go back">← Back</button><div class="logo" onclick="hist=[];nav('home')">X<b>-Track</b> <span class="sm mu" style="font-weight:600;letter-spacing:0">For ReTRRAC</span></div></div>
+  <div class="logo" onclick="hist=[];nav('home')"><span class="lg">XT</span><b>X-Track</b> <span class="sm mu">For ReTRRAC</span></div>
   <div class="tools">
-    <button onclick="openList()">Project</button><button onclick="go('report')">Report</button>
-    <select id="sc" aria-label="Background scene" onchange="S.bg=this.value;save();setScene()"><option value="warp">Warp</option><option value="rain">Data rain</option><option value="waves">Waves</option><option value="net">Network</option></select><span id="dots" style="display:flex;gap:6px"></span>
-    <button id="tg" onclick="toggleTheme()" aria-label="Switch dark or light mode">Dark</button>
+    <button id="nvd" onclick="go('dash')">Dashboard</button><button id="nvp" onclick="openList()">Projects</button><button id="nvr" onclick="go('report')">Report</button>
+    <details class="menu"><summary aria-label="Theme settings">Appearance</summary><div class="pop">
+      <div class="prow"><span>Mode</span><button id="tg" onclick="toggleTheme()" aria-label="Switch dark or light mode">Dark</button></div>
+      <div class="prow"><span>Accent</span><span id="dots" style="display:flex;gap:8px"></span></div>
+      <div class="prow"><span>Background</span><select id="sc" aria-label="Background scene" onchange="S.bg=this.value;save();setScene()"><option value="warp">Warp</option><option value="rain">Data rain</option><option value="waves">Waves</option><option value="net">Network</option></select></div>
+    </div></details>
+    <span id="clk" class="clk"></span>
   </div>
 </header>
+<input id="ldf" type="file" accept=".json" hidden onchange="loadFile(this)">
 <main id="app"></main>
+<nav class="dock noprint" id="dock" aria-label="Quick launch"></nav>
 <script>
 const KEY='xtrack-v1';
-const ACC={blue:'#2563eb',green:'#15935a',purple:'#7c3aed',orange:'#d9660b',red:'#d32f3f'};
+const ACC={blue:'#007aff',green:'#25a244',purple:'#af52de',orange:'#f08300',red:'#ff3b30'};
 const DOCS=['Extensive AML screening','POA check','POI check','Risk assessment sheet','Client report (optional)'];
 const REASONS=['Expired document (no deduction)','I forgot','I am new here and need more experience','I might have missed this check','Other'];
 let S={projects:[],cur:null,theme:'light',accent:'blue'},view='home';
@@ -162,17 +509,18 @@ try{const x=localStorage.getItem(KEY);if(x)S=Object.assign(S,migrate(JSON.parse(
 const cur=()=>S.projects[S.cur];
 Object.defineProperties(S,{client:{get:()=>cur().client,set:v=>{cur().client=v}},tl:{get:()=>cur().tl},members:{get:()=>cur().members}});
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let warned=0;const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){if(!warned){warned=1;tell('Browser storage is full, so recent changes are not saved there. Use Save to laptop to keep this project.')}}};
+let warned=0;const save=()=>{try{snap()}catch(e){}save0();try{refreshSb()}catch(e){}};const save0=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){if(!warned){warned=1;tell('Browser storage is full, so recent changes are not saved there. Use Save to laptop to keep this project.')}}};
 
 function expand(t){const out=[];String(t).split(/[,\n]+/).map(s=>s.trim()).filter(Boolean).forEach(p=>{
   const m=p.match(/^(\D*?)(\d+)\s*(?:to|-|–)\s*(\D*?)(\d+)$/i);
   if(m&&+m[4]-+m[2]<500&&+m[4]>=+m[2]){for(let i=+m[2];i<=+m[4];i++)out.push(m[1]+i)}else out.push(p)});return out}
 function sync(arr,ids,mk){const old=Object.fromEntries(arr.map(c=>[c.id,c]));return ids.map(id=>old[id]||mk(id))}
 
-function calc(m){
+const xtra=l=>l.reduce((a,x)=>[a[0]+2+(x.isNew?5:0),a[1]+3+(x.isNew?30:0)],[0,0]);
+function calc0(m){
   const dirs=m.ltd.reduce((a,c)=>a+(+c.dir||0),0),sa=m.sa.length,units=dirs+sa;
-  const min=dirs*6+sa*6,max=dirs*10+sa*15,t=(parseFloat(m.time)||0)*60;
-  let ded=0;m.sa.forEach(c=>ded+=dedOf(m,c));
+  const ex=xtra(m.ltd),min=dirs*6+sa*6+ex[0],max=dirs*10+sa*15+ex[1],t=(parseFloat(m.time)||0)*60;
+  let ded=0;m.sa.forEach(c=>ded+=dedOf(m,c));m.ltd.forEach(c=>ded+=ltdDed(m,c));
   const r={dirs,sa,min,max,t,ded,status:'wait',score:null,clients:m.ltd.length+sa};
   if(!t||!min)return r;
   if(t<min){r.status='flag';return r}
@@ -185,73 +533,70 @@ function band(s){return s>95?['Outstanding','ok','Recommendation line for HR']:s
 /* ---------- views ---------- */
 const avatar=`<span class="av"><svg width="24" height="24" viewBox="0 0 24 24" fill="var(--ac)"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.6 3.8-7 8.5-7s8.5 2.4 8.5 7z"/></svg></span>`;
 
+const I={chart:'<path d="M5 20V10M12 20V4M19 20v-7"/>',home:'<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',doc:'<path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5M9 17v-3M12 17v-5M15 17v-2"/>',open:'<path d="M12 15V4m0 0L8 8m4-4l4 4M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/>',mode:'<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="#fff"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 5a3.5 3.5 0 0 1 0 6.5M18 14.5c2 .7 3.5 2.4 3.5 5.5"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'};
+const ic=(k,z=24)=>`<svg width="${z}" height="${z}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
+function buildDock(){const d=(v,k,c,t,f)=>`<button ${v?`data-v="${v}" `:''}onclick="${f}" aria-label="${t}"><span class="app ${c}">${ic(k)}</span><em>${t}</em></button>`;
+  $('#dock').innerHTML=d('home','home','a1','Home',"hist=[];nav('home')")+d('dash','chart','a6','Dashboard',"go('dash')")+d('project','folder','a2','Projects','openList()')+d('report','doc','a3','Report',"go('report')")+'<i class="dsep"></i>'+d('','open','a4','Open project',"$('#ldf').click()")+d('','mode','a5','Light / Dark','toggleTheme()')}
 function home(){return `<section class="stage"><div class="copy">
-<span class="pill reveal" style="font-size:15px;padding:5px 14px">X-Track For ReTRRAC</span>
-<h1 class="reveal">See how efficiently your team really works.</h1>
+<span class="eyebrow reveal"><span class="lg">XT</span>X-Track For ReTRRAC</span>
+<h1 class="reveal">See how efficiently your team <span class="gt">really works.</span></h1>
 <p class="reveal">Assign client IDs, log the time, and X-Track turns it into fair scores, clear flags and a PDF report your managers and HR can trust.</p>
 <div class="btns"><button class="p big reveal" onclick="openList()">Work with the Team</button><button class="big reveal" onclick="go('report')">Create Report</button>
 <button class="big reveal" onclick="$('#ld').click()">Load Saved Project</button><input id="ld" type="file" accept=".json" hidden onchange="loadFile(this)"></div>
 <div class="stats reveal"><div><b>${S.projects.length}</b><span>project${S.projects.length==1?'':'s'} created</span></div><div><b>6–10 min</b><span>per director</span></div><div><b>6–15 min</b><span>per SA client</span></div><div><b>6 bands</b><span>Outstanding to Critical</span></div></div>
 </div>
-<div class="demo reveal"><div class="float"><div class="tilt" id="tilt"><div class="panel">
-<div class="ph"><i></i><i></i><i></i><span>Team report · Acme Ltd</span></div>
-<div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="rb"/><circle cx="60" cy="60" r="50" class="rf" id="rf"/></svg><b id="rn">84%</b><small>Team efficiency</small></div>
+<div class="demo reveal"><div class="float"><div class="tilt" id="tilt"><div class="win">
+<div class="wbar"><span class="tl"><i></i><i></i><i></i></span><span class="wt">Acme Ltd — Team report</span></div>
+<div class="wbody"><aside class="side"><small>Library</small><span class="it on">${ic('folder',14)}Projects</span><span class="it">${ic('doc',14)}Reports</span><span class="it">${ic('users',14)}Team</span><small>Bands</small><span class="it"><u style="background:#30d158"></u>Outstanding</span><span class="it"><u style="background:#0a84ff"></u>Good</span><span class="it"><u style="background:#ff9f0a"></u>Needs work</span><span class="it"><u style="background:#ff453a"></u>Critical</span></aside>
+<div class="wmain"><div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="rb"/><circle cx="60" cy="60" r="50" class="rf" id="rf"/></svg><b id="rn">84%</b><small>Team efficiency</small></div>
 <svg class="trend" viewBox="0 0 220 40" aria-label="Efficiency trend"><polyline points="2,34 32,26 62,30 92,16 122,22 152,9 182,13 218,4"/></svg>
 <div class="mrow"><span class="av">MK</span><div><b>Mahesh Kumar</b><div class="bar"><i data-w="94" style="width:94%"></i></div></div><em>94%</em></div>
 <div class="mrow"><span class="av">PN</span><div><b>Priya Nair</b><div class="bar"><i data-w="88" style="width:88%"></i></div></div><em>88%</em></div>
-<div class="mrow"><span class="av">AR</span><div><b>Arun Raj</b><div class="bar"><i data-w="71" style="width:71%"></i></div></div><em>71%</em></div>
+<div class="mrow"><span class="av">AR</span><div><b>Arun Raj</b><div class="bar"><i data-w="71" style="width:71%"></i></div></div><em>71%</em></div></div></div>
 </div><span class="chip c1">Flagged for review</span><span class="chip c2">Delay accepted</span><span class="chip c3">96% Outstanding</span></div></div></div></section>
-<div class="feats"><div class="card reveal"><h3>1. Add the team</h3><p>Start a project, name the client and add each member.</p></div>
-<div class="card reveal"><h3>2. Log the work</h3><p>Type client IDs, directors and time. Flags appear on their own.</p></div>
-<div class="card reveal"><h3>3. Share the report</h3><p>Review scores, add comments and save the PDF for HR.</p></div></div>`}
+<h2 class="eh reveal">How it works</h2>
+<div class="feats"><div class="card reveal"><span class="ico b">${ic('users',26)}</span><small>Step 1</small><h3>Add the team</h3><p>Start a project, name the client and add each member.</p></div>
+<div class="card reveal"><span class="ico o">${ic('clock',26)}</span><small>Step 2</small><h3>Log the work</h3><p>Type client IDs, directors and time. Flags appear on their own.</p></div>
+<div class="card reveal"><span class="ico g">${ic('doc',26)}</span><small>Step 3</small><h3>Share the report</h3><p>Review scores, add comments and save the PDF for HR.</p></div></div>
+<p class="foot reveal">Your projects stay private in this browser. Export them to your Mac any time.</p>`}
 
 function project(){return cur()?editor():projectList()}
+function mband(c){if(c.score!=null){const b=band(c.score);return `<span class="pill ${b[1]}">${c.score}% ${b[0]}</span>`}
+  return c.status==='flag'?'<span class="pill wa">Flagged for review</span>':'<span class="pill">No score yet</span>'}
 function editor(){
-  let h=`<div class="card"><div class="row noprint" style="margin-bottom:8px"><div style="flex:0 0 auto"><button onclick="closeP()">← All projects</button></div><div style="flex:0 0 auto"><button class="dng" onclick="delP(S.cur)">Delete project</button></div></div><h2>Edit project</h2><div class="row">
-<div><label>Client name</label><input value="${esc(S.client)}" onchange="S.client=this.value;save()"></div>
-<div><label>Team Lead name</label><input value="${esc(S.tl.name)}" onchange="S.tl.name=this.value;save()"></div>
-<div><label>Role</label><input value="${esc(S.tl.role)}" onchange="S.tl.role=this.value;save()"></div>
-<div><label>Company</label><input value="${esc(S.tl.company)}" onchange="S.tl.company=this.value;save()"></div></div>
-<div class="row mt"><div><label>Add team member by name</label><input id="nm" placeholder="e.g. Mahesh Kumar" onkeydown="if(event.key==='Enter')addM()"></div>
-<div style="flex:0 0 auto"><button class="p" onclick="addM()">Add member</button></div>
-<div style="flex:0 0 auto" class="noprint"><button onclick="saveFile()">Save all to laptop</button></div><div style="flex:0 0 auto" class="noprint"><button class="dng" onclick="delTeam()">Delete team</button></div></div></div>`;
-  if(!S.members.length)h+=`<div class="card mu">No team members yet. Add one above to start assigning clients.</div>`;
-  S.members.forEach((m,i)=>{const c=calc(m);
-    h+=`<div class="card"><div class="row"><div style="flex:2">${avatar}<b>${esc(m.name)}</b></div>
-<div><label>Role</label><input value="${esc(m.role)}" onchange="mset(${i},'role',this.value)"></div>
-<div style="flex:0 0 auto"><button onclick="delM(${i})">Remove</button></div></div>
-<h3 class="mt">Limited company clients</h3>
-<div class="row"><div><label>IDs (range like A1 to A10, or separate IDs)</label><input value="${esc(m.ltdIds)}" onchange="setIds(${i},'ltd',this.value)"></div></div>
-${ltdTable(m,i)}
-<h3 class="mt">SA clients</h3>
-<div class="row"><div><label>IDs</label><input value="${esc(m.saIds)}" onchange="setIds(${i},'sa',this.value)"></div></div>
-${saTable(m,i)}
-<h3 class="mt">Time</h3>
-<div class="row"><div><label>Total time taken (hours, e.g. 2.5)</label><input type="number" step="0.05" min="0" value="${esc(m.time)}" onchange="mset(${i},'time',this.value)"></div>
-<div class="sm mu">Clients: ${c.clients} · Units: ${c.dirs+c.sa} · Expected ${c.min}–${c.max} min${c.t&&c.clients?` · ${(c.t/c.clients).toFixed(1)} min per client`:''}</div></div>
+  const field=(l,v,set,ph)=>`<div><label>${l}</label><input placeholder="${ph||''}" value="${esc(v)}" onchange="${set}"></div>`;
+  let h=`<div class="pbar noprint"><button class="lnk" onclick="closeP()">← All projects</button>
+<details class="menu"><summary aria-label="More actions">More</summary><div class="pop"><button onclick="saveFile()">Save to laptop</button><button class="dng" onclick="delTeam()">Delete team</button><button class="dng" onclick="delP(S.cur)">Delete project</button></div></details></div>
+<div class="card"><h2>Project details</h2><div class="row">${field('Client name',S.client,'S.client=this.value;save()','Who is this project for?')}${field('Team Lead name',S.tl.name,'S.tl.name=this.value;save()','Your name')}${field('Role',S.tl.role,'S.tl.role=this.value;save()','')}${field('Company',S.tl.company,'S.tl.company=this.value;save()','')}</div></div>
+<div class="card"><h2>Team</h2><div class="row"><div><label>Add a team member</label><input id="nm" placeholder="Name, e.g. Mahesh Kumar" onkeydown="if(event.key==='Enter')addM()"></div><div style="flex:0 0 auto"><button class="p" onclick="addM()">Add member</button></div></div>${S.members.length?'':'<p class="sm mu" style="margin:10px 0 0">No team members yet. Add the first one to start assigning clients.</p>'}</div>`;
+  S.members.forEach((m,i)=>{const c=calc(m),parts=[m.ltd.length?`${m.ltd.length} limited`:'',m.sa.length?`${m.sa.length} SA`:'',m.time?`${m.time} h`:''].filter(Boolean).join(' · ')||'No clients yet';
+    h+=`<details class="card mem" ${m.open===false?'':'open'} ontoggle="S.members[${i}].open=this.open;save()"><summary>${avatar}<span class="who"><b>${esc(m.name)}</b><span class="sm mu">${parts}</span></span>${mband(c)}<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="mbody"><div class="row"><div><label>Role</label><input value="${esc(m.role)}" onchange="mset(${i},'role',this.value,1)"></div><div style="flex:0 0 auto"><button class="dng" onclick="delM(${i})">Remove member</button></div></div>
+<div class="sec"><h3>Clients</h3><div class="row"><div><label>Limited company IDs</label><input placeholder="e.g. L1 to L5" value="${esc(m.ltdIds)}" onchange="setIds(${i},'ltd',this.value)"></div><div><label>SA client IDs</label><input placeholder="e.g. A1 to A10" value="${esc(m.saIds)}" onchange="setIds(${i},'sa',this.value)"></div></div>
+${(m.ltd.length||m.sa.length)?`<label class="rt">Deduction per missing check <select onchange="mset(${i},'rate',+this.value)">${[1,2].map(v=>`<option value="${v}" ${(m.rate||1)==v?'selected':''}>${v}%</option>`).join('')}</select></label>`:''}
+${m.ltd.length?`<div class="lt">Limited companies (${m.ltd.length})</div>`:''}${ltdTable(m,i)}
+${m.sa.length?`<div class="lt">SA clients (${m.sa.length})</div>`:''}${saTable(m,i)}</div>
+<div class="sec"><h3>Time and result</h3>
+${timeInputs(m,i,c)}
 ${c.status==='flag'?`<p><span class="pill wa">Flagged for review</span> <span class="sm mu">Time is under the minimum, so no score is calculated. Check the entry.</span></p>`:''}
 ${c.status==='delayed'?`<div class="row mt"><div style="flex:2"><label>Reason for delay</label><input value="${esc(m.delay.reason)}" onchange="S.members[${i}].delay.reason=this.value;save()"></div>
 <div><label>Team Lead decision</label><select onchange="S.members[${i}].delay.dec=this.value;save();render()"><option value="">Pending</option><option value="accept" ${m.delay.dec==='accept'?'selected':''}>Accept</option><option value="reject" ${m.delay.dec==='reject'?'selected':''}>Reject</option></select></div></div>`:''}
-${c.score!=null?`<div class="mt">Efficiency <b>${c.score}%</b> · ${band(c.score)[0]}${c.score<75?' <span class="pill er">Below 75%: add a review in the report</span>':''}</div>`:''}</div>`});
+${c.score!=null?`<div class="mt">Efficiency <b>${c.score}%</b> · ${band(c.score)[0]}${c.score<75?' <span class="pill er">Below 75%: add a review in the report</span>':''}</div>`:''}</div></div></details>`});
   return h}
 
 function report(){if(!cur())return reportPick();
   const d=new Date().toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'});
-  let h=`<div class="noprint row" style="margin-bottom:12px"><div style="flex:0 0 auto"><button class="p" onclick="window.print()">Download PDF</button></div><div style="flex:0 0 220px"><label>Project</label><select onchange="S.cur=+this.value;save();render()">${S.projects.map((p,i)=>`<option value="${i}" ${i==S.cur?'selected':''}>${esc(p.client||'Untitled project')}</option>`).join('')}</select></div><div class="sm mu" style="flex:2">Choose “Save as PDF” in the print window to share with managers and HR.</div></div>
+  let h=`<div class="noprint row" style="margin-bottom:12px"><div style="flex:0 0 auto"><button onclick="go('project')">← Edit project</button></div><div style="flex:0 0 auto"><button class="p" onclick="window.print()">Download PDF</button></div><div style="flex:0 0 auto"><button onclick="xlsTeam()">Team report (Excel)</button></div><div style="flex:0 0 220px"><label>Project</label><select onchange="S.cur=+this.value;save();render()">${S.projects.map((p,i)=>`<option value="${i}" ${i==S.cur?'selected':''}>${esc(p.client||'Untitled project')}</option>`).join('')}</select></div><div class="sm mu" style="flex:2">Choose “Save as PDF” in the print window to share with managers and HR.</div></div>
 <div class="card cover"><div class="pill">X-Track For ReTRRAC</div><h1 style="margin-top:14px">${esc(S.client||'Untitled client')}</h1>
 <p class="mu">Team members: ${S.members.map(m=>esc(m.name)).join(', ')||'none yet'}</p>
 <p><b>${esc(S.tl.name||'Team Lead')}</b>, ${esc(S.tl.role)}, ${esc(S.tl.company)}<br><span class="mu">Generated ${d}</span></p></div>`;
   S.members.forEach((m,i)=>{const c=calc(m),b=c.score!=null?band(c.score):null;
     const line=m.line||(c.score>=90?`Completed ${c.clients} client checks with ${c.score}% efficiency as ${m.role} at ${S.tl.company||'[Company]'}, consistently meeting time and accuracy standards.`:'');
     const hr=m.hr||(c.score>95?`Recommended by ${S.tl.name||'[Team Lead]'}: ${m.name} consistently delivers at ${c.score}% efficiency and is an outstanding performer.`:'');
-    h+=`<div class="card"><div class="row"><div style="flex:2">${avatar}<b>${esc(m.name)}</b><div class="sm mu">${esc(m.role)}, ${esc(S.tl.company)}</div></div>
+    h+=`<div class="card"><div class="row"><div style="flex:2">${avatar}<b>${esc(m.name)}</b><div class="sm mu">${esc(m.role)}, ${esc(S.tl.company)}</div><button class="noprint" style="margin-top:6px;padding:4px 12px;font-size:13px" onclick="xlsMember(${i})">Excel report</button></div>
 <div style="text-align:right"><div class="score count" data-v="${c.score??0}">${c.score!=null?c.score+'%':'–'}</div>${b?`<span class="pill ${b[1]}">${b[0]}</span>`:`<span class="pill ${c.status==='flag'?'wa':''}">${c.status==='flag'?'Flagged for review':'No score yet'}</span>`}</div></div>
 ${c.score!=null?`<div class="bar"><i style="width:${c.score}%"></i></div>`:''}
-<table class="mt"><tr><td>Clients assigned / completed</td><td>${c.clients}</td></tr><tr><td>Time taken</td><td>${c.t?(c.t/60).toFixed(2)+' h ('+(c.clients?(c.t/c.clients).toFixed(1):0)+' min per client)':'–'}</td></tr>
-<tr><td>Expected time</td><td>${c.min}–${c.max} min</td></tr><tr><td>Document deductions</td><td>${c.ded}%</td></tr>
-${c.status==='delayed'?`<tr><td>Delay</td><td>${esc(m.delay.reason||'No reason given')} (${m.delay.dec==='accept'?'Accepted':m.delay.dec==='reject'?'Rejected':'Pending'})</td></tr>`:''}
-${[...m.ltd,...m.sa].map(x=>`<tr><td>${esc(x.id)} multi bureau check</td><td>${(x.mb||[]).join(', ')||'None selected'}</td></tr>`).join('')}
-${m.sa.filter(x=>reviewed(x)&&missN(x)).map(x=>`<tr><td>${esc(x.id)} missing: ${DOCS.slice(0,4).filter((d,k)=>!x.docs[k]).join(', ')}</td><td>${esc(x.reason||'No reason given')}${x.note?': '+esc(x.note):''}, deduction ${dedOf(m,x)}%</td></tr>`).join('')}</table>
+${segHtml(m,c)}
 <div class="row mt"><div><label>Why this score</label><textarea rows="2" onchange="mset(${i},'why',this.value,1)">${esc(m.why)}</textarea></div>
 <div><label>How it can be improved</label><textarea rows="2" onchange="mset(${i},'how',this.value,1)">${esc(m.how)}</textarea></div></div>
 ${b?`<p class="sm mu">Suggested action: ${b[2]}. Guidance only; the final decision stays with the Team Lead, managers and HR.</p>`:''}
@@ -262,6 +607,95 @@ ${hr?`<label class="mt">HR recommendation</label><textarea rows="2" onchange="ms
   return h}
 
 /* ---------- actions ---------- */
+/* ---------- Excel export (no library needed) ---------- */
+const xe=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,'');
+const xcol=n=>{let t='';for(n++;n>0;n=Math.floor((n-1)/26))t=String.fromCharCode(65+(n-1)%26)+t;return t};
+const XNS='xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"',XH='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+const xcrcT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const xcrc=u=>{let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=xcrcT[(c^u[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0};
+function xzip(fs){const enc=new TextEncoder(),parts=[],cen=[],u16=v=>[v&255,v>>8&255],u32=v=>[v&255,v>>8&255,v>>16&255,v>>>24&255];let off=0;
+  fs.forEach(f=>{const nm=enc.encode(f.name),d=enc.encode(f.data),c=xcrc(d);
+    const lh=[0x50,0x4b,3,4,...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(c),...u32(d.length),...u32(d.length),...u16(nm.length),...u16(0)];
+    parts.push(new Uint8Array(lh),nm,d);
+    cen.push(new Uint8Array([0x50,0x4b,1,2,...u16(20),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(c),...u32(d.length),...u32(d.length),...u16(nm.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(off)]),nm);
+    off+=lh.length+nm.length+d.length});
+  const cs=cen.reduce((a,x)=>a+x.length,0);
+  return new Blob([...parts,...cen,new Uint8Array([0x50,0x4b,5,6,0,0,0,0,...u16(fs.length),...u16(fs.length),...u32(cs),...u32(off),0,0])],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+function xsheet(rows,hr){const wd=[];
+  const body=rows.map((r,ri)=>`<row r="${ri+1}">`+r.map((v,ci)=>{if(v===''||v==null)return'';const str=typeof v!=='number',len=String(v).length;
+    wd[ci]=Math.max(wd[ci]||8,Math.min(len+2,ri===hr?30:60));const st=ri===hr?1:(str&&len>40?2:0),ref=xcol(ci)+(ri+1);
+    return str?`<c r="${ref}" t="inlineStr" s="${st}"><is><t xml:space="preserve">${xe(v)}</t></is></c>`:`<c r="${ref}" s="${st}"><v>${v}</v></c>`}).join('')+'</row>').join('');
+  return XH+`<worksheet ${XNS}>${wd.some(Boolean)?'<cols>'+wd.map((w,i)=>w?`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`:'').join('')+'</cols>':''}<sheetData>${body}</sheetData></worksheet>`}
+function xbook(sh){const R='http://schemas.openxmlformats.org/officeDocument/2006/relationships',n=sh.length;
+  return xzip([
+   {name:'[Content_Types].xml',data:XH+`<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sh.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`},
+   {name:'_rels/.rels',data:XH+`<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${R}/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+   {name:'xl/workbook.xml',data:XH+`<workbook ${XNS} xmlns:r="${R}"><sheets>${sh.map((x,i)=>`<sheet name="${xe(x[0])}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`},
+   {name:'xl/_rels/workbook.xml.rels',data:XH+`<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sh.map((_,i)=>`<Relationship Id="rId${i+1}" Type="${R}/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${n+1}" Type="${R}/styles" Target="styles.xml"/></Relationships>`},
+   {name:'xl/styles.xml',data:XH+`<styleSheet ${XNS}><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFDBE7FF"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`},
+   ...sh.map((x,i)=>({name:`xl/worksheets/sheet${i+1}.xml`,data:xsheet(x[1],x[2])}))])}
+const yn=v=>v?'Yes':'No';
+const statTxt=(c,m)=>c.status==='flag'?'Flagged for review':c.status==='delayed'?'Delayed ('+(m.delay.dec==='accept'?'accepted':m.delay.dec==='reject'?'rejected':'decision pending')+')':c.status==='ok'?'Scored':'No score yet';
+function xlsSheets(ms){
+  const sum=[['Client',S.client],['Team Lead',S.tl.name],['Role',S.tl.role],['Company',S.tl.company],['Generated',new Date().toLocaleDateString()],[],
+    ['Member','Role','Limited companies','SA clients','Total time (h)','Expected min (min)','Expected max (min)','Overall efficiency %','Band','Suggested action','Limited company time (h)','Limited company efficiency %','Limited company deduction %','SA time (h)','SA efficiency %','SA deduction %','Status']],
+  L=[['Member','Client ID','Client type','Directors','AML check','Risk assessment','Client report','Missing checks','Reason','Note','Deduction %']],
+  D=[['Member','Client ID','Director','Type','Proof of Address','Proof of Identity','Multi bureau check','AML check','Client report']],
+  A=[['Member','Client ID','Extensive AML','POA','POI','Risk assessment','Client report (optional)','Multi bureau check','Missing documents','Reason','Note','Deduction %']],
+  C=[['Member','Efficiency %','Band','Why this score','How it can be improved','Areas to improve','Resume line','HR recommendation','Review raised by','Review','Evidence images']];
+  ms.forEach(m=>{const c=calc(m),g=segs(m,c),b=c.score!=null?band(c.score):null,h=t=>t?+(t/60).toFixed(2):'',sc=x=>x&&x.score!=null?x.score:'';
+    sum.push([m.name,m.role,m.ltd.length,m.sa.length,h(c.t),c.min,c.max,c.score??'',b?b[0]:'',b?b[2]:'',g.ltd?h(g.ltd.t):'',sc(g.ltd),g.ltd?g.ltd.ded:'',g.sa?h(g.sa.t):'',sc(g.sa),g.sa?g.sa.ded:'',statTxt(c,m)]);
+    m.ltd.forEach(x=>{const r=ltdCheck(x),p=[];
+      if(!r.any)p.push('Not reviewed yet');else{if(r.coRev&&r.coMiss.length)p.push('Company: '+r.coMiss.join(', '));r.ds.forEach(d=>{if(d.any&&d.miss.length)p.push('Director '+d.n+': '+d.miss.join(', '))})}
+      L.push([m.name,x.id,x.isNew?'New':'Existing',x.dir,yn(x.aml),yn(x.risk),yn(x.rep),p.join('; '),x.reason||'',x.note||'',ltdDed(m,x)]);
+      x.directors.forEach((d,n)=>D.push([m.name,x.id,'Director '+(n+1),d.isNew?'New':'Existing',d.poaX?'Expired':d.poa?'Done':'Missing',d.poiX?'Expired':d.poi?'Done':'Missing',d.isNew?(d.mbc?'Done':'Missing'):'Not needed',d.aml?'Done':'Missing',yn(d.rep)]))});
+    m.sa.forEach(x=>A.push([m.name,x.id,...x.docs.map(yn),mbTxt(x),reviewed(x)?DOCS.slice(0,4).filter((d,k)=>!x.docs[k]).join(', '):'Not reviewed yet',x.reason||'',x.note||'',dedOf(m,x)]));
+    const low=c.score!=null&&c.score<75,
+    ln=m.line||(c.score>=90?`Completed ${c.clients} client checks with ${c.score}% efficiency as ${m.role} at ${S.tl.company||'[Company]'}, consistently meeting time and accuracy standards.`:''),
+    hr=m.hr||(c.score>95?`Recommended by ${S.tl.name||'[Team Lead]'}: ${m.name} consistently delivers at ${c.score}% efficiency and is an outstanding performer.`:'');
+    C.push([m.name,c.score??'',b?b[0]:'',m.why||'',m.how||'',c.score>=80&&c.score<90?m.imp||'':'',ln,hr,low?m.by||'Team Lead':'',low?m.rev||'':'',(m.imgs||[]).length])});
+  return [['Summary',sum,6],['Limited company',L,0],['Directors',D,0],['SA clients',A,0],['Comments',C,0]]}
+function dlX(sh,name){const a=document.createElement('a');a.href=URL.createObjectURL(xbook(sh));a.download=name.replace(/[^\w.-]+/g,'_')+'.xlsx';document.body.appendChild(a);a.click();a.remove();toast('Excel file exported.','ok','Exported')}
+function xlsTeam(){if(!S.members.length){tell('Add at least one team member first.');return}dlX(xlsSheets(S.members),'X-Track_'+(S.client||'project')+'_team')}
+function xlsMember(i){dlX(xlsSheets([S.members[i]]),'X-Track_'+(S.client||'project')+'_'+S.members[i].name)}
+function setNew(i,j,v){const x=S.members[i].ltd[j];x.isNew=v;x.directors.forEach(d=>d.isNew=v);save();render()}
+function needBox(x){const n=!!x.isNew,mixed=x.directors.some(d=>!!d.isNew!==n);
+  return `<div class="need"><b>${n?'New client':'Existing client'}: documents needed</b><ul>
+<li><span>Company:</span> Extensive AML check, Risk assessment sheet <em>(client report optional)</em></li>
+<li><span>Each director:</span> Proof of Address, Proof of Identity, ${n?'Multi bureau check, ':''}Extensive AML check <em>(${n?'client report optional':'client report only if the metadata changed'})</em></li>
+<li><span>Time allowed:</span> directors 6–10 min each, extensive AML screening 2–3 min${n?', creating the new client 5–30 min (about 20)':''}</li>
+${n?'':'<li>No multi bureau check is needed for an existing client.</li>'}${mixed?'<li>A director set to a different type in the table below follows that type.</li>':''}</ul></div>`}
+function setSplit(i,k,v){const m=S.members[i];m[k]=v;const t=(parseFloat(m.tL)||0)+(parseFloat(m.tS)||0);m.time=t?String(+t.toFixed(3)):'';save();render()}
+function timeInputs(m,i,c){const both=m.ltd.length&&m.sa.length;
+  const inp=(l,k,fn)=>`<div><label>${l}</label><input type="number" step="0.05" min="0" value="${esc(m[k])}" onchange="${fn}"></div>`;
+  return `<div class="row">`+(both?inp('Time on limited companies (hours)','tL',`setSplit(${i},'tL',this.value)`)+inp('Time on SA clients (hours)','tS',`setSplit(${i},'tS',this.value)`):inp('Total time taken (hours, e.g. 2.5)','time',`mset(${i},'time',this.value)`))
+   +`<div class="sm mu">Expected ${c.min}–${c.max} min${c.t&&c.clients?`, taking ${(c.t/c.clients).toFixed(1)} min per client`:''}</div></div>`
+   +(both&&m.time&&!m.tL&&!m.tS?`<p class="sm mu" style="margin:6px 0 0">The total of ${esc(m.time)} h entered earlier is split by expected time. Enter the two times for an exact result.</p>`:'')}
+function calc(m){const c=calc0(m),g=segs(m,c),p=[g.ltd,g.sa].filter(Boolean);
+  if(p.length){if(p.some(x=>x.status==='flag')){c.status='flag';c.score=null}
+    else if(p.some(x=>x.score==null)){c.status='wait';c.score=null}
+    else{const u=p.reduce((a,x)=>a+x.units,0)||1;c.score=Math.round(p.reduce((a,x)=>a+x.score*x.units,0)/u);c.status=p.some(x=>x.status==='delayed')?'delayed':'ok'}}
+  return c}
+function segOf(m,list,kind,t){if(!list.length)return null;
+  const u=kind==='ltd'?list.reduce((a,x)=>a+(+x.dir||0),0):list.length,ex=kind==='ltd'?xtra(list):[0,0],min=u*6+ex[0],max=u*(kind==='ltd'?10:15)+ex[1],
+  ded=list.reduce((a,x)=>a+(kind==='ltd'?ltdDed(m,x):dedOf(m,x)),0),r={n:list.length,units:u,min,max,t,ded,status:'wait',score:null};
+  if(!t||!min)return r;if(t<min){r.status='flag';return r}
+  let v;if(t<=max){v=100-(t-min)/((max-min)||1)*20;r.status='ok'}else{r.status='delayed';v=(m.delay&&m.delay.dec==='accept')?80:80-(t-max)/max*100}
+  r.score=Math.max(0,Math.round(v-ded));return r}
+function segs(m,c0){const c=c0||calc0(m),both=m.ltd.length&&m.sa.length;let tl=c.t,ts=c.t,est=false;
+  if(both){if(m.tL||m.tS){tl=(parseFloat(m.tL)||0)*60;ts=(parseFloat(m.tS)||0)*60}else{const a=c.dirs*6+xtra(m.ltd)[0],b=c.sa*6;tl=c.t*a/((a+b)||1);ts=c.t-tl;est=!!c.t}}
+  return {ltd:segOf(m,m.ltd,'ltd',tl),sa:segOf(m,m.sa,'sa',ts),est}}
+function segBox(title,g,rows,est){const b=g.score!=null?band(g.score):null;
+  return `<div class="seg2"><div class="row" style="align-items:center"><div style="flex:2"><h3 style="margin:0">${title}</h3><span class="sm mu">${g.n} client${g.n==1?'':'s'}${title[0]==='L'?`, ${g.units} director${g.units==1?'':'s'}`:''}</span></div>
+<div style="flex:0 0 auto;text-align:right"><div class="score" style="font-size:30px">${g.score!=null?g.score+'%':'–'}</div>${b?`<span class="pill ${b[1]}">${b[0]}</span>`:`<span class="pill ${g.status==='flag'?'wa':''}">${g.status==='flag'?'Flagged for review':'No score yet'}</span>`}</div></div>
+${g.score!=null?`<div class="bar"><i style="width:${g.score}%"></i></div>`:''}
+<table class="mt"><tr><td>Time taken</td><td>${g.t?(g.t/60).toFixed(2)+' h ('+(g.n?(g.t/g.n).toFixed(1):0)+' min per client)'+(est?', split by expected time':''):'–'}</td></tr>
+<tr><td>Expected time</td><td>${g.min}–${g.max} min</td></tr><tr><td>Deductions</td><td>${g.ded}%</td></tr>${rows}</table></div>`}
+function segHtml(m,c){const g=segs(m,c);
+  const sum=`<table class="mt"><tr><td>Overall efficiency</td><td>${c.score!=null?c.score+'%':'–'}</td></tr>${g.ltd&&g.sa?`<tr><td>How it is worked out</td><td>Weighted average of the two sections by units (${g.ltd.units} director${g.ltd.units==1?'':'s'}, ${g.sa.units} SA client${g.sa.units==1?'':'s'})</td></tr>`:''}<tr><td>Clients</td><td>${m.ltd.length} limited company, ${m.sa.length} SA</td></tr><tr><td>Total time taken</td><td>${c.t?(c.t/60).toFixed(2)+' h':'–'}</td></tr><tr><td>Total expected time</td><td>${c.min}–${c.max} min</td></tr><tr><td>Deductions</td><td>${[g.ltd&&`limited company ${g.ltd.ded}%`,g.sa&&`SA ${g.sa.ded}%`].filter(Boolean).join(', ')||'0%'}</td></tr>${c.status==='delayed'?`<tr><td>Delay</td><td>${esc(m.delay.reason||'No reason given')} (${m.delay.dec==='accept'?'Accepted':m.delay.dec==='reject'?'Rejected':'Pending'})</td></tr>`:''}</table>`;
+  const nn=m.ltd.filter(x=>x.isNew).length,nl=m.ltd.length,dn=g.ltd?g.ltd.units:0,lr=(nl?`<tr><td>Expected time made up of</td><td>Directors ${dn*6}–${dn*10} min, AML screening ${nl*2}–${nl*3} min${nn?`, creating ${nn} new client${nn>1?'s':''} ${nn*5}–${nn*30} min`:''}</td></tr>`:'')+ltdRows(m),
+  sr=m.sa.filter(x=>reviewed(x)&&missN(x)).map(x=>`<tr><td>${esc(x.id)} missing: ${DOCS.slice(0,4).filter((d,k)=>!x.docs[k]).join(', ')}</td><td>${esc(x.reason||'No reason given')}${x.note?': '+esc(x.note):''}, deduction ${dedOf(m,x)}%</td></tr>`).join('');
+  return sum+(g.ltd?segBox('Limited company clients',g.ltd,lr,g.est):'')+(g.sa?segBox('SA clients',g.sa,sr,g.est):'')}
 function startDraw(sel,dur,gap){if(rm)return;const A=window.A4;
   if(A&&A.svg&&A.svg.createDrawable&&A.animate){
     A.animate(A.svg.createDrawable(sel),{draw:['0 0','0 1','1 1'],ease:'inOutQuad',duration:dur,delay:A.stagger(gap),loop:true})}
@@ -279,7 +713,14 @@ function ask(msg,ok){return new Promise(res=>{const m=document.createElement('di
   const done=v=>{m.remove();document.removeEventListener('keydown',kd,true);res(v)};
   y.onclick=()=>done(true);n.onclick=()=>done(false);m.onclick=e=>{if(e.target===m)done(false)};
   document.addEventListener('keydown',kd,true);document.body.appendChild(m);y.focus()})}
-function tell(msg){return ask(msg)}
+const TI={ok:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',warn:'<path d="M12 7v6M12 17h.01"/>',bad:'<path d="M6 6l12 12M18 6L6 18"/>',info:'<path d="M12 11v6M12 7h.01"/>'};
+function toast(msg,kind='info',title){let box=$('#toasts');if(!box){box=document.createElement('div');box.id='toasts';box.className='noprint';box.setAttribute('aria-live','polite');document.body.appendChild(box)}
+  const t=document.createElement('div');t.className='toast '+kind;
+  t.innerHTML=`<span class="ti"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">${TI[kind]||TI.info}</svg></span><div class="tb"><b>${esc(title||({ok:'Done',warn:'Heads up',bad:'Flagged',info:'X-Track'})[kind])}</b><span>${esc(msg)}</span></div><button class="tx" aria-label="Dismiss">×</button>`;
+  while(box.children.length>=4)box.firstChild.remove();box.appendChild(t);
+  let h,to=()=>{h=setTimeout(go2,kind==='bad'?6500:4200)};const go2=()=>{t.classList.add('out');setTimeout(()=>t.remove(),320)};
+  t.onmouseenter=()=>clearTimeout(h);t.onmouseleave=to;t.querySelector('.tx').onclick=go2;to()}
+function tell(msg){toast(msg,/not a valid|Could not|full|Only |Add at least|no team/.test(msg)?'warn':/loaded/.test(msg)?'ok':'info');return Promise.resolve()}
 async function delP(i){const p=S.projects[i];if(!p)return;
   if(!await ask('Delete project "'+(p.client||'Untitled project')+'" and all of its team data? This cannot be undone.','Delete project'))return;
   S.projects.splice(i,1);S.cur=null;save();render()}
@@ -290,40 +731,98 @@ async function delM(i){const m=S.members[i];if(!m)return;
   if(!await ask('Remove '+m.name+' and all of their clients, times and reviews?','Remove member'))return;
   S.members.splice(i,1);save();render()}
 function projectList(){const n=S.projects.length;
-  return `<div class="card"><div class="row"><div style="flex:2"><h2 style="margin:0">Projects</h2><span class="mu sm">Every project you create is listed here.</span></div>
-<div style="flex:0 0 auto;text-align:center"><div class="score">${n}</div><span class="sm mu">project${n==1?'':'s'} created</span></div>
-<div style="flex:0 0 auto"><button class="p" onclick="newProject()">Start a project</button></div>
-<div style="flex:0 0 auto"><button onclick="saveFile()">Save all to laptop</button></div></div></div>`+
+  return `<div class="pbar"><h2 style="margin:0">Projects</h2><div class="acts2"><button class="p" onclick="newProject()">Start a project</button>
+<details class="menu"><summary aria-label="More actions">More</summary><div class="pop"><button onclick="saveFile()">Save all to laptop</button><button onclick="$('#ldf').click()">Load a saved file</button></div></details></div></div>`+
   (n?S.projects.map((p,i)=>{const cl=p.members.reduce((a,m)=>a+m.ltd.length+m.sa.length,0);
     return `<div class="card"><div class="row"><div style="flex:2"><h3 style="margin:0">${esc(p.client||'Untitled project')}</h3>
-<div class="sm mu">Team Lead: ${esc(p.tl.name||'not set')}, ${p.members.length} team member${p.members.length==1?'':'s'}, ${cl} client${cl==1?'':'s'}, created ${esc(p.created||'')}</div></div>
-<div style="flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap"><button onclick="openP(${i})">Edit</button><button onclick="openR(${i})">Report</button><button class="dng" onclick="delP(${i})">Delete</button></div></div></div>`}).join('')
+<div class="sm mu">Team Lead: ${esc(p.tl.name||'not set')}, ${p.members.length} team member${p.members.length==1?'':'s'}, ${cl} client${cl==1?'':'s'}</div></div>
+<div style="flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap"><button class="p" onclick="openP(${i})">Open</button><button onclick="openR(${i})">Report</button></div></div></div>`}).join('')
    :`<div class="card mu">No projects yet. Choose Start a project to create your first one.</div>`)}
 function reportPick(){return S.projects.length?`<div class="card"><h2>Create report</h2><p class="mu" style="margin:0">Choose a project to review.</p></div>`+
   S.projects.map((p,i)=>`<div class="card"><div class="row"><div style="flex:2"><b>${esc(p.client||'Untitled project')}</b></div><div style="flex:0 0 auto"><button class="p" onclick="openR(${i})">View report</button></div></div></div>`).join('')
   :`<div class="card mu">No projects yet. Start a project first.<div class="mt"><button class="p" onclick="openList()">Go to projects</button></div></div>`}
 const MB=['Experian','Equifax','TransUnion'];
 const MBS={Experian:'EXP',Equifax:'EQF',TransUnion:'TU'};
-const mkL=id=>({id,dir:1,isNew:false,mb:[]}),mkSA=id=>({id,isNew:false,docs:[false,false,false,false,false],reason:'',note:'',dm:'auto',mb:[]});
+const mkDir=n=>({isNew:!!n,poa:false,poi:false,poaX:false,poiX:false,mbc:false,aml:false,rep:false});
+const mkL=id=>({id,dir:1,isNew:false,aml:false,risk:false,rep:false,reason:'',note:'',directors:[mkDir(false)]});
+const mkSA=id=>({id,isNew:false,docs:[false,false,false,false,false],reason:'',note:'',dm:'auto',mb:[]});
 const missN=x=>x.docs.slice(0,4).filter(d=>!d).length,reviewed=x=>x.docs.some(Boolean)||!!x.reason;
 const dedAuto=(m,x)=>{const n=missN(x);return !n||!reviewed(x)||/^Expired/.test(x.reason||'')?0:n*(+m.rate||1)};
-const dedOf=(m,x)=>{if(!missN(x)||!reviewed(x))return 0;return x.dm!=null&&x.dm!=='auto'?+x.dm:dedAuto(m,x)};
+const dedOf=(m,x)=>dedAuto(m,x);
 function mbMini(i,t,j,x){const a=x.mb||[],all=a.length===MB.length;
   return `<span class="mb">`+MB.map(n=>`<button class="${a.includes(n)?'sel':''}" title="${n}" aria-label="${n}" aria-pressed="${a.includes(n)}" onclick="toggleMb(${i},'${t}',${j},'${n}')">${MBS[n]}</button>`).join('')+`<button class="${all?'sel':''}" aria-pressed="${all}" onclick="toggleMb(${i},'${t}',${j},'all')">All</button></span>`}
+const chk=(a,k,on)=>`<input type="checkbox" aria-label="${k}" ${on?'checked':''} onchange="dset(${a},'${k}',this.checked)">`;
+function dirTable(m,i,j,x){if(!x.directors.length)return'<p class="sm mu">Enter the number of directors above.</p>';
+  const tri=(a,d,k)=>`<select aria-label="${k}" onchange="dtri(${a},'${k}',this.value)"><option value="">–</option><option value="ok" ${d[k]?'selected':''}>Done</option><option value="exp" ${d[k+'X']?'selected':''}>Expired</option></select>`;
+  return `<div class="tw"><table class="sat"><tr><th>Director</th><th>Type</th><th title="Proof of Address">POA</th><th title="Proof of Identity">POI</th><th>Multi bureau check</th><th>AML</th><th>Report</th></tr>`+
+  x.directors.map((d,n)=>{const a=`${i},${j},${n}`;
+    return `<tr><td><b>Director ${n+1}</b></td><td data-l="Type"><select onchange="dset(${a},'isNew',this.value==='new')"><option value="new" ${d.isNew?'selected':''}>New</option><option value="old" ${d.isNew?'':'selected'}>Existing</option></select></td>
+<td data-l="POA">${tri(a,d,'poa')}</td><td data-l="POI">${tri(a,d,'poi')}</td><td data-l="Multi bureau check">${d.isNew?chk(a,'mbc',d.mbc):'<span class="mu">n/a</span>'}</td><td data-l="AML">${chk(a,'aml',d.aml)}</td><td data-l="Report">${chk(a,'rep',d.rep)}</td></tr>`}).join('')+`</table></div>`+
+  (x.directors.some(d=>!d.isNew)?'<p class="note">Existing director: add the client report if the metadata has changed.</p>':'')}
+function dtri(i,j,n,k,v){const d=S.members[i].ltd[j].directors[n];d[k]=v==='ok';d[k+'X']=v==='exp';save();render()}
+function isDone(x){const r=ltdCheck(x);return !!(r.total&&r.done===r.total)}
+function ltdBar(m,i,n,inc){if(m.ltd.length<2)return'';
+  return `<div class="lbar noprint"><div class="seg" role="group" aria-label="Filter companies"><button class="${inc?'':'sel'}" aria-pressed="${!inc}" onclick="ltdF(${i},'')">All</button><button class="${inc?'sel':''}" aria-pressed="${inc}" onclick="ltdF(${i},'inc')">Incomplete</button></div><span class="sm mu">Showing ${n} of ${m.ltd.length}</span><span class="sp"></span><button onclick="ltdAll(${i},true)">Expand all</button><button onclick="ltdAll(${i},false)">Collapse all</button></div>`}
+function ltdF(i,v){S.members[i].ltdFilter=v;save();render()}
+function ltdAll(i,o){const m=S.members[i],inc=m.ltdFilter==='inc';m.ltd.forEach(x=>{if(!inc||!isDone(x))x.open=o});save();render()}
 function ltdTable(m,i){if(!m.ltd.length)return'';
-  return `<div class="tw"><table><tr><th>Client</th><th>Directors</th><th>Time range</th><th>New</th><th>Multi bureau check</th></tr>`+
-  m.ltd.map((x,j)=>`<tr><td><b>${esc(x.id)}</b></td><td><input class="num" type="number" min="0" value="${x.dir}" onchange="S.members[${i}].ltd[${j}].dir=+this.value;save();render()"></td><td class="sm">${x.dir*6}–${x.dir*10} min</td><td><input type="checkbox" aria-label="New client" ${x.isNew?'checked':''} onchange="S.members[${i}].ltd[${j}].isNew=this.checked;save()"></td><td>${mbMini(i,'ltd',j,x)}</td></tr>`).join('')+`</table></div>`}
+  const inc=m.ltdFilter==='inc',n=m.ltd.filter(x=>!inc||!isDone(x)).length;
+  return ltdBar(m,i,n,inc)+(n?m.ltd.map((x,j)=>{if(inc&&isDone(x))return'';const r=ltdCheck(x),ded=ltdDed(m,x),op=x.open===undefined?m.ltd.length<=1:x.open;
+    return `<details class="ltdc" ${op?'open':''} ontoggle="S.members[${i}].ltd[${j}].open=this.open;save()"><summary><b>${esc(x.id)}</b><span class="pill">Limited company</span><span class="sm mu">${x.dir} director${x.dir==1?'':'s'}, ${r.done} of ${r.total} checks</span>${r.total&&r.done===r.total?'<span class="pill ok">Done</span>':''}<span class="chev" aria-hidden="true">▾</span></summary><div class="lbody"><div class="lh">
+<label class="inl">Directors<input class="num" type="number" min="0" max="50" value="${x.dir}" aria-label="Number of directors for ${esc(x.id)}" onchange="setDir(${i},${j},this.value)"></label>
+<span class="sm mu" title="Directors ${x.dir*6}–${x.dir*10}, AML screening 2–3${x.isNew?', creating a new client 5–30':''}">Expected ${x.dir*6+2+(x.isNew?5:0)}–${x.dir*10+3+(x.isNew?30:0)} min</span>
+<div class="seg" role="group" aria-label="Client type"><button class="${x.isNew?'sel':''}" aria-pressed="${!!x.isNew}" onclick="setNew(${i},${j},true)">New client</button><button class="${x.isNew?'':'sel'}" aria-pressed="${!x.isNew}" onclick="setNew(${i},${j},false)">Existing client</button></div></div>
+${needBox(x)}
+<div class="lt">Company checks</div>
+<div class="ckg">${[['Extensive AML check','aml'],['Risk assessment','risk'],['Client report','rep',1]].map(([l,k,o])=>`<label class="ck${x[k]?' on':''}"><input type="checkbox" ${x[k]?'checked':''} onchange="lset(${i},${j},'${k}',this.checked)"><span>${l}</span>${o?'<em>optional</em>':''}</label>`).join('')}</div>
+<div class="lt">Directors (${x.dir})</div>
+${dirTable(m,i,j,x)}
+${r.miss?`<div class="row rs"><div><label>Reason for missing checks</label><select onchange="lset(${i},${j},'reason',this.value)"><option value="">Choose reason</option>${REASONS.map(q=>`<option ${x.reason===q?'selected':''}>${q}</option>`).join('')}</select></div>${x.reason==='Other'?`<div><label>Note</label><input value="${esc(x.note)}" onchange="S.members[${i}].ltd[${j}].note=this.value;save()"></div>`:''}</div>`:''}
+${r.any?`<p class="sm mu" style="margin:8px 0 0">${r.miss?`${r.miss} missing check${r.miss==1?'':'s'}, deduction <b>−${ded}%</b>.`:'All reviewed checks are complete.'}</p>`:''}</div></details>`}).join(''):'<div class="card mu emp">Every limited company is complete. Nice work.</div>')}
+const mbTxt=x=>x.isNew?(x.mbc?'Done':'Not done'):'n/a (existing client)';
+function allMb(i,v){S.members[i].sa.forEach(x=>{if(x.isNew)x.mbc=v});save();render()}
 function allDoc(i,k,v){S.members[i].sa.forEach(x=>x.docs[k]=v);save();render()}
 function saTable(m,i){if(!m.sa.length)return'';
-  const n=m.sa.length,T=DOCS,H=['AML','POA','POI','Risk','Report'],tot=m.sa.reduce((a,x)=>a+dedOf(m,x),0),pend=m.sa.filter(x=>!reviewed(x)).length;
-  return `<div class="row sm" style="align-items:center;margin-bottom:6px"><div style="flex:0 0 200px"><label>Auto deduction per missing check</label><select onchange="mset(${i},'rate',+this.value)">${[1,2].map(v=>`<option value="${v}" ${(m.rate||1)==v?'selected':''}>${v}%</option>`).join('')}</select></div>
-<div class="mu" style="flex:3 1 260px">${n} client${n==1?'':'s'}, ${pend} not reviewed yet. Deduction so far: <b>−${tot}%</b>. Tick the documents received. Each missing compulsory document is deducted automatically unless the reason is Expired.</div></div>
-<div class="tw"><table class="sat"><tr><th>Client</th>${H.map((h,k)=>`<th title="${T[k]}"><label><input type="checkbox" ${m.sa.every(x=>x.docs[k])?'checked':''} onchange="allDoc(${i},${k},this.checked)"> ${h}</label></th>`).join('')}<th>Multi bureau check</th><th>Issue</th><th>Deduct</th></tr>`+
+  const n=m.sa.length,T=DOCS,H=['AML','POA','POI','Risk','Report'],tot=m.sa.reduce((a,x)=>a+dedOf(m,x),0),pend=m.sa.filter(x=>!reviewed(x)).length,nw=m.sa.filter(x=>x.isNew);
+  return `<p class="sm mu" style="margin:0 0 6px">${n} client${n==1?'':'s'}, ${pend} not reviewed yet. Deduction so far: <b>−${tot}%</b>.</p>
+<div class="tw"><table class="sat"><tr><th>Client</th><th>Type</th>${H.map((h,k)=>`<th title="${T[k]}"><label><input type="checkbox" ${m.sa.every(x=>x.docs[k])?'checked':''} onchange="allDoc(${i},${k},this.checked)"> ${h}</label></th>`).join('')}<th title="Multi bureau check (new clients only)"><label><input type="checkbox" ${nw.length&&nw.every(x=>x.mbc)?'checked':''} ${nw.length?'':'disabled'} onchange="allMb(${i},this.checked)"> Multi bureau</label></th><th>Issue</th></tr>`+
   m.sa.map((x,j)=>{const need=missN(x)&&reviewed(x);
-    return `<tr><td><b>${esc(x.id)}</b></td>${x.docs.map((v,k)=>`<td><input type="checkbox" aria-label="${T[k]}" ${v?'checked':''} onchange="S.members[${i}].sa[${j}].docs[${k}]=this.checked;save();render()"></td>`).join('')}<td>${mbMini(i,'sa',j,x)}</td>
-<td>${need?`<select onchange="S.members[${i}].sa[${j}].reason=this.value;save();render()"><option value="">Choose reason</option>${REASONS.map(r=>`<option ${x.reason===r?'selected':''}>${r}</option>`).join('')}</select>${x.reason==='Other'?`<input placeholder="Note" value="${esc(x.note)}" onchange="S.members[${i}].sa[${j}].note=this.value;save()">`:''}`:'<span class="mu">–</span>'}</td>
-<td>${need?`<select onchange="S.members[${i}].sa[${j}].dm=this.value;save();render()"><option value="auto">Auto (−${dedAuto(m,x)}%)</option>${[0,1,2].map(v=>`<option value="${v}" ${x.dm==String(v)?'selected':''}>−${v}%</option>`).join('')}</select>`:'<span class="mu">–</span>'}</td></tr>`}).join('')+`</table></div>`}
-function repair(){S.projects.forEach(p=>p.members.forEach(m=>{m.sa=sync(m.sa||[],expand(m.saIds||''),mkSA);m.ltd=sync(m.ltd||[],expand(m.ltdIds||''),mkL);m.imgs=m.imgs||[]}))}
+    return `<tr><td><b>${esc(x.id)}</b></td><td data-l="Type"><select aria-label="Client type for ${esc(x.id)}" onchange="S.members[${i}].sa[${j}].isNew=this.value==='new';save();render()"><option value="new" ${x.isNew?'selected':''}>New</option><option value="old" ${x.isNew?'':'selected'}>Existing</option></select></td>${x.docs.map((v,k)=>`<td data-l="${H[k]}"><input type="checkbox" aria-label="${T[k]}" ${v?'checked':''} onchange="S.members[${i}].sa[${j}].docs[${k}]=this.checked;save();render()"></td>`).join('')}<td data-l="Multi bureau check">${x.isNew?`<input type="checkbox" aria-label="Multi bureau check for ${esc(x.id)}" ${x.mbc?'checked':''} onchange="S.members[${i}].sa[${j}].mbc=this.checked;save();render()">`:'<span class="mu">n/a</span>'}</td>
+<td data-l="Issue">${need?`<select onchange="S.members[${i}].sa[${j}].reason=this.value;save();render()"><option value="">Choose reason</option>${REASONS.map(r=>`<option ${x.reason===r?'selected':''}>${r}</option>`).join('')}</select>${x.reason==='Other'?`<input placeholder="Note" value="${esc(x.note)}" onchange="S.members[${i}].sa[${j}].note=this.value;save()">`:''}`:'<span class="mu">–</span>'}</td></tr>`}).join('')+`</table></div><p class="sm mu" style="margin:8px 4px 0">Multi bureau check is only needed for new clients.</p>`}
+function fixL(x){x.dir=Math.max(0,Math.min(50,Math.floor(+x.dir||0)));x.directors=Array.isArray(x.directors)?x.directors:[];
+  while(x.directors.length<x.dir)x.directors.push(mkDir(x.isNew));x.directors.length=x.dir;
+  x.aml=!!x.aml;x.risk=!!x.risk;x.rep=!!x.rep;x.reason=x.reason||'';x.note=x.note||''}
+function dirCheck(d){const miss=[],exp=[];let any=!!d.rep;
+  (d.isNew?[['Proof of Address','poa','poaX'],['Proof of Identity','poi','poiX'],['Multi bureau check','mbc'],['Extensive AML check','aml']]
+          :[['Proof of Address','poa','poaX'],['Proof of Identity','poi','poiX'],['Extensive AML check','aml']])
+  .forEach(([l,k,xk])=>{if(d[k])any=true;if(xk&&d[xk]){exp.push(l);any=true}else if(!d[k])miss.push(l)});
+  return {isNew:!!d.isNew,miss,exp,any}}
+function ltdCheck(x){const coRev=!!(x.aml||x.risk||x.rep);
+  const coMiss=[['Extensive AML check','aml'],['Risk assessment','risk']].filter(([,k])=>!x[k]).map(a=>a[0]);
+  const ds=(x.directors||[]).map((d,n)=>({...dirCheck(d),n:n+1}));
+  let miss=coRev?coMiss.length:0;ds.forEach(r=>{if(r.any)miss+=r.miss.length});
+  const total=2+ds.reduce((a,r)=>a+(r.isNew?4:3),0),done=total-coMiss.length-ds.reduce((a,r)=>a+r.miss.length,0);
+  return {coRev,coMiss,ds,miss,total,done,any:coRev||ds.some(r=>r.any)}}
+function ltdDed(m,x){const r=ltdCheck(x);return !r.miss||/^Expired/.test(x.reason||'')?0:r.miss*(+m.rate||1)}
+function ltdRows(m){const rev=[],un=[];m.ltd.forEach(x=>(ltdCheck(x).any?rev:un).push(x));
+  return rev.map(x=>ltdRow(m,x)).join('')+(un.length?`<tr><td>Not reviewed yet (${un.length})</td><td>${un.map(x=>esc(x.id)).join(', ')}</td></tr>`:'')}
+function mbRow(m){const nw=m.sa.filter(x=>x.isNew);if(!nw.length)return m.sa.length?'<tr><td>Multi bureau check</td><td>Not needed, all existing clients</td></tr>':'';
+  const no=nw.filter(x=>!x.mbc);return `<tr><td>Multi bureau check</td><td>${nw.length-no.length} of ${nw.length} new client${nw.length==1?'':'s'} done${no.length?`. Not done: ${no.map(x=>esc(x.id)).join(', ')}`:''}</td></tr>`}
+function ltdRow(m,x){const r=ltdCheck(x),p=[],t=`${esc(x.id)} (${x.dir} director${x.dir==1?'':'s'})`;
+  if(!r.any)return `<tr><td>${t}</td><td>Not reviewed yet</td></tr>`;
+  if(r.coRev&&r.coMiss.length)p.push('Company missing: '+r.coMiss.join(', '));
+  r.ds.forEach(d=>{const h=`Director ${d.n}`;
+    if(d.any&&d.miss.length)p.push(`${h} missing: ${d.miss.join(', ')}`);if(d.exp.length)p.push(`${h} expired: ${d.exp.join(', ')}`)});
+  const dd=ltdDed(m,x);
+  return `<tr><td>${t}</td><td>${p.join('<br>')||'All checks complete'}${x.reason?'<br>Reason: '+esc(x.reason)+(x.note?': '+esc(x.note):''):''}${dd?'<br>Deduction '+dd+'%':''}</td></tr>`}
+function lset(i,j,k,v){S.members[i].ltd[j][k]=v;save();render()}
+function dset(i,j,n,k,v){const d=S.members[i].ltd[j].directors[n];d[k]=v;
+  if(v&&k==='poa')d.poaX=false;if(v&&k==='poaX')d.poa=false;if(v&&k==='poi')d.poiX=false;if(v&&k==='poiX')d.poi=false;save();render()}
+async function setDir(i,j,v){const x=S.members[i].ltd[j],n=Math.max(0,Math.min(50,Math.floor(+v||0)));
+  if(n<x.directors.length){const gone=x.directors.slice(n);
+    if(gone.some(d=>dirCheck(d).any)&&!await ask('Reduce to '+n+' director'+(n==1?'':'s')+'? The details entered for the removed director'+(gone.length>1?'s':'')+' will be deleted.','Remove directors')){render();return}}
+  x.dir=n;fixL(x);save();render()}
+function repair(){S.projects.forEach(p=>p.members.forEach(m=>{m.sa=sync(m.sa||[],expand(m.saIds||''),mkSA);m.ltd=sync(m.ltd||[],expand(m.ltdIds||''),mkL);m.ltd.forEach(fixL);m.imgs=m.imgs||[]}))}
 function toggleMb(i,t,j,n){const x=S.members[i][t][j];let a=x.mb||[];
   a=n==='all'?(a.length===MB.length?[]:[...MB]):(a.includes(n)?a.filter(v=>v!==n):[...a,n]);x.mb=a;save();render()}
 function reviewBox(m,i){const im=m.imgs||[];
@@ -340,14 +839,17 @@ async function addImgs(i,el){const m=S.members[i];m.imgs=m.imgs||[];const room=5
   for(const f of fs.slice(0,room))try{m.imgs.push({src:await shrink(f),cap:''})}catch(e){tell('Could not read '+f.name)}
   save();render()}
 function delImg(i,j){S.members[i].imgs.splice(j,1);save();render()}
-function addM(){const n=$('#nm').value.trim();if(!n)return;S.members.push({name:n,role:'Compliance Analyst',ltdIds:'',saIds:'',ltd:[],sa:[],time:'',delay:{reason:'',dec:''},why:'',how:'',imp:'',line:'',hr:'',rev:'',by:'Team Lead',imgs:[]});save();render()}
-function mset(i,k,v,quiet){S.members[i][k]=v;save();if(!quiet)render()}
+function addM(){const n=$('#nm').value.trim();if(!n)return;S.members.forEach(m=>m.open=false);S.members.push({open:true,name:n,role:'Compliance Analyst',ltdIds:'',saIds:'',ltd:[],sa:[],time:'',delay:{reason:'',dec:''},why:'',how:'',imp:'',line:'',hr:'',rev:'',by:'Team Lead',imgs:[]});save();render()}
+function mset(i,k,v,quiet){const m=S.members[i];let was;if(k==='time'){try{was=calc0(m).status}catch(e){}}
+  m[k]=v;save();if(k==='time'){try{const r=calc0(m);if(r.status==='flag'&&was!=='flag')toast((m.name||'This member')+': time is under the minimum of '+r.min+' min, so it is flagged for review.','bad','Flagged for review')}catch(e){}}
+  if(!quiet)render()}
 function setIds(i,type,v){const m=S.members[i],ids=expand(v);m[type+'Ids']=v;
   if(type==='ltd')m.ltd=sync(m.ltd,ids,mkL);
   else m.sa=sync(m.sa,ids,mkSA);save();render()}
-function saveFile(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({projects:S.projects},null,1)],{type:'application/json'}));a.download='x-track-projects.json';a.click()}
+function saveFile(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({projects:S.projects},null,1)],{type:'application/json'}));a.download='x-track-projects.json';a.click();toast('Project file saved to your downloads.','ok','Saved')}
 function loadFile(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=migrate(JSON.parse(r.result));if(!Array.isArray(d.projects))throw 0;
   d.projects.forEach(p=>S.projects.push({...newP(),...p,id:uid()}));repair();save();tell(d.projects.length+' project(s) loaded.');openList()}catch(e){tell('That file is not a valid X-Track project file.')}};r.readAsText(f);el.value=''}
+function clk(){const e=$('#clk');if(e)e.textContent=new Date().toLocaleString('en-IN',{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'}).replace(/,/g,'')}
 function applyTheme(){document.documentElement.dataset.theme=S.theme;document.documentElement.dataset.accent=S.accent;$('#tg').textContent=S.theme==='dark'?'Light':'Dark';ACOL=getComputedStyle(document.documentElement).getPropertyValue('--ac').trim()}
 function toggleTheme(){S.theme=S.theme==='dark'?'light':'dark';save();applyTheme()}
 let hist=[],busy=0;
@@ -355,18 +857,57 @@ function go(v){if(v!==view){hist.push(view);nav(v)}}
 function back(){nav(hist.pop()||'home')}
 function nav(v){if(busy||v===view)return;
   if(!window.anime||matchMedia('(prefers-reduced-motion:reduce)').matches){view=v;scrollTo(0,0);render(true);return}
-  busy=1;anime({targets:'#wipe',translateX:['-101%','0%'],duration:220,easing:'easeInQuad',complete:()=>{view=v;scrollTo(0,0);render(true);
-    anime({targets:'#wipe',translateX:['0%','101%'],duration:260,easing:'easeOutQuad',complete:()=>busy=0})}})}
+  busy=1;anime({targets:'#app',opacity:[1,0],duration:130,easing:'easeOutQuad',complete:()=>{view=v;scrollTo(0,0);render(true);
+    anime({targets:'#app',opacity:[0,1],duration:240,easing:'easeOutQuad',complete:()=>busy=0})}})}
 function demo(){const o={n:0},c={duration:1800,loop:true,direction:'alternate',endDelay:1600,easing:'easeInOutQuad'};
   anime({...c,targets:o,n:84,round:1,update:()=>{const e=$('#rn');if(e)e.textContent=o.n+'%'}});
   anime({...c,targets:'#rf',strokeDashoffset:[314,50]});
   document.querySelectorAll('.mrow .bar i').forEach((e,k)=>anime({...c,targets:e,width:['0%',e.dataset.w+'%'],delay:k*150}))}
+/* ---------- dashboard ---------- */
+function mStat(m){try{return calc0(m)}catch(e){return{score:null,status:'wait'}}}
+function pStat(p){const ms=p.members.map(m=>({m,c:mStat(m)})),sc=ms.filter(o=>o.c.score!=null);
+  return{ms,n:ms.length,rated:sc.length,avg:sc.length?Math.round(sc.reduce((a,o)=>a+o.c.score,0)/sc.length):null,flags:ms.filter(o=>o.c.status==='flag').length,low:sc.filter(o=>o.c.score<70).length}}
+function snap(){const d=new Date().toISOString().slice(0,10);S.projects.forEach(p=>{const st=pStat(p);if(st.avg==null)return;const h=p.hist||(p.hist=[]),l=h[h.length-1];if(l&&l.d===d)l.s=st.avg;else h.push({d,s:st.avg});if(h.length>60)h.shift()})}
+function spark(h,w=160,hh=44){if(!h||h.length<2)return'';const pt=h.map((v,i)=>(i/(h.length-1)*(w-4)+2).toFixed(1)+','+(hh-3-v.s/100*(hh-6)).toFixed(1)).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${hh}" preserveAspectRatio="none" aria-label="Score trend"><polygon class="sa" points="2,${hh} ${pt} ${w-2},${hh}"/><polyline points="${pt}"/></svg>`}
+const ini=n=>(n||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+function dOpen(i){S.cur=i;save();go('project')}
+function dash(){const st=S.projects.map((p,i)=>({p,i,s:pStat(p)}));
+  if(!st.length)return `<div class="card mu">No projects yet. Create one to see your dashboard.<div style="margin-top:14px"><button class="p" onclick="sbNew()">Start a project</button></div></div>`;
+  const rated=st.filter(o=>o.s.avg!=null),avg=rated.length?Math.round(rated.reduce((a,o)=>a+o.s.avg,0)/rated.length):null,tm=st.reduce((a,o)=>a+o.s.n,0),fl=st.reduce((a,o)=>a+o.s.flags,0),b=avg!=null?band(avg):null;
+  const by={};st.forEach(o=>(o.p.hist||[]).forEach(v=>(by[v.d]=by[v.d]||[]).push(v.s)));
+  const all=Object.keys(by).sort().map(d=>({d,s:Math.round(by[d].reduce((a,v)=>a+v,0)/by[d].length)}));
+  const att=[];st.forEach(o=>o.s.ms.forEach(x=>{if(x.c.status==='flag')att.push({o,x,t:'Flagged for review',k:'wa'});else if(x.c.score!=null&&x.c.score<70)att.push({o,x,t:x.c.score+'% '+band(x.c.score)[0],k:band(x.c.score)[1]})}));
+  const fd=d=>new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+  return `<div class="pbar"><h2 style="margin:0">Dashboard</h2><span class="sm mu">${st.length} project${st.length==1?'':'s'}</span></div>
+<div class="kpis"><div class="card kpi"><small>Average score</small><b>${avg!=null?avg+'%':'–'}</b>${b?`<span class="pill ${b[1]}">${b[0]}</span>`:'<span class="sm mu">No scores yet</span>'}</div>
+<div class="card kpi"><small>Projects</small><b>${st.length}</b><span class="sm mu">${rated.length} with scores</span></div>
+<div class="card kpi"><small>Team members</small><b>${tm}</b><span class="sm mu">across all projects</span></div>
+<div class="card kpi"><small>Flags</small><b style="color:${fl?'var(--er)':'var(--ok)'}">${fl}</b><span class="sm mu">${fl?'need review':'all clear'}</span></div></div>
+<div class="card"><div class="row" style="align-items:center"><h3 style="margin:0;flex:1">Score trend</h3><span class="sm mu" style="flex:0 0 auto">${all.length>1?fd(all[0].d)+' to '+fd(all[all.length-1].d):''}</span></div>
+${all.length>1?`<div class="bigtrend">${spark(all,600,150)}<i style="top:0">100</i><i style="top:50%">50</i><i style="bottom:0">0</i></div>`:'<p class="sm mu" style="margin:10px 0 0">The trend line appears once scores have been recorded on two different days. Today\'s score is saved automatically.</p>'}</div>
+${att.length?`<div class="card"><h3>Needs attention</h3><div class="alist">${att.map(a=>`<div class="arow"><span class="av">${esc(ini(a.x.m.name))}</span><div class="who"><b>${esc(a.x.m.name||'Unnamed member')}</b><span class="sm mu">${esc(a.o.p.client||'Untitled project')}</span></div><span class="pill ${a.k}">${esc(a.t)}</span><button onclick="dOpen(${a.o.i})">Open</button></div>`).join('')}</div></div>`:''}
+<div class="dgrid">${st.map(({p,i,s})=>{const pb=s.avg!=null?band(s.avg):null;
+  return `<div class="card dp"><div class="row" style="align-items:start;gap:8px"><div style="flex:1;min-width:0"><h3 style="margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.client||'Untitled project')}</h3><span class="sm mu">Lead: ${esc(p.tl.name||'not set')}</span></div>${s.flags?`<span class="pill wa" style="flex:0 0 auto">${s.flags} flag${s.flags>1?'s':''}</span>`:''}</div>
+<div class="dscore"><div><div class="score">${s.avg!=null?s.avg+'%':'–'}</div>${pb?`<span class="pill ${pb[1]}">${pb[0]}</span>`:'<span class="sm mu">No score yet</span>'}</div><div class="dsp">${spark(p.hist)||'<span class="sm mu">Trend soon</span>'}</div></div>
+${s.ms.slice(0,4).map(x=>`<div class="mrow"><span class="av">${esc(ini(x.m.name))}</span><div><b>${esc(x.m.name||'Unnamed')}</b><div class="bar"><i style="width:${x.c.score!=null?x.c.score:0}%"></i></div></div><em>${x.c.score!=null?x.c.score+'%':'–'}</em></div>`).join('')}
+${s.n>4?`<p class="sm mu" style="margin:8px 0 0">+ ${s.n-4} more</p>`:''}${!s.n?'<p class="sm mu" style="margin:8px 0 0">No team members yet.</p>':''}
+<div class="acts2" style="margin-top:14px"><button class="p" onclick="dOpen(${i})">Open</button><button onclick="openR(${i})">Report</button></div></div>`}).join('')}</div>`}
+function sbHTML(){const n=S.projects.length;
+  const items=n?S.projects.map((p,i)=>{const cl=p.members.reduce((a,m)=>a+m.ltd.length+m.sa.length,0);
+    return `<button class="sbi${i===S.cur&&view!=='dash'?' on':''}" onclick="sbOpen(${i})"><span class="sbic">${ic('folder',16)}</span><span class="sbt"><b>${esc(p.client||'Untitled project')}</b><small>${p.members.length} member${p.members.length==1?'':'s'} · ${cl} client${cl==1?'':'s'}</small></span></button>`}).join('')
+   :'<p class="sbe">No projects yet.<br>Press + to start one.</p>';
+  return `<aside class="sb noprint" aria-label="Projects"><div class="sbh"><span>Projects</span><button class="sbn" onclick="sbNew()" aria-label="New project" title="New project">+</button></div><div class="sbl">${items}</div>
+<div class="sbf"><button onclick="$('#ldf').click()">Open file</button><button onclick="saveFile()">Save all</button></div></aside>`}
+function refreshSb(){const e=document.querySelector('.sb');if(e&&view!=='home')e.outerHTML=sbHTML()}
+function sbOpen(i){if(view==='report')openR(i);else{view='project';openP(i)}}
+function sbNew(){view='project';newProject()}
 function render(anim){
-  const f={home,project,report}[view];$('#app').innerHTML=f();document.body.classList.toggle('home',view==='home');$('#bk').hidden=view==='home';
+  const f={home,project,report,dash}[view];$('#app').innerHTML=view==='home'?f():'<div class="shell">'+sbHTML()+'<div class="pane">'+f()+'</div></div>';document.body.classList.toggle('home',view==='home');$('#nvp').classList.toggle('on',view==='project');$('#nvr').classList.toggle('on',view==='report');$('#nvd').classList.toggle('on',view==='dash');document.querySelectorAll('#dock [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
   if(window.anime){
     if(view==='home'){demo();startDraw('.trend polyline',2200,0)}
     if(view==='home')anime({targets:'.reveal',opacity:[0,1],translateY:[18,0],duration:600,delay:anime.stagger(90),easing:'easeOutCubic'});
-    else if(anim)anime({targets:'#app>.card',opacity:[0,1],translateX:[16,0],duration:350,delay:anime.stagger(40),easing:'easeOutQuad'});
+    else if(anim)anime({targets:'#app .pane>.card',opacity:[0,1],translateX:[16,0],duration:350,delay:anime.stagger(40),easing:'easeOutQuad'});
     document.querySelectorAll('.count').forEach(e=>{const v=+e.dataset.v;if(!v)return;const o={n:0};anime({targets:o,n:v,round:1,duration:900,easing:'easeOutExpo',update:()=>e.textContent=o.n+'%'})});
     document.querySelectorAll('.bar i').forEach(e=>anime({targets:e,width:['0%',e.style.width],duration:900,easing:'easeOutQuad'}));
   }}
@@ -403,24 +944,25 @@ const SC={
     for(let i=0;i<st.length;i++)for(let j=i+1;j<st.length;j++){const a=st[i],b=st[j],d=Math.hypot(a.x-b.x,a.y-b.y);
       if(d<120){cx.globalAlpha=(1-d/120)*.3;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}}}}
 };
-function setScene(){const k=SC[S.bg]?S.bg:'warp';sc=SC[k];$('#sc').value=k;document.body.dataset.sc=k;sizeBg()}
+function setScene(){const k=SC[S.bg]?S.bg:'waves';sc=SC[k];$('#sc').value=k;document.body.dataset.sc=k;sizeBg()}
 function sizeBg(){W=cv.width=innerWidth;H=cv.height=innerHeight;sc.init();if(rm)sc.draw()}
-function tick(){requestAnimationFrame(tick);T+=.016;sc.draw()}
+function tick(){requestAnimationFrame(tick);T+=.016;if(view==='home')sc.draw()}
 addEventListener('resize',()=>sc&&sizeBg());
 document.addEventListener('mouseleave',()=>{mx=my=-999});
 addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;
   const r=document.documentElement.style;r.setProperty('--mx',mx+'px');r.setProperty('--my',my+'px');
-  const t=$('#tilt');if(t)t.style.transform=`perspective(1100px) rotateY(${(mx/innerWidth-.5)*16}deg) rotateX(${-(my/innerHeight-.5)*12}deg)`});
+  const t=$('#tilt');if(t)t.style.transform=`perspective(1100px) rotateY(${(mx/innerWidth-.5)*7}deg) rotateX(${-(my/innerHeight-.5)*5}deg)`});
 addEventListener('keydown',e=>{if(e.key==='Escape'&&view!=='home'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))back()});
 let mag=null;
 document.addEventListener('pointermove',e=>{const b=e.target.closest&&e.target.closest('button.big');
   if(mag&&mag!==b){mag.style.translate='';mag=null}
-  if(b&&!rm&&matchMedia('(hover:hover)').matches){const r=b.getBoundingClientRect();
+  if(false&&b){const r=b.getBoundingClientRect();
     b.style.translate=`${(e.clientX-r.left-r.width/2)*.18}px ${(e.clientY-r.top-r.height/2)*.28}px`;mag=b}});
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(!b||rm)return;
   const r=b.getBoundingClientRect(),i=document.createElement('i');i.className='rip';
   i.style.left=e.clientX-r.left+'px';i.style.top=e.clientY-r.top+'px';b.appendChild(i);setTimeout(()=>i.remove(),600)});
-repair();save();applyTheme();setScene();render(true);startDraw('.lines path',2800,140);
+document.addEventListener('click',e=>{document.querySelectorAll('details.menu[open]').forEach(d=>{if(!d.contains(e.target)||e.target.closest('.pop>button'))d.open=false})});
+buildDock();clk();setInterval(clk,20000);repair();save();applyTheme();setScene();render(true);startDraw('.lines path',2800,140);
 if(!rm)tick();
 </script>
 </body>
