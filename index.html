@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>X-Track For ReTRRAC</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Segoe UI,Arial,sans-serif' font-weight='800' font-size='30' letter-spacing='-1' fill='white'%3EXT%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%230b1f4d'/%3E%3Cg%20transform='translate%285.06%2016.56%29%20scale%28.147%29'%3E%3Cpath%20fill='%23fff'%20d='M20%2020H75L200%20190H145Z'/%3E%3Cpath%20fill='%23fff'%20d='M145%2020H200L110%20142.4L82.5%20105Z'/%3E%3Cpath%20fill='%23ff5a4e'%20d='M52.3%20146H107.4L75%20190H20Z'/%3E%3Cpath%20fill='%23fff'%20d='M216%2020H346V62H303V190H259V62H216Z'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/animejs@4.0.2/dist/bundles/anime.umd.min.js"></script>
 <script>window.A4=window.anime;window.anime=undefined</script>
@@ -166,6 +166,12 @@ button.dng{color:var(--er)}button.dng:hover{color:var(--er);border-color:var(--e
 .seg button{border:0;border-radius:0;padding:6px 16px;min-height:34px}
 .note{margin:8px 0 0;padding:8px 10px;border-left:3px solid var(--ac);border-radius:0 8px 8px 0;background:var(--ac2);font-size:13px}
 .ltdc .rs{margin-top:10px}
+.rsn{display:flex;gap:6px;flex-wrap:wrap;align-items:baseline;margin-top:4px;font-size:12px;color:var(--wa)}
+.rsn button{border:0;background:none;padding:0;min-height:0;font-size:12px;color:var(--ac);text-decoration:underline;border-radius:0}
+.sat select.nc{border-color:var(--wa);color:var(--wa)}.sat select.un{color:var(--mu);border-style:dashed}
+.dn{display:flex;flex-direction:column;gap:6px;align-items:flex-start}.dn .xb{min-height:30px;font-size:12px;text-align:left;white-space:normal}
+tr.doff td:not(:first-child){opacity:.4;pointer-events:none}
+.mbox .fld{margin:0 0 12px}
 @media(pointer:coarse){.ck input{width:22px;height:22px}}
 @media(max-width:640px){.ltdc{padding:10px}.dir{padding:8px}.seg{display:flex;width:100%}.seg button{flex:1}.xb{padding:4px 8px}}
 @media print{.ltdc,.dir{break-inside:avoid}}
@@ -289,6 +295,11 @@ label{font-weight:500;font-size:12.5px}
 /* landing */
 .stage{min-height:calc(100vh - 170px);gap:48px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 5px;border-radius:99px;background:var(--glass);border:.5px solid var(--bd);backdrop-filter:blur(20px);font-size:13px;font-weight:600}
+:root{--xtb:#0b1f4d;--xtr:#ff5a4e}[data-theme=dark]{--xtb:#3b5bdb;--xtr:#ff8a7a}
+.xt-b{fill:var(--xtb)}.xt-r{fill:var(--xtr)}.xt-w{fill:#fff}
+.xtl{line-height:0;margin:0 0 6px}.xtl svg{display:block;width:clamp(200px,26vw,290px);height:auto;overflow:visible}
+.tagl{margin:0 0 4px;font-size:13px;font-weight:600;color:var(--mu)}
+.logo .xtm{display:block;height:24px;width:auto;flex:0 0 auto}
 .stage h1{font-size:clamp(42px,6.2vw,72px);font-weight:750;letter-spacing:-.04em;line-height:1.02;max-width:12ch;margin:18px 0 16px}
 .gt{background:linear-gradient(90deg,var(--ac),#bf5af2 62%,#ff9f0a);-webkit-background-clip:text;background-clip:text;color:transparent}
 .copy p{font-size:19px;line-height:1.45;max-width:44ch}
@@ -522,12 +533,51 @@ table.sat{overflow:visible!important}
  .cdb{break-inside:avoid;padding:8px 0;border-bottom:.5px solid #ddd}
  .cd ul{list-style:none;margin:4px 0 0;padding:0}.cd li{margin:3px 0}
 }
+
+/* dock on the left, vertical; navbar items on the right; content centred */
+.dock{left:10px;right:auto;bottom:auto;top:50%;translate:0 -50%;flex-direction:column;align-items:flex-start;gap:8px;padding:11px 7px 11px 10px}
+.dock .app{transform-origin:left}
+.dock button:hover .app{transform:scale(1.3) translateX(2px)}
+.dock button:hover+button .app,.dock button:has(+button:hover) .app{transform:scale(1.12)}
+.dock em{bottom:auto;right:auto;left:calc(100% + 16px);top:50%;translate:0 -50%}
+.dock button.on::before{bottom:auto;right:-9px;left:auto;top:50%;margin:-2px 0 0}
+.dsep{align-self:stretch;width:auto;height:1px;margin:2px 4px}
+header{justify-content:space-between}
+header .tools{margin-left:auto}
+main{padding-left:92px!important;padding-right:92px!important}
+@media(max-width:640px){.dock{display:none}main{padding-left:12px!important;padding-right:12px!important}header{height:auto;min-height:34px;flex-wrap:wrap;padding:4px 10px;row-gap:2px}header .tools{display:flex;width:100%;margin-left:0;flex-wrap:wrap;justify-content:space-between}}
+@media print{main{padding-left:0!important;padding-right:0!important}}
+/* tasks tree + individual PDF button */
+.pdfb{padding:4px 12px!important;font-size:12.5px;font-weight:600;border-radius:99px!important;border:.5px solid var(--bd)!important;background:var(--ac2)!important;color:var(--ac)!important;white-space:nowrap;min-height:0}
+.pdfb:disabled{opacity:.4;cursor:not-allowed}
+.tree .tr-root{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 0}
+.tr-n{padding:6px 14px;border-radius:12px;font-weight:700;color:#fff;background:linear-gradient(135deg,#5ac8fa,var(--ac));box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.tr-br{margin:0 0 0 22px;border-left:2px solid var(--bd);padding-bottom:2px}
+.tr-g{position:relative;margin:0 0 0 24px;padding-top:12px}
+.tr-g::before{content:"";position:absolute;left:-24px;top:30px;width:22px;border-top:2px solid var(--bd)}
+.tr-g>summary{display:flex;align-items:center;gap:8px;flex-wrap:wrap;cursor:pointer;list-style:none;padding:6px 12px;border-radius:12px;border:.5px solid var(--bd);background:color-mix(in srgb,var(--card) 70%,transparent);width:fit-content;max-width:100%}
+.tr-g>summary::-webkit-details-marker{display:none}
+.tr-dot{width:10px;height:10px;border-radius:50%;background:var(--er);box-shadow:0 0 0 4px color-mix(in srgb,var(--er) 20%,transparent)}
+.tr-dot.ok{background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 20%,transparent)}
+.tr-g[open]>summary .chev{rotate:180deg}
+.tr-leaves{margin:0 0 0 22px;border-left:2px solid var(--bd);padding:2px 0 4px}
+.tr-leaf{position:relative;margin:8px 0 0 24px;padding:8px 12px;border-radius:12px;border:.5px solid color-mix(in srgb,var(--er) 35%,var(--bd));background:color-mix(in srgb,var(--er) 8%,transparent)}
+.tr-leaf::before{content:"";position:absolute;left:-26px;top:20px;width:24px;border-top:2px solid var(--bd)}
+.tr-leaf::after{content:"";position:absolute;left:-30px;top:16px;width:8px;height:8px;border-radius:50%;background:var(--er)}
+.tr-leaf.ok{border-color:color-mix(in srgb,var(--ok) 35%,var(--bd));background:color-mix(in srgb,var(--ok) 8%,transparent)}
+.tr-leaf.ok::after{background:var(--ok)}
+.tr-leaf ul{margin:4px 0 0;padding-left:18px;font-size:13px}.tr-leaf li{margin:2px 0}
+/* give the SA table room so the Issue column at the right end is fully visible */
+@media(min-width:641px){body:not(.home) main{max-width:1700px!important;padding-left:84px!important;padding-right:84px!important}
+.shell{grid-template-columns:240px minmax(0,1fr);gap:20px}
+.tw table.sat{width:100%}.tw table.sat th,.tw table.sat td{padding:3px 4px}
+.tw table.sat td:last-child{text-align:left;min-width:210px}.tw table.sat td select{max-width:240px}}
 </style>
 </head>
 <body>
 <div class="aurora"><i></i><i></i><i></i><b class="floor"></b><svg class="lines" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true"><path d="M0,330 C220,240 420,440 640,310 S1010,200 1200,270"/><path d="M0,420 C240,330 440,540 680,400 S1040,290 1200,360"/><path d="M0,510 C200,420 400,620 620,490 S1000,380 1200,450"/><path d="M0,600 C230,510 430,710 660,580 S1030,470 1200,540"/><path d="M0,690 C210,600 420,790 650,670 S1020,560 1200,630"/></svg></div><canvas id="bg" aria-hidden="true"></canvas><div id="spot"></div><div id="wipe"></div>
 <header class="noprint">
-  <div class="logo" onclick="hist=[];nav('home')"><span class="lg">XT</span><b>X-Track</b> <span class="sm mu">For ReTRRAC</span></div>
+  <div class="logo" onclick="hist=[];nav('home')"><b>X-Track</b> <span class="sm mu">For ReTRRAC</span></div>
   <div class="tools">
     <button id="nvd" onclick="go('dash')">Dashboard</button><button id="nvp" onclick="openList()">Projects</button><button id="nvr" onclick="go('report')">Report</button>
     <details class="menu"><summary aria-label="Theme settings">Appearance</summary><div class="pop">
@@ -545,7 +595,7 @@ table.sat{overflow:visible!important}
 const KEY='xtrack-v1';
 const ACC={blue:'#007aff',green:'#25a244',purple:'#af52de',orange:'#f08300',red:'#ff3b30'};
 const DOCS=['Extensive AML screening','POA check','POI check','Risk assessment sheet','Client report (optional)'];
-const REASONS=['Expired POA (no deduction)','Expired POI (no deduction)','Expired POA and POI (no deduction)','I forgot','I am new here and need more experience','I might have missed this check','Other'];
+const REASONS=['I forgot','Expired POA (no deduction)','Expired POI (no deduction)','POA unavailable','POI unavailable','POA and POI unavailable'];
 let S={projects:[],cur:null,theme:'light',accent:'blue'},view='home';
 const uid=()=>Math.random().toString(36).slice(2,9);
 const newP=()=>({id:uid(),client:'',tl:{name:'',role:'Team Lead',company:''},members:[],created:new Date().toISOString().slice(0,10)});
@@ -582,8 +632,10 @@ const I={chart:'<path d="M5 20V10M12 20V4M19 20v-7"/>',home:'<path d="M4 11l8-7 
 const ic=(k,z=24)=>`<svg width="${z}" height="${z}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
 function buildDock(){const d=(v,k,c,t,f)=>`<button ${v?`data-v="${v}" `:''}onclick="${f}" aria-label="${t}"><span class="app ${c}">${ic(k)}</span><em>${t}</em></button>`;
   $('#dock').innerHTML=d('home','home','a1','Home',"hist=[];nav('home')")+d('dash','chart','a6','Dashboard',"go('dash')")+d('project','folder','a2','Projects','openList()')+d('report','doc','a3','Report',"go('report')")+'<i class="dsep"></i>'+d('','open','a4','Open project',"$('#ldf').click()")+d('','mode','a5','Light / Dark','toggleTheme()')}
+const XT_MARK=`<rect class="xt-b" x="20" y="10" width="326" height="190" rx="40"/><g transform="translate(183 105) scale(.7) translate(-183 -105)"><path class="xt-w" d="M20 20H75L200 190H145Z"/><path class="xt-w" d="M145 20H200L110 142.4L82.5 105Z"/><path class="xt-r" d="M52.3 146H107.4L75 190H20Z"/><path class="xt-w" d="M216 20H346V62H303V190H259V62H216Z"/></g>`;
+function xtLogo(full){return full?`<svg viewBox="0 0 366 262" role="img" aria-label="X-Track">${XT_MARK}<text class="xt-r" x="183" y="246" text-anchor="middle" textLength="326" lengthAdjust="spacing" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="34">X - TRACK</text></svg>`:`<svg class="xtm" viewBox="20 10 326 190" role="img" aria-label="X-Track">${XT_MARK}</svg>`}
 function home(){return `<section class="stage"><div class="copy">
-<span class="eyebrow reveal"><span class="lg">XT</span>X-Track For ReTRRAC</span>
+<p class="tagl reveal">For ReTRRAC</p>
 <h1 class="reveal">See how efficiently your team <span class="gt">really works.</span></h1>
 <p class="reveal">Assign client IDs, log the time, and X-Track turns it into fair scores, clear flags and a PDF report your managers and HR can trust.</p>
 <div class="btns"><button class="p big reveal" onclick="openList()">Work with the Team</button><button class="big reveal" onclick="go('report')">Create Report</button>
@@ -608,6 +660,13 @@ function home(){return `<section class="stage"><div class="copy">
 function project(){return cur()?editor():projectList()}
 function mband(c){if(c.score!=null){const b=band(c.score);return `<span class="pill ${b[1]}">${c.score}% ${b[0]}</span>`}
   return c.status==='flag'?'<span class="pill wa">Flagged for review</span>':'<span class="pill">No score yet</span>'}
+function taskPill(m){if(!(m.ltd.length||m.sa.length))return '<span class="pill">No clients yet</span>';
+  const n=corrList(m).total;return n?`<span class="pill er">${n} to do</span>`:'<span class="pill ok">All clear</span>'}
+function taskTree(m,i){if(!(m.ltd.length||m.sa.length))return '';
+  const c=corrList(m);
+  const grp=(t,l,n)=>{if(!n)return '';const lv=l.length?l.map(o=>`<div class="tr-leaf"><b>${esc(o.id)}</b><ul>${o.it.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></div>`).join(''):'<div class="tr-leaf ok"><b>All done</b><ul><li>Every client in this group is complete</li></ul></div>';
+    return `<details class="tr-g" ${l.length&&l.length<=6?'open':''}><summary><i class="tr-dot ${l.length?'er':'ok'}"></i><b>${t}</b><span class="pill ${l.length?'er':'ok'}">${l.length?l.length+' of '+n+' to do':'All clear'}</span><span class="chev" aria-hidden="true">▾</span></summary><div class="tr-leaves">${lv}</div></details>`};
+  return `<div class="sec tree noprint"><h3>Tasks to do</h3><div class="tr-root"><span class="tr-n">${esc(m.name)}</span><span class="pill ${c.total?'er':'ok'}">${c.total?c.total+' client'+(c.total==1?'':'s')+' to fix':'Nothing pending'}</span></div><div class="tr-br">${grp('Limited companies',c.ltd,m.ltd.length)}${grp('SA clients',c.sa,m.sa.length)}</div></div>`}
 function editor(){
   const field=(l,v,set,ph)=>`<div><label>${l}</label><input placeholder="${ph||''}" value="${esc(v)}" onchange="${set}"></div>`;
   let h=`<div class="pbar noprint"><button class="lnk" onclick="closeP()">← All projects</button>
@@ -615,8 +674,8 @@ function editor(){
 <div class="card"><h2>Project details</h2><div class="row">${field('Client name',S.client,'S.client=this.value;save()','Who is this project for?')}${field('Team Lead name',S.tl.name,'S.tl.name=this.value;save()','Your name')}${field('Role',S.tl.role,'S.tl.role=this.value;save()','')}${field('Company',S.tl.company,'S.tl.company=this.value;save()','')}</div></div>
 <div class="card"><h2>Team</h2><div class="row"><div><label>Add a team member</label><input id="nm" placeholder="Name, e.g. Mahesh Kumar" onkeydown="if(event.key==='Enter')addM()"></div><div style="flex:0 0 auto"><button class="p" onclick="addM()">Add member</button></div></div>${S.members.length?'':'<p class="sm mu" style="margin:10px 0 0">No team members yet. Add the first one to start assigning clients.</p>'}</div>`;
   S.members.forEach((m,i)=>{const c=calc(m),parts=[m.ltd.length?`${m.ltd.length} limited`:'',m.sa.length?`${m.sa.length} SA`:'',m.time?`${m.time} h`:''].filter(Boolean).join(' · ')||'No clients yet';
-    h+=`<details class="card mem" ${m.open===false?'':'open'} ontoggle="S.members[${i}].open=this.open;save()"><summary>${avatar}<span class="who"><b>${esc(m.name)}</b><span class="sm mu">${parts}</span></span>${mband(c)}<span class="chev" aria-hidden="true">▾</span></summary>
-<div class="mbody"><div class="row"><div><label>Role</label><input value="${esc(m.role)}" onchange="mset(${i},'role',this.value,1)"></div><div style="flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap"><button onclick="renameM(${i})">Edit name</button><button class="dng" onclick="delM(${i})">Remove member</button></div></div>
+    h+=`<details class="card mem" ${m.open===false?'':'open'} ontoggle="S.members[${i}].open=this.open;save()"><summary>${avatar}<span class="who"><b>${esc(m.name)}</b><span class="sm mu">${parts}</span></span>${taskPill(m)}<button class="pdfb noprint" title="Download ${esc(m.name)}'s tasks as PDF" ${(m.ltd.length||m.sa.length)?'':'disabled'} onclick="event.preventDefault();event.stopPropagation();corrPDF(${i})">⬇ PDF</button><span class="chev" aria-hidden="true">▾</span></summary>
+<div class="mbody">${taskTree(m,i)}<div class="row"><div><label>Role</label><input value="${esc(m.role)}" onchange="mset(${i},'role',this.value,1)"></div><div style="flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap"><button onclick="renameM(${i})">Edit name</button><button class="dng" onclick="delM(${i})">Remove member</button></div></div>
 <div class="sec"><h3>Clients</h3><div class="row"><div><label>Limited company IDs</label><input placeholder="e.g. L1 to L5" value="${esc(m.ltdIds)}" onchange="setIds(${i},'ltd',this.value)"></div><div><label>SA client IDs</label><input placeholder="e.g. A1 to A10" value="${esc(m.saIds)}" onchange="setIds(${i},'sa',this.value)"></div></div>
 ${(m.ltd.length||m.sa.length)?`<label class="rt">Deduction per missing check <select onchange="mset(${i},'rate',+this.value)">${[1,2].map(v=>`<option value="${v}" ${(m.rate||1)==v?'selected':''}>${v}%</option>`).join('')}</select></label>`:''}
 ${m.ltd.length?secHead(i,'ltd','Limited companies',m.ltd.length):''}${m.ltdHide?'':ltdTable(m,i)}
@@ -694,7 +753,7 @@ function xlsSheets(ms){
     m.ltd.forEach(x=>{const r=ltdCheck(x),p=[];
       if(!r.any)p.push('Not reviewed yet');else{if(r.coRev&&r.coMiss.length)p.push('Company: '+r.coMiss.join(', '));r.ds.forEach(d=>{if(d.any&&d.miss.length)p.push('Director '+d.n+': '+d.miss.join(', '))})}
       L.push([m.name,x.id,x.isNew?'New':'Existing',x.dir,yn(x.aml),yn(x.risk),yn(x.rep),p.join('; '),x.reason||'',x.note||'',ltdDed(m,x)]);
-      x.directors.forEach((d,n)=>D.push([m.name,x.id,'Director '+(n+1),d.isNew?'New':'Existing',d.poaX?'Expired':d.poa?'Done':'Missing',d.poiX?'Expired':d.poi?'Done':'Missing',d.isNew?(d.mbc?'Done':'Missing'):'Not needed',d.aml?'Done':'Missing',yn(d.rep)]))});
+      x.directors.forEach((d,n)=>D.push([m.name,x.id,'Director '+(n+1),d.isNew?'New':'Existing',dxs(d,'poa'),dxs(d,'poi'),d.off?'Unavailable in share drive':d.isNew?(d.mbc?'Done':'Missing'):'Not needed',d.off?'Unavailable in share drive':d.aml?'Done':'Missing',d.off?'Unavailable in share drive':yn(d.rep)]))});
     m.sa.forEach(x=>A.push([m.name,x.id,...x.docs.map(yn),mbTxt(x),reviewed(x)?DOCS.slice(0,4).filter((d,k)=>!x.docs[k]).join(', '):'Not reviewed yet',x.reason||'',x.note||'',dedOf(m,x)]));
     const low=c.score!=null&&c.score<75,
     ln=m.line||(c.score>=90?`Completed ${c.clients} client checks with ${c.score}% efficiency as ${m.role} at ${S.tl.company||'[Company]'}, consistently meeting time and accuracy standards.`:''),
@@ -803,21 +862,47 @@ const MBS={Experian:'EXP',Equifax:'EQF',TransUnion:'TU'};
 const mkDir=n=>({isNew:!!n,poa:false,poi:false,poaX:false,poiX:false,mbc:false,aml:false,rep:false});
 const mkL=id=>({id,dir:1,isNew:false,aml:false,risk:false,rep:false,reason:'',note:'',directors:[mkDir(false)]});
 const mkSA=id=>({id,isNew:false,docs:[false,false,false,false,false],reason:'',note:'',dm:'auto',mb:[]});
-const reasonOpts=cur=>REASONS.concat(cur==='Expired document (no deduction)'?[cur]:[]).map(q=>`<option ${cur===q?'selected':''}>${q}</option>`).join('');
+const reasonOpts=cur=>REASONS.concat(cur&&!REASONS.includes(cur)?[cur]:[]).map(q=>`<option ${cur===q?'selected':''}>${q}</option>`).join('');
 const missN=x=>x.docs.slice(0,4).filter(d=>!d).length,reviewed=x=>x.docs.some(Boolean)||!!x.reason;
 const dedAuto=(m,x)=>{const n=missN(x);return !n||!reviewed(x)||/^Expired/.test(x.reason||'')?0:n*(+m.rate||1)};
 const dedOf=(m,x)=>dedAuto(m,x);
 function mbMini(i,t,j,x){const a=x.mb||[],all=a.length===MB.length;
   return `<span class="mb">`+MB.map(n=>`<button class="${a.includes(n)?'sel':''}" title="${n}" aria-label="${n}" aria-pressed="${a.includes(n)}" onclick="toggleMb(${i},'${t}',${j},'${n}')">${MBS[n]}</button>`).join('')+`<button class="${all?'sel':''}" aria-pressed="${all}" onclick="toggleMb(${i},'${t}',${j},'all')">All</button></span>`}
-const chk=(a,k,on)=>`<input type="checkbox" aria-label="${k}" ${on?'checked':''} onchange="dset(${a},'${k}',this.checked)">`;
+const chk=(a,k,on,dis)=>`<input type="checkbox" aria-label="${k}" ${on?'checked':''} ${dis||''} onchange="dset(${a},'${k}',this.checked)">`;
 function dirTable(m,i,j,x){if(!x.directors.length)return'<p class="sm mu">Enter the number of directors above.</p>';
-  const tri=(a,d,k)=>`<select aria-label="${k}" onchange="dtri(${a},'${k}',this.value)"><option value="">–</option><option value="ok" ${d[k]?'selected':''}>Done</option><option value="exp" ${d[k+'X']?'selected':''}>Expired</option></select>`;
+  const tri=(a,d,k)=>{const s=d[k+'S'],v=d[k]?'ok':d[k+'X']?'exp':s==='nc'?'nc':s==='un'?'un':'',L=k==='poa'?'POA':'POI';
+    return `<select aria-label="${L}" class="${v==='nc'||v==='un'?v:''}" ${d.off?'disabled':''} onchange="dtri(${a},'${k}',this.value)">`+[['','–'],['ok','Done'],['exp','Expired'],['nc','Not checked'],['un','Unavailable']].map(([o,l])=>`<option value="${o}" ${v===o?'selected':''}>${l}</option>`).join('')+`</select>`+(v==='nc'&&!d.off?`<div class="rsn"><span>${esc(d[k+'R']||'No reason')}</span><button type="button" onclick="dReason(${a},'${k}')">Edit</button></div>`:'')};
+  const off=x.directors.map((d,n)=>d.off?n+1:0).filter(Boolean);
   return `<div class="tw"><table class="sat"><tr><th>Director</th><th>Type</th><th title="Proof of Address">POA</th><th title="Proof of Identity">POI</th><th>Multi bureau check</th><th>AML</th><th>Report</th></tr>`+
-  x.directors.map((d,n)=>{const a=`${i},${j},${n}`;
-    return `<tr><td><b>Director ${n+1}</b></td><td data-l="Type"><select onchange="dset(${a},'isNew',this.value==='new')"><option value="new" ${d.isNew?'selected':''}>New</option><option value="old" ${d.isNew?'':'selected'}>Existing</option></select></td>
-<td data-l="POA">${tri(a,d,'poa')}</td><td data-l="POI">${tri(a,d,'poi')}</td><td data-l="Multi bureau check">${d.isNew?chk(a,'mbc',d.mbc):'<span class="mu">n/a</span>'}</td><td data-l="AML">${chk(a,'aml',d.aml)}</td><td data-l="Report">${chk(a,'rep',d.rep)}</td></tr>`}).join('')+`</table></div>`+
-  (x.directors.some(d=>!d.isNew)?'<p class="note">Existing director: add the client report if the metadata has changed.</p>':'')}
-function dtri(i,j,n,k,v){const d=S.members[i].ltd[j].directors[n];d[k]=v==='ok';d[k+'X']=v==='exp';save();render()}
+  x.directors.map((d,n)=>{const a=`${i},${j},${n}`,dis=d.off?'disabled':'';
+    return `<tr class="${d.off?'doff':''}"><td><div class="dn"><b>Director ${n+1}</b><button type="button" class="xb${d.off?' sel':''}" aria-pressed="${!!d.off}" onclick="dOff(${a})">Director unavailable in share drive</button></div></td><td data-l="Type"><select aria-label="Type" ${dis} onchange="dset(${a},'isNew',this.value==='new')"><option value="new" ${d.isNew?'selected':''}>New</option><option value="old" ${d.isNew?'':'selected'}>Existing</option></select></td>
+<td data-l="POA">${tri(a,d,'poa')}</td><td data-l="POI">${tri(a,d,'poi')}</td><td data-l="Multi bureau check">${d.isNew?chk(a,'mbc',d.mbc,dis):'<span class="mu">n/a</span>'}</td><td data-l="AML">${chk(a,'aml',d.aml,dis)}</td><td data-l="Report">${chk(a,'rep',d.rep,dis)}</td></tr>`}).join('')+`</table></div>`+
+  (off.length?`<p class="note">Director unavailable in share drive: ${off.map(n=>'Director '+n).join(', ')}. Their checks are skipped and not counted as missing.</p>`:'')+
+  (x.directors.some(d=>!d.isNew&&!d.off)?'<p class="note">Existing director: add the client report if the metadata has changed.</p>':'')}
+const NC_REASONS=['SA client','Client not required','Documents not provided','Other'];
+function askReason(title,cur){return new Promise(res=>{const m=document.createElement('div');m.className='modal';
+  m.innerHTML='<div class="mbox" role="dialog" aria-modal="true"><p><b></b><br><span class="sm mu">Not checked needs a reason.</span></p><div class="fld"><label>Reason</label><select class="rs1"></select></div><div class="fld ot" hidden><label>Details</label><input class="mi" maxlength="120" placeholder="Enter the reason"></div><p class="sm er1" role="alert" style="min-height:18px;margin:0 0 10px;color:var(--er)"></p><div class="acts"><button class="n">Cancel</button><button class="p y">Save reason</button></div></div>';
+  const sel=m.querySelector('.rs1'),ot=m.querySelector('.ot'),inp=m.querySelector('.mi'),er=m.querySelector('.er1'),y=m.querySelector('.y'),n=m.querySelector('.n');
+  m.querySelector('b').textContent=title;
+  sel.innerHTML=NC_REASONS.map(r=>'<option>'+r+'</option>').join('');
+  if(cur){if(NC_REASONS.includes(cur))sel.value=cur;else{sel.value='Other';inp.value=cur}}
+  const tg=()=>{ot.hidden=sel.value!=='Other'};tg();sel.onchange=tg;
+  const done=v=>{m.remove();document.removeEventListener('keydown',kd,true);res(v)};
+  const ok=()=>{let r=sel.value;if(r==='Other'){r=inp.value.trim();if(!r){er.textContent='Enter a reason.';inp.focus();return}}done(r)};
+  const kd=e=>{if(e.key==='Escape'){e.stopPropagation();done(null)}else if(e.key==='Enter'&&e.target.tagName!=='SELECT'&&e.target.tagName!=='BUTTON'){e.preventDefault();ok()}};
+  y.onclick=ok;n.onclick=()=>done(null);m.onclick=e=>{if(e.target===m)done(null)};
+  document.addEventListener('keydown',kd,true);document.body.appendChild(m);sel.focus()})}
+async function dtri(i,j,n,k,v){const d=S.members[i].ltd[j].directors[n];
+  if(v==='nc'){const r=await askReason('Director '+(n+1)+': '+(k==='poa'?'POA':'POI')+' not checked',d[k+'R']);
+    if(r===null){render();return}
+    d[k]=false;d[k+'X']=false;d[k+'S']='nc';d[k+'R']=r;save();render();return}
+  d[k]=v==='ok';d[k+'X']=v==='exp';d[k+'S']=v==='un'?'un':'';d[k+'R']='';save();render()}
+async function dReason(i,j,n,k){const d=S.members[i].ltd[j].directors[n];
+  const r=await askReason('Director '+(n+1)+': '+(k==='poa'?'POA':'POI')+' not checked',d[k+'R']);
+  if(r===null)return;d[k+'R']=r;save();render()}
+function dOff(i,j,n){const d=S.members[i].ltd[j].directors[n];d.off=!d.off;save();render()}
+function dxs(d,k){if(d.off)return 'Unavailable in share drive';const s=d[k+'S'];
+  return s==='nc'?'Not checked'+(d[k+'R']?' ('+d[k+'R']+')':''):s==='un'?'Unavailable':d[k+'X']?'Expired':d[k]?'Done':'Missing'}
 function secHead(i,k,t,n){const h=!!S.members[i][k+'Hide'];return `<button class="lt lth" aria-expanded="${!h}" onclick="secT(${i},'${k}')"><span class="car${h?' c':''}" aria-hidden="true">▾</span>${t} (${n})<span class="sm mu hint">${h?'Show':'Hide'}</span></button>`}
 function secT(i,k){const m=S.members[i];m[k+'Hide']=!m[k+'Hide'];save();render()}
 function saMore(i){const m=S.members[i];m.saAll=!m.saAll;save();render()}
@@ -838,7 +923,7 @@ ${needBox(x)}
 <div class="ckg">${[['Extensive AML check','aml'],['Risk assessment','risk'],['Client report','rep',1]].map(([l,k,o])=>`<label class="ck${x[k]?' on':''}"><input type="checkbox" ${x[k]?'checked':''} onchange="lset(${i},${j},'${k}',this.checked)"><span>${l}</span>${o?'<em>optional</em>':''}</label>`).join('')}</div>
 <div class="lt">Directors (${x.dir})</div>
 ${dirTable(m,i,j,x)}
-${r.miss?`<div class="row rs"><div><label>Reason for missing checks</label><select onchange="lset(${i},${j},'reason',this.value)"><option value="">Choose reason</option>${reasonOpts(x.reason)}</select></div>${x.reason==='Other'?`<div><label>Note</label><input value="${esc(x.note)}" onchange="S.members[${i}].ltd[${j}].note=this.value;save()"></div>`:''}</div>`:''}
+${true?`<div class="row rs"><div><label>Reason for missing checks</label><select onchange="lset(${i},${j},'reason',this.value)"><option value="">Choose reason</option>${reasonOpts(x.reason)}</select></div>${x.reason==='Other'?`<div><label>Note</label><input value="${esc(x.note)}" onchange="S.members[${i}].ltd[${j}].note=this.value;save()"></div>`:''}</div>`:''}
 ${r.any?`<p class="sm mu" style="margin:8px 0 0">${r.miss?`${r.miss} missing check${r.miss==1?'':'s'}, deduction <b>−${ded}%</b>.`:'All reviewed checks are complete.'}</p>`:''}</div></details>`}).join(''):'<div class="card mu emp">Every limited company is complete. Nice work.</div>')+'</div>'}
 const mbTxt=x=>x.isNew?(x.mbc?'Done':'Not done'):'n/a (existing client)';
 function allMb(i,v){S.members[i].sa.forEach(x=>{if(x.isNew)x.mbc=v});save();render()}
@@ -853,17 +938,21 @@ function saTable(m,i){if(!m.sa.length)return'';
   const bar=`<div class="lbar noprint"><div class="seg" role="group" aria-label="Filter SA clients"><button class="${inc?'':'sel'}" aria-pressed="${!inc}" onclick="saF(${i},'')">All</button><button class="${inc?'sel':''}" aria-pressed="${inc}" onclick="saF(${i},'inc')">Incomplete</button></div><span class="sm mu">Showing ${shown.length} of ${list.length}</span><span class="sp"></span>${left?`<button onclick="saShow(${i},${shown.length+STEP})">Show ${Math.min(STEP,left)} more</button><button onclick="saShow(${i},'all')">Expand all</button>`:''}${shown.length>STEP?`<button onclick="saShow(${i},${STEP})">Collapse all</button>`:''}</div>`;
   const rows=shown.map(({x,j})=>{const need=missN(x)&&reviewed(x);
     return `<tr><td><b>${esc(x.id)}</b></td><td data-l="Type"><select aria-label="Client type for ${esc(x.id)}" onchange="S.members[${i}].sa[${j}].isNew=this.value==='new';save();render()"><option value="new" ${x.isNew?'selected':''}>New</option><option value="old" ${x.isNew?'':'selected'}>Existing</option></select></td>${x.docs.map((v,k)=>`<td data-l="${H[k]}"><input type="checkbox" aria-label="${T[k]}" ${v?'checked':''} onchange="S.members[${i}].sa[${j}].docs[${k}]=this.checked;save();render()"></td>`).join('')}<td data-l="Multi bureau check">${x.isNew?`<input type="checkbox" aria-label="Multi bureau check for ${esc(x.id)}" ${x.mbc?'checked':''} onchange="S.members[${i}].sa[${j}].mbc=this.checked;save();render()">`:'<span class="mu">n/a</span>'}</td>
-<td data-l="Issue">${need?`<select onchange="S.members[${i}].sa[${j}].reason=this.value;save();render()"><option value="">Choose reason</option>${reasonOpts(x.reason)}</select>${x.reason==='Other'?`<input placeholder="Note" value="${esc(x.note)}" onchange="S.members[${i}].sa[${j}].note=this.value;save()">`:''}`:'<span class="mu">–</span>'}</td></tr>`}).join('');
+<td data-l="Issue">${true?`<select onchange="S.members[${i}].sa[${j}].reason=this.value;save();render()"><option value="">Choose reason</option>${reasonOpts(x.reason)}</select>${x.reason==='Other'?`<input placeholder="Note" value="${esc(x.note)}" onchange="S.members[${i}].sa[${j}].note=this.value;save()">`:''}`:'<span class="mu">–</span>'}</td></tr>`}).join('');
   return `<p class="sm mu" style="margin:0 0 6px">${n} client${n==1?'':'s'}, ${pend} not reviewed yet. Deduction so far: <b>−${tot}%</b>.</p>
 <div class="sawrap">${bar}${shown.length?`<div class="tw"><table class="sat"><tr><th>Client</th><th>Type</th>${H.map((h,k)=>`<th title="${T[k]}"><label><input type="checkbox" ${m.sa.every(x=>x.docs[k])?'checked':''} onchange="allDoc(${i},${k},this.checked)"> ${h}</label></th>`).join('')}<th title="Multi bureau check (new clients only)"><label><input type="checkbox" ${nw.length&&nw.every(x=>x.mbc)?'checked':''} ${nw.length?'':'disabled'} onchange="allMb(${i},this.checked)"> Multi bureau</label></th><th>Issue</th></tr>${rows}</table></div>`:'<div class="card mu emp">Every SA client is complete. Nice work.</div>'}</div><p class="sm mu" style="margin:8px 4px 0">Multi bureau check is only needed for new clients.</p>`}
 function fixL(x){x.dir=Math.max(0,Math.min(50,Math.floor(+x.dir||0)));x.directors=Array.isArray(x.directors)?x.directors:[];
   while(x.directors.length<x.dir)x.directors.push(mkDir(x.isNew));x.directors.length=x.dir;
   x.aml=!!x.aml;x.risk=!!x.risk;x.rep=!!x.rep;x.reason=x.reason||'';x.note=x.note||''}
-function dirCheck(d){const miss=[],exp=[];let any=!!d.rep;
+function dirCheck(d){const miss=[],exp=[],nc=[],un=[];let any=!!d.rep;
+  if(d.off)return {isNew:!!d.isNew,miss,exp,nc,un,off:true,any:true};
   (d.isNew?[['Proof of Address','poa','poaX'],['Proof of Identity','poi','poiX'],['Multi bureau check','mbc'],['Extensive AML check','aml']]
           :[['Proof of Address','poa','poaX'],['Proof of Identity','poi','poiX'],['Extensive AML check','aml']])
-  .forEach(([l,k,xk])=>{if(d[k])any=true;if(xk&&d[xk]){exp.push(l);any=true}else if(!d[k])miss.push(l)});
-  return {isNew:!!d.isNew,miss,exp,any}}
+  .forEach(([l,k,xk])=>{if(d[k])any=true;const s=xk?d[k+'S']:'';
+    if(s==='nc'){nc.push({l,r:d[k+'R']||''});any=true}
+    else if(s==='un'){un.push(l);any=true}
+    else if(xk&&d[xk]){exp.push(l);any=true}else if(!d[k])miss.push(l)});
+  return {isNew:!!d.isNew,miss,exp,nc,un,off:false,any}}
 function ltdCheck(x){const coRev=!!(x.aml||x.risk||x.rep);
   const coMiss=[['Extensive AML check','aml'],['Risk assessment','risk']].filter(([,k])=>!x[k]).map(a=>a[0]);
   const ds=(x.directors||[]).map((d,n)=>({...dirCheck(d),n:n+1}));
@@ -879,7 +968,10 @@ function ltdRow(m,x){const r=ltdCheck(x),p=[],t=`${esc(x.id)} (${x.dir} director
   if(!r.any)return `<tr><td>${t}</td><td>Not reviewed yet</td></tr>`;
   if(r.coRev&&r.coMiss.length)p.push('Company missing: '+r.coMiss.join(', '));
   r.ds.forEach(d=>{const h=`Director ${d.n}`;
-    if(d.any&&d.miss.length)p.push(`${h} missing: ${d.miss.join(', ')}`);if(d.exp.length)p.push(`${h} expired: ${d.exp.join(', ')}`)});
+    if(d.off){p.push(`${h} unavailable in share drive, checks skipped`);return}
+    if(d.any&&d.miss.length)p.push(`${h} missing: ${d.miss.join(', ')}`);if(d.exp.length)p.push(`${h} expired: ${d.exp.join(', ')}`);
+    if(d.nc.length)p.push(`${h} not checked: ${d.nc.map(o=>o.l+(o.r?' ('+esc(o.r)+')':'')).join(', ')}`);
+    if(d.un.length)p.push(`${h} unavailable: ${d.un.join(', ')}`)});
   const dd=ltdDed(m,x);
   return `<tr><td>${t}</td><td>${p.join('<br>')||'All checks complete'}${x.reason?'<br>Reason: '+esc(x.reason)+(x.note?': '+esc(x.note):''):''}${dd?'<br>Deduction '+dd+'%':''}</td></tr>`}
 function lset(i,j,k,v){S.members[i].ltd[j][k]=v;save();render()}
@@ -1059,6 +1151,7 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
   const r=b.getBoundingClientRect(),i=document.createElement('i');i.className='rip';
   i.style.left=e.clientX-r.left+'px';i.style.top=e.clientY-r.top+'px';b.appendChild(i);setTimeout(()=>i.remove(),600)});
 document.addEventListener('click',e=>{document.querySelectorAll('details.menu[open]').forEach(d=>{if(!d.contains(e.target)||e.target.closest('.pop>button'))d.open=false})});
+
 buildDock();clk();setInterval(clk,20000);repair();save();applyTheme();setScene();render(true);startDraw('.lines path',2800,140);
 if(!rm)tick();
 </script>
