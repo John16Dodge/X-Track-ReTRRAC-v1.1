@@ -477,6 +477,51 @@ table.mt td:last-child{font-weight:500}
 .a6{background:linear-gradient(#ff7a70,#ff3b30)}
 @media print{.kpis,.dgrid{display:none}}
 header .menu>summary{border:0}
+.dp .acts2{flex-wrap:wrap}.dp .acts2 .sp{flex:1}
+
+/* sticky header for the SA clients table: follows the page as you scroll */
+@media(min-width:641px){
+ .tw:has(table.sat){overflow-x:clip;overflow-y:visible}
+ table.sat{width:100%}
+ table.sat th{position:sticky;top:34px;z-index:8;background:color-mix(in srgb,var(--card) 94%,var(--bg));box-shadow:0 .5px 0 var(--bd)}
+ table.sat th:first-child{border-top-left-radius:12px}table.sat th:last-child{border-top-right-radius:12px}
+ table.sat th,table.sat td{padding-left:8px;padding-right:8px}
+ table.sat select{max-width:190px}
+}
+@media(min-width:641px) and (max-width:1100px){table.sat{font-size:13px}table.sat th{font-size:10.5px;letter-spacing:.03em}table.sat th,table.sat td{padding-left:5px;padding-right:5px}table.sat select{max-width:130px}}
+table.sat{overflow:visible!important}
+@media(min-width:641px){table.sat th:last-child,table.sat td:last-child{padding-right:16px}table.sat select{max-width:170px}}
+.mbox .mi{display:block;width:100%;margin:6px 0 16px;font-size:15px}
+
+/* collapsible sections + show more */
+.lth,.lth:hover,.lth:active{display:flex;align-items:center;gap:8px;width:100%;margin:26px 0 12px;padding:6px 4px;border:0;border-radius:8px;background:none;box-shadow:none;text-align:left;font-size:12px;font-weight:600;color:var(--mu);scale:1}
+.lth:hover{background:rgba(128,128,128,.12)}
+.lth .car{display:inline-block;transition:transform .2s}.lth .car.c{transform:rotate(-90deg)}
+.lth .hint{margin-left:auto;font-weight:500}
+.more{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 4px 0}
+.more button{padding:6px 16px}
+@media print{.more,.lth .hint{display:none!important}}
+
+/* extendable SA table toolbar + corrections */
+.sawrap .lbar{position:static}
+.crow{padding:10px 4px;border-top:.5px solid var(--bd)}
+.lt+.crow{border-top:0}
+.crow ul{margin:6px 0 0;padding-left:20px}.crow li{margin:3px 0}
+.corr .lt{margin-top:18px}
+#corr{display:none}
+@media print{
+ body:not(.pc) #corr{display:none!important}
+ body.pc>*:not(#corr){display:none!important}
+ body.pc #corr{display:block!important}
+ .corr .noprint{display:none!important}
+ .cd{font:13px/1.5 -apple-system,"Segoe UI",Arial,sans-serif;color:#000}
+ .cd h1{font-size:24px;margin:0 0 14px;padding-bottom:10px;border-bottom:2px solid #000}
+ .cdm{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:18px}
+ .cdm span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#555}
+ .cd h2{font-size:15px;margin:24px 0 8px;padding-bottom:4px;border-bottom:1px solid #999}
+ .cdb{break-inside:avoid;padding:8px 0;border-bottom:.5px solid #ddd}
+ .cd ul{list-style:none;margin:4px 0 0;padding:0}.cd li{margin:3px 0}
+}
 </style>
 </head>
 <body>
@@ -500,7 +545,7 @@ header .menu>summary{border:0}
 const KEY='xtrack-v1';
 const ACC={blue:'#007aff',green:'#25a244',purple:'#af52de',orange:'#f08300',red:'#ff3b30'};
 const DOCS=['Extensive AML screening','POA check','POI check','Risk assessment sheet','Client report (optional)'];
-const REASONS=['Expired document (no deduction)','I forgot','I am new here and need more experience','I might have missed this check','Other'];
+const REASONS=['Expired POA (no deduction)','Expired POI (no deduction)','Expired POA and POI (no deduction)','I forgot','I am new here and need more experience','I might have missed this check','Other'];
 let S={projects:[],cur:null,theme:'light',accent:'blue'},view='home';
 const uid=()=>Math.random().toString(36).slice(2,9);
 const newP=()=>({id:uid(),client:'',tl:{name:'',role:'Team Lead',company:''},members:[],created:new Date().toISOString().slice(0,10)});
@@ -571,11 +616,11 @@ function editor(){
 <div class="card"><h2>Team</h2><div class="row"><div><label>Add a team member</label><input id="nm" placeholder="Name, e.g. Mahesh Kumar" onkeydown="if(event.key==='Enter')addM()"></div><div style="flex:0 0 auto"><button class="p" onclick="addM()">Add member</button></div></div>${S.members.length?'':'<p class="sm mu" style="margin:10px 0 0">No team members yet. Add the first one to start assigning clients.</p>'}</div>`;
   S.members.forEach((m,i)=>{const c=calc(m),parts=[m.ltd.length?`${m.ltd.length} limited`:'',m.sa.length?`${m.sa.length} SA`:'',m.time?`${m.time} h`:''].filter(Boolean).join(' · ')||'No clients yet';
     h+=`<details class="card mem" ${m.open===false?'':'open'} ontoggle="S.members[${i}].open=this.open;save()"><summary>${avatar}<span class="who"><b>${esc(m.name)}</b><span class="sm mu">${parts}</span></span>${mband(c)}<span class="chev" aria-hidden="true">▾</span></summary>
-<div class="mbody"><div class="row"><div><label>Role</label><input value="${esc(m.role)}" onchange="mset(${i},'role',this.value,1)"></div><div style="flex:0 0 auto"><button class="dng" onclick="delM(${i})">Remove member</button></div></div>
+<div class="mbody"><div class="row"><div><label>Role</label><input value="${esc(m.role)}" onchange="mset(${i},'role',this.value,1)"></div><div style="flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap"><button onclick="renameM(${i})">Edit name</button><button class="dng" onclick="delM(${i})">Remove member</button></div></div>
 <div class="sec"><h3>Clients</h3><div class="row"><div><label>Limited company IDs</label><input placeholder="e.g. L1 to L5" value="${esc(m.ltdIds)}" onchange="setIds(${i},'ltd',this.value)"></div><div><label>SA client IDs</label><input placeholder="e.g. A1 to A10" value="${esc(m.saIds)}" onchange="setIds(${i},'sa',this.value)"></div></div>
 ${(m.ltd.length||m.sa.length)?`<label class="rt">Deduction per missing check <select onchange="mset(${i},'rate',+this.value)">${[1,2].map(v=>`<option value="${v}" ${(m.rate||1)==v?'selected':''}>${v}%</option>`).join('')}</select></label>`:''}
-${m.ltd.length?`<div class="lt">Limited companies (${m.ltd.length})</div>`:''}${ltdTable(m,i)}
-${m.sa.length?`<div class="lt">SA clients (${m.sa.length})</div>`:''}${saTable(m,i)}</div>
+${m.ltd.length?secHead(i,'ltd','Limited companies',m.ltd.length):''}${m.ltdHide?'':ltdTable(m,i)}
+${m.sa.length?secHead(i,'sa','SA clients',m.sa.length):''}${m.saHide?'':saTable(m,i)}</div>
 <div class="sec"><h3>Time and result</h3>
 ${timeInputs(m,i,c)}
 ${c.status==='flag'?`<p><span class="pill wa">Flagged for review</span> <span class="sm mu">Time is under the minimum, so no score is calculated. Check the entry.</span></p>`:''}
@@ -597,6 +642,7 @@ function report(){if(!cur())return reportPick();
 <div style="text-align:right"><div class="score count" data-v="${c.score??0}">${c.score!=null?c.score+'%':'–'}</div>${b?`<span class="pill ${b[1]}">${b[0]}</span>`:`<span class="pill ${c.status==='flag'?'wa':''}">${c.status==='flag'?'Flagged for review':'No score yet'}</span>`}</div></div>
 ${c.score!=null?`<div class="bar"><i style="width:${c.score}%"></i></div>`:''}
 ${segHtml(m,c)}
+${corrSec(m,i)}
 <div class="row mt"><div><label>Why this score</label><textarea rows="2" onchange="mset(${i},'why',this.value,1)">${esc(m.why)}</textarea></div>
 <div><label>How it can be improved</label><textarea rows="2" onchange="mset(${i},'how',this.value,1)">${esc(m.how)}</textarea></div></div>
 ${b?`<p class="sm mu">Suggested action: ${b[2]}. Guidance only; the final decision stays with the Team Lead, managers and HR.</p>`:''}
@@ -713,6 +759,17 @@ function ask(msg,ok){return new Promise(res=>{const m=document.createElement('di
   const done=v=>{m.remove();document.removeEventListener('keydown',kd,true);res(v)};
   y.onclick=()=>done(true);n.onclick=()=>done(false);m.onclick=e=>{if(e.target===m)done(false)};
   document.addEventListener('keydown',kd,true);document.body.appendChild(m);y.focus()})}
+function askText(msg,val,ok){return new Promise(res=>{const m=document.createElement('div');m.className='modal';
+  m.innerHTML='<div class="mbox" role="dialog" aria-modal="true"><p></p><input class="mi" maxlength="80" aria-label="Name"><div class="acts"><button class="n">Cancel</button><button class="p y"></button></div></div>';
+  m.querySelector('p').textContent=msg;const inp=m.querySelector('input'),y=m.querySelector('.y'),n=m.querySelector('.n');inp.value=val||'';y.textContent=ok||'Save';
+  const done=v=>{m.remove();document.removeEventListener('keydown',kd,true);res(v)};
+  const kd=e=>{if(e.key==='Escape'){e.stopPropagation();done(null)}else if(e.key==='Enter'){e.preventDefault();done(inp.value.trim())}};
+  y.onclick=()=>done(inp.value.trim());n.onclick=()=>done(null);m.onclick=e=>{if(e.target===m)done(null)};
+  document.addEventListener('keydown',kd,true);document.body.appendChild(m);inp.focus();inp.select()})}
+async function renameM(i){const m=S.members[i];if(!m)return;const v=await askText('Edit team member name',m.name,'Save');if(v===null)return;
+  if(!v){toast('A name cannot be empty.','warn');return}if(v===m.name)return;m.name=v;save();render();toast('Name updated to '+v+'.','ok','Saved')}
+async function renameP(i){const p=S.projects[i];if(!p)return;const v=await askText('Edit project name',p.client,'Save');if(v===null)return;
+  if(!v){toast('A project name cannot be empty.','warn');return}if(v===p.client)return;p.client=v;save();render();toast('Project renamed to '+v+'.','ok','Saved')}
 const TI={ok:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',warn:'<path d="M12 7v6M12 17h.01"/>',bad:'<path d="M6 6l12 12M18 6L6 18"/>',info:'<path d="M12 11v6M12 7h.01"/>'};
 function toast(msg,kind='info',title){let box=$('#toasts');if(!box){box=document.createElement('div');box.id='toasts';box.className='noprint';box.setAttribute('aria-live','polite');document.body.appendChild(box)}
   const t=document.createElement('div');t.className='toast '+kind;
@@ -723,7 +780,7 @@ function toast(msg,kind='info',title){let box=$('#toasts');if(!box){box=document
 function tell(msg){toast(msg,/not a valid|Could not|full|Only |Add at least|no team/.test(msg)?'warn':/loaded/.test(msg)?'ok':'info');return Promise.resolve()}
 async function delP(i){const p=S.projects[i];if(!p)return;
   if(!await ask('Delete project "'+(p.client||'Untitled project')+'" and all of its team data? This cannot be undone.','Delete project'))return;
-  S.projects.splice(i,1);S.cur=null;save();render()}
+  S.projects.splice(i,1);S.cur=null;save();render();toast('Project deleted.','ok','Deleted')}
 async function delTeam(){const n=S.members.length;if(!n){tell('This project has no team members to delete.');return}
   if(!await ask('Delete the whole team ('+n+' member'+(n>1?'s':'')+') with all their clients, times and reviews? The project itself stays.','Delete team'))return;
   cur().members=[];save();render()}
@@ -746,6 +803,7 @@ const MBS={Experian:'EXP',Equifax:'EQF',TransUnion:'TU'};
 const mkDir=n=>({isNew:!!n,poa:false,poi:false,poaX:false,poiX:false,mbc:false,aml:false,rep:false});
 const mkL=id=>({id,dir:1,isNew:false,aml:false,risk:false,rep:false,reason:'',note:'',directors:[mkDir(false)]});
 const mkSA=id=>({id,isNew:false,docs:[false,false,false,false,false],reason:'',note:'',dm:'auto',mb:[]});
+const reasonOpts=cur=>REASONS.concat(cur==='Expired document (no deduction)'?[cur]:[]).map(q=>`<option ${cur===q?'selected':''}>${q}</option>`).join('');
 const missN=x=>x.docs.slice(0,4).filter(d=>!d).length,reviewed=x=>x.docs.some(Boolean)||!!x.reason;
 const dedAuto=(m,x)=>{const n=missN(x);return !n||!reviewed(x)||/^Expired/.test(x.reason||'')?0:n*(+m.rate||1)};
 const dedOf=(m,x)=>dedAuto(m,x);
@@ -760,6 +818,9 @@ function dirTable(m,i,j,x){if(!x.directors.length)return'<p class="sm mu">Enter 
 <td data-l="POA">${tri(a,d,'poa')}</td><td data-l="POI">${tri(a,d,'poi')}</td><td data-l="Multi bureau check">${d.isNew?chk(a,'mbc',d.mbc):'<span class="mu">n/a</span>'}</td><td data-l="AML">${chk(a,'aml',d.aml)}</td><td data-l="Report">${chk(a,'rep',d.rep)}</td></tr>`}).join('')+`</table></div>`+
   (x.directors.some(d=>!d.isNew)?'<p class="note">Existing director: add the client report if the metadata has changed.</p>':'')}
 function dtri(i,j,n,k,v){const d=S.members[i].ltd[j].directors[n];d[k]=v==='ok';d[k+'X']=v==='exp';save();render()}
+function secHead(i,k,t,n){const h=!!S.members[i][k+'Hide'];return `<button class="lt lth" aria-expanded="${!h}" onclick="secT(${i},'${k}')"><span class="car${h?' c':''}" aria-hidden="true">▾</span>${t} (${n})<span class="sm mu hint">${h?'Show':'Hide'}</span></button>`}
+function secT(i,k){const m=S.members[i];m[k+'Hide']=!m[k+'Hide'];save();render()}
+function saMore(i){const m=S.members[i];m.saAll=!m.saAll;save();render()}
 function isDone(x){const r=ltdCheck(x);return !!(r.total&&r.done===r.total)}
 function ltdBar(m,i,n,inc){if(m.ltd.length<2)return'';
   return `<div class="lbar noprint"><div class="seg" role="group" aria-label="Filter companies"><button class="${inc?'':'sel'}" aria-pressed="${!inc}" onclick="ltdF(${i},'')">All</button><button class="${inc?'sel':''}" aria-pressed="${inc}" onclick="ltdF(${i},'inc')">Incomplete</button></div><span class="sm mu">Showing ${n} of ${m.ltd.length}</span><span class="sp"></span><button onclick="ltdAll(${i},true)">Expand all</button><button onclick="ltdAll(${i},false)">Collapse all</button></div>`}
@@ -767,7 +828,7 @@ function ltdF(i,v){S.members[i].ltdFilter=v;save();render()}
 function ltdAll(i,o){const m=S.members[i],inc=m.ltdFilter==='inc';m.ltd.forEach(x=>{if(!inc||!isDone(x))x.open=o});save();render()}
 function ltdTable(m,i){if(!m.ltd.length)return'';
   const inc=m.ltdFilter==='inc',n=m.ltd.filter(x=>!inc||!isDone(x)).length;
-  return ltdBar(m,i,n,inc)+(n?m.ltd.map((x,j)=>{if(inc&&isDone(x))return'';const r=ltdCheck(x),ded=ltdDed(m,x),op=x.open===undefined?m.ltd.length<=1:x.open;
+  return '<div class="ltdwrap">'+ltdBar(m,i,n,inc)+(n?m.ltd.map((x,j)=>{if(inc&&isDone(x))return'';const r=ltdCheck(x),ded=ltdDed(m,x),op=x.open===undefined?m.ltd.length<=1:x.open;
     return `<details class="ltdc" ${op?'open':''} ontoggle="S.members[${i}].ltd[${j}].open=this.open;save()"><summary><b>${esc(x.id)}</b><span class="pill">Limited company</span><span class="sm mu">${x.dir} director${x.dir==1?'':'s'}, ${r.done} of ${r.total} checks</span>${r.total&&r.done===r.total?'<span class="pill ok">Done</span>':''}<span class="chev" aria-hidden="true">▾</span></summary><div class="lbody"><div class="lh">
 <label class="inl">Directors<input class="num" type="number" min="0" max="50" value="${x.dir}" aria-label="Number of directors for ${esc(x.id)}" onchange="setDir(${i},${j},this.value)"></label>
 <span class="sm mu" title="Directors ${x.dir*6}–${x.dir*10}, AML screening 2–3${x.isNew?', creating a new client 5–30':''}">Expected ${x.dir*6+2+(x.isNew?5:0)}–${x.dir*10+3+(x.isNew?30:0)} min</span>
@@ -777,18 +838,24 @@ ${needBox(x)}
 <div class="ckg">${[['Extensive AML check','aml'],['Risk assessment','risk'],['Client report','rep',1]].map(([l,k,o])=>`<label class="ck${x[k]?' on':''}"><input type="checkbox" ${x[k]?'checked':''} onchange="lset(${i},${j},'${k}',this.checked)"><span>${l}</span>${o?'<em>optional</em>':''}</label>`).join('')}</div>
 <div class="lt">Directors (${x.dir})</div>
 ${dirTable(m,i,j,x)}
-${r.miss?`<div class="row rs"><div><label>Reason for missing checks</label><select onchange="lset(${i},${j},'reason',this.value)"><option value="">Choose reason</option>${REASONS.map(q=>`<option ${x.reason===q?'selected':''}>${q}</option>`).join('')}</select></div>${x.reason==='Other'?`<div><label>Note</label><input value="${esc(x.note)}" onchange="S.members[${i}].ltd[${j}].note=this.value;save()"></div>`:''}</div>`:''}
-${r.any?`<p class="sm mu" style="margin:8px 0 0">${r.miss?`${r.miss} missing check${r.miss==1?'':'s'}, deduction <b>−${ded}%</b>.`:'All reviewed checks are complete.'}</p>`:''}</div></details>`}).join(''):'<div class="card mu emp">Every limited company is complete. Nice work.</div>')}
+${r.miss?`<div class="row rs"><div><label>Reason for missing checks</label><select onchange="lset(${i},${j},'reason',this.value)"><option value="">Choose reason</option>${reasonOpts(x.reason)}</select></div>${x.reason==='Other'?`<div><label>Note</label><input value="${esc(x.note)}" onchange="S.members[${i}].ltd[${j}].note=this.value;save()"></div>`:''}</div>`:''}
+${r.any?`<p class="sm mu" style="margin:8px 0 0">${r.miss?`${r.miss} missing check${r.miss==1?'':'s'}, deduction <b>−${ded}%</b>.`:'All reviewed checks are complete.'}</p>`:''}</div></details>`}).join(''):'<div class="card mu emp">Every limited company is complete. Nice work.</div>')+'</div>'}
 const mbTxt=x=>x.isNew?(x.mbc?'Done':'Not done'):'n/a (existing client)';
 function allMb(i,v){S.members[i].sa.forEach(x=>{if(x.isNew)x.mbc=v});save();render()}
 function allDoc(i,k,v){S.members[i].sa.forEach(x=>x.docs[k]=v);save();render()}
+const saDone=x=>x.docs.slice(0,4).every(Boolean)&&(!x.isNew||!!x.mbc);
+function saF(i,v){const m=S.members[i];m.saFilter=v;m.saLim=5;m.saAll=false;save();render()}
+function saShow(i,n){const m=S.members[i];m.saLim=n;m.saAll=false;save();render()}
 function saTable(m,i){if(!m.sa.length)return'';
-  const n=m.sa.length,T=DOCS,H=['AML','POA','POI','Risk','Report'],tot=m.sa.reduce((a,x)=>a+dedOf(m,x),0),pend=m.sa.filter(x=>!reviewed(x)).length,nw=m.sa.filter(x=>x.isNew);
-  return `<p class="sm mu" style="margin:0 0 6px">${n} client${n==1?'':'s'}, ${pend} not reviewed yet. Deduction so far: <b>−${tot}%</b>.</p>
-<div class="tw"><table class="sat"><tr><th>Client</th><th>Type</th>${H.map((h,k)=>`<th title="${T[k]}"><label><input type="checkbox" ${m.sa.every(x=>x.docs[k])?'checked':''} onchange="allDoc(${i},${k},this.checked)"> ${h}</label></th>`).join('')}<th title="Multi bureau check (new clients only)"><label><input type="checkbox" ${nw.length&&nw.every(x=>x.mbc)?'checked':''} ${nw.length?'':'disabled'} onchange="allMb(${i},this.checked)"> Multi bureau</label></th><th>Issue</th></tr>`+
-  m.sa.map((x,j)=>{const need=missN(x)&&reviewed(x);
+  const n=m.sa.length,inc=m.saFilter==='inc',STEP=5,T=DOCS,H=['AML','POA','POI','Risk','Report'],tot=m.sa.reduce((a,x)=>a+dedOf(m,x),0),pend=m.sa.filter(x=>!reviewed(x)).length,nw=m.sa.filter(x=>x.isNew),
+  list=m.sa.map((x,j)=>({x,j})).filter(o=>!inc||!saDone(o.x)),
+  lim=m.saLim==='all'?1e9:(m.saLim>0?m.saLim:(m.saAll?1e9:STEP)),shown=list.slice(0,lim),left=list.length-shown.length;
+  const bar=`<div class="lbar noprint"><div class="seg" role="group" aria-label="Filter SA clients"><button class="${inc?'':'sel'}" aria-pressed="${!inc}" onclick="saF(${i},'')">All</button><button class="${inc?'sel':''}" aria-pressed="${inc}" onclick="saF(${i},'inc')">Incomplete</button></div><span class="sm mu">Showing ${shown.length} of ${list.length}</span><span class="sp"></span>${left?`<button onclick="saShow(${i},${shown.length+STEP})">Show ${Math.min(STEP,left)} more</button><button onclick="saShow(${i},'all')">Expand all</button>`:''}${shown.length>STEP?`<button onclick="saShow(${i},${STEP})">Collapse all</button>`:''}</div>`;
+  const rows=shown.map(({x,j})=>{const need=missN(x)&&reviewed(x);
     return `<tr><td><b>${esc(x.id)}</b></td><td data-l="Type"><select aria-label="Client type for ${esc(x.id)}" onchange="S.members[${i}].sa[${j}].isNew=this.value==='new';save();render()"><option value="new" ${x.isNew?'selected':''}>New</option><option value="old" ${x.isNew?'':'selected'}>Existing</option></select></td>${x.docs.map((v,k)=>`<td data-l="${H[k]}"><input type="checkbox" aria-label="${T[k]}" ${v?'checked':''} onchange="S.members[${i}].sa[${j}].docs[${k}]=this.checked;save();render()"></td>`).join('')}<td data-l="Multi bureau check">${x.isNew?`<input type="checkbox" aria-label="Multi bureau check for ${esc(x.id)}" ${x.mbc?'checked':''} onchange="S.members[${i}].sa[${j}].mbc=this.checked;save();render()">`:'<span class="mu">n/a</span>'}</td>
-<td data-l="Issue">${need?`<select onchange="S.members[${i}].sa[${j}].reason=this.value;save();render()"><option value="">Choose reason</option>${REASONS.map(r=>`<option ${x.reason===r?'selected':''}>${r}</option>`).join('')}</select>${x.reason==='Other'?`<input placeholder="Note" value="${esc(x.note)}" onchange="S.members[${i}].sa[${j}].note=this.value;save()">`:''}`:'<span class="mu">–</span>'}</td></tr>`}).join('')+`</table></div><p class="sm mu" style="margin:8px 4px 0">Multi bureau check is only needed for new clients.</p>`}
+<td data-l="Issue">${need?`<select onchange="S.members[${i}].sa[${j}].reason=this.value;save();render()"><option value="">Choose reason</option>${reasonOpts(x.reason)}</select>${x.reason==='Other'?`<input placeholder="Note" value="${esc(x.note)}" onchange="S.members[${i}].sa[${j}].note=this.value;save()">`:''}`:'<span class="mu">–</span>'}</td></tr>`}).join('');
+  return `<p class="sm mu" style="margin:0 0 6px">${n} client${n==1?'':'s'}, ${pend} not reviewed yet. Deduction so far: <b>−${tot}%</b>.</p>
+<div class="sawrap">${bar}${shown.length?`<div class="tw"><table class="sat"><tr><th>Client</th><th>Type</th>${H.map((h,k)=>`<th title="${T[k]}"><label><input type="checkbox" ${m.sa.every(x=>x.docs[k])?'checked':''} onchange="allDoc(${i},${k},this.checked)"> ${h}</label></th>`).join('')}<th title="Multi bureau check (new clients only)"><label><input type="checkbox" ${nw.length&&nw.every(x=>x.mbc)?'checked':''} ${nw.length?'':'disabled'} onchange="allMb(${i},this.checked)"> Multi bureau</label></th><th>Issue</th></tr>${rows}</table></div>`:'<div class="card mu emp">Every SA client is complete. Nice work.</div>'}</div><p class="sm mu" style="margin:8px 4px 0">Multi bureau check is only needed for new clients.</p>`}
 function fixL(x){x.dir=Math.max(0,Math.min(50,Math.floor(+x.dir||0)));x.directors=Array.isArray(x.directors)?x.directors:[];
   while(x.directors.length<x.dir)x.directors.push(mkDir(x.isNew));x.directors.length=x.dir;
   x.aml=!!x.aml;x.risk=!!x.risk;x.rep=!!x.rep;x.reason=x.reason||'';x.note=x.note||''}
@@ -822,6 +889,36 @@ async function setDir(i,j,v){const x=S.members[i].ltd[j],n=Math.max(0,Math.min(5
   if(n<x.directors.length){const gone=x.directors.slice(n);
     if(gone.some(d=>dirCheck(d).any)&&!await ask('Reduce to '+n+' director'+(n==1?'':'s')+'? The details entered for the removed director'+(gone.length>1?'s':'')+' will be deleted.','Remove directors')){render();return}}
   x.dir=n;fixL(x);save();render()}
+/* ---------- pending / incorrect tasks ---------- */
+function corrList(m){const ltd=[],sa=[];
+  m.ltd.forEach(x=>{const r=ltdCheck(x),it=[];
+    if(!r.any)it.push('Not reviewed yet: no checks have been completed');
+    else{if(r.coMiss.length)it.push('Company: '+r.coMiss.join(', ')+' not done');
+      r.ds.forEach(d=>{const h='Director '+d.n;
+        if(!d.any)it.push(h+': not reviewed yet');
+        else{if(d.miss.length)it.push(h+': '+d.miss.join(', ')+' not done');if(d.exp.length)it.push(h+': '+d.exp.join(', ')+' expired, please renew')}})}
+    if(it.length)ltd.push({id:x.id,it})});
+  m.sa.forEach(x=>{const it=[];
+    if(!reviewed(x))it.push('Not reviewed yet: no checks have been completed');
+    else{const ms=DOCS.slice(0,4).filter((d,k)=>!x.docs[k]);if(x.isNew&&!x.mbc)ms.push('Multi bureau check');
+      if(ms.length)it.push(ms.join(', ')+' not done'+(/^Expired/.test(x.reason||'')?' (expired documents need renewing)':''))}
+    if(it.length)sa.push({id:x.id,it})});
+  return {ltd,sa,total:ltd.length+sa.length}}
+function corrSec(m,i){const c=corrList(m);
+  const grp=(t,l)=>l.length?`<div class="lt">${t} (${l.length})</div>`+l.map(o=>`<div class="crow"><b>${esc(o.id)}</b><ul>${o.it.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></div>`).join(''):'';
+  return `<div class="sec corr"><div class="row" style="align-items:center"><h3 style="flex:1 1 200px;margin:0">Pending or incorrect tasks</h3><span class="pill ${c.total?'er':'ok'}" style="flex:0 0 auto">${c.total?c.total+' client'+(c.total==1?'':'s')+' to fix':'All clear'}</span><div class="noprint" style="flex:0 0 auto"><button ${c.total?'':'disabled title="Nothing to correct"'} onclick="corrPDF(${i})">Download corrections PDF</button></div></div>
+${c.total?grp('Limited company clients',c.ltd)+grp('SA clients',c.sa):'<p class="sm mu" style="margin:10px 0 0">Nothing pending. All required checks are complete.</p>'}</div>`}
+function corrDoc(m){const c=corrList(m),d=new Date().toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'});
+  const grp=(t,l)=>l.length?`<h2>${t}</h2>`+l.map(o=>`<div class="cdb"><b>${esc(o.id)}</b><ul>${o.it.map(q=>`<li>☐ ${esc(q)}</li>`).join('')}</ul></div>`).join(''):'';
+  return `<div class="cd"><h1>Corrections required</h1><div class="cdm"><div><span>Team member</span><b>${esc(m.name)}</b>${m.role?' · '+esc(m.role):''}</div><div><span>Project</span><b>${esc(S.client||'Untitled project')}</b></div><div><span>Team Lead</span><b>${esc(S.tl.name||'–')}</b>${S.tl.company?' · '+esc(S.tl.company):''}</div><div><span>Date</span><b>${d}</b></div></div>
+${c.total?'<p>The checks below are still pending or need to be corrected. Please complete each one and tell your Team Lead when it is done.</p>'+grp('Limited company clients',c.ltd)+grp('SA clients',c.sa):'<p><b>Nothing to correct.</b> All required checks are complete.</p>'}</div>`}
+function corrPDF(i){const m=S.members[i];if(!m)return;
+  let el=$('#corr');if(!el){el=document.createElement('div');el.id='corr';document.body.appendChild(el)}
+  el.innerHTML=corrDoc(m);const t=document.title;
+  document.title=('Corrections - '+(m.name||'member')+' - '+(S.client||'project')).replace(/[\\\/:*?"<>|]+/g,' ');
+  document.body.classList.add('pc');
+  const done=()=>{removeEventListener('afterprint',done);document.body.classList.remove('pc');document.title=t;el.innerHTML=''};
+  addEventListener('afterprint',done);setTimeout(()=>window.print(),60)}
 function repair(){S.projects.forEach(p=>p.members.forEach(m=>{m.sa=sync(m.sa||[],expand(m.saIds||''),mkSA);m.ltd=sync(m.ltd||[],expand(m.ltdIds||''),mkL);m.ltd.forEach(fixL);m.imgs=m.imgs||[]}))}
 function toggleMb(i,t,j,n){const x=S.members[i][t][j];let a=x.mb||[];
   a=n==='all'?(a.length===MB.length?[]:[...MB]):(a.includes(n)?a.filter(v=>v!==n):[...a,n]);x.mb=a;save();render()}
@@ -886,13 +983,13 @@ function dash(){const st=S.projects.map((p,i)=>({p,i,s:pStat(p)}));
 <div class="card kpi"><small>Flags</small><b style="color:${fl?'var(--er)':'var(--ok)'}">${fl}</b><span class="sm mu">${fl?'need review':'all clear'}</span></div></div>
 <div class="card"><div class="row" style="align-items:center"><h3 style="margin:0;flex:1">Score trend</h3><span class="sm mu" style="flex:0 0 auto">${all.length>1?fd(all[0].d)+' to '+fd(all[all.length-1].d):''}</span></div>
 ${all.length>1?`<div class="bigtrend">${spark(all,600,150)}<i style="top:0">100</i><i style="top:50%">50</i><i style="bottom:0">0</i></div>`:'<p class="sm mu" style="margin:10px 0 0">The trend line appears once scores have been recorded on two different days. Today\'s score is saved automatically.</p>'}</div>
-${att.length?`<div class="card"><h3>Needs attention</h3><div class="alist">${att.map(a=>`<div class="arow"><span class="av">${esc(ini(a.x.m.name))}</span><div class="who"><b>${esc(a.x.m.name||'Unnamed member')}</b><span class="sm mu">${esc(a.o.p.client||'Untitled project')}</span></div><span class="pill ${a.k}">${esc(a.t)}</span><button onclick="dOpen(${a.o.i})">Open</button></div>`).join('')}</div></div>`:''}
+${att.length?`<div class="card"><h3>Needs attention</h3><div class="alist">${att.map(a=>`<div class="arow"><span class="av">${esc(ini(a.x.m.name))}</span><div class="who"><b>${esc(a.x.m.name||'Unnamed member')}</b><span class="sm mu">${esc(a.o.p.client||'Untitled project')}</span></div><span class="pill ${a.k}">${esc(a.t)}</span><button onclick="dOpen(${a.o.i})">Edit</button></div>`).join('')}</div></div>`:''}
 <div class="dgrid">${st.map(({p,i,s})=>{const pb=s.avg!=null?band(s.avg):null;
   return `<div class="card dp"><div class="row" style="align-items:start;gap:8px"><div style="flex:1;min-width:0"><h3 style="margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.client||'Untitled project')}</h3><span class="sm mu">Lead: ${esc(p.tl.name||'not set')}</span></div>${s.flags?`<span class="pill wa" style="flex:0 0 auto">${s.flags} flag${s.flags>1?'s':''}</span>`:''}</div>
 <div class="dscore"><div><div class="score">${s.avg!=null?s.avg+'%':'–'}</div>${pb?`<span class="pill ${pb[1]}">${pb[0]}</span>`:'<span class="sm mu">No score yet</span>'}</div><div class="dsp">${spark(p.hist)||'<span class="sm mu">Trend soon</span>'}</div></div>
 ${s.ms.slice(0,4).map(x=>`<div class="mrow"><span class="av">${esc(ini(x.m.name))}</span><div><b>${esc(x.m.name||'Unnamed')}</b><div class="bar"><i style="width:${x.c.score!=null?x.c.score:0}%"></i></div></div><em>${x.c.score!=null?x.c.score+'%':'–'}</em></div>`).join('')}
 ${s.n>4?`<p class="sm mu" style="margin:8px 0 0">+ ${s.n-4} more</p>`:''}${!s.n?'<p class="sm mu" style="margin:8px 0 0">No team members yet.</p>':''}
-<div class="acts2" style="margin-top:14px"><button class="p" onclick="dOpen(${i})">Open</button><button onclick="openR(${i})">Report</button></div></div>`}).join('')}</div>`}
+<div class="acts2" style="margin-top:14px"><button class="p" onclick="dOpen(${i})">Edit</button><button onclick="renameP(${i})">Rename</button><button onclick="openR(${i})">Report</button><span class="sp"></span><button class="dng" onclick="delP(${i})" aria-label="Delete project">Delete</button></div></div>`}).join('')}</div>`}
 function sbHTML(){const n=S.projects.length;
   const items=n?S.projects.map((p,i)=>{const cl=p.members.reduce((a,m)=>a+m.ltd.length+m.sa.length,0);
     return `<button class="sbi${i===S.cur&&view!=='dash'?' on':''}" onclick="sbOpen(${i})"><span class="sbic">${ic('folder',16)}</span><span class="sbt"><b>${esc(p.client||'Untitled project')}</b><small>${p.members.length} member${p.members.length==1?'':'s'} · ${cl} client${cl==1?'':'s'}</small></span></button>`}).join('')
