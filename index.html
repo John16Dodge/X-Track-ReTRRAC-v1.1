@@ -687,6 +687,23 @@ textarea.ids{resize:none;overflow:hidden;min-height:38px;line-height:1.4;white-s
  .tw table.dtab td select{width:auto;flex:1 1 150px;max-width:260px;min-width:0}
  .tw table.dtab td:nth-last-child(-n+3){grid-column:auto}
 }
+/* directors table: last column is a plain checkbox, not the wide SA "Issue" column */
+.tw table.dtab td:last-child{min-width:0;text-align:center}
+.tw table.dtab th:last-child{min-width:0}
+.tw table.dtab td,.tw table.dtab th{text-align:center}
+.tw table.dtab td:first-child,.tw table.dtab th:first-child{text-align:left}
+/* ---- narrow screens: filter bar scrolls with the page, company headers laid out in a tidy grid ---- */
+@media(max-width:900px){.lbar{position:static}}
+@container mbody (max-width:560px){
+ .ltdc>summary{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;align-items:center;gap:6px 8px;min-height:0;padding:10px 0}
+ .ltdc>summary>b{grid-column:1;grid-row:1}
+ .ltdc>summary>.pill{grid-column:2;grid-row:1;justify-self:start;white-space:nowrap}
+ .ltdc>summary>.pill.ok{grid-column:3;justify-self:start}
+ .ltdc>summary>.sm{grid-column:1/-1;grid-row:2;margin:0}
+ .ltdc>summary>.chev{grid-column:4;grid-row:1;margin:0}
+}
+.lbar>button{white-space:nowrap}
+@media(max-width:640px){.lbar>.sm{flex:1 1 100%}}
 </style>
 </head>
 <body>
