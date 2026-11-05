@@ -177,8 +177,9 @@ tr.doff td:not(:first-child){opacity:.4;pointer-events:none}
 @media(pointer:coarse){.ck input{width:22px;height:22px}}
 @media(max-width:640px){.ltdc{padding:10px}.dir{padding:8px}.seg{display:flex;width:100%}.seg button{flex:1}.xb{padding:4px 8px}}
 @media print{.ltdc,.dir{break-inside:avoid}}
-/* SA table: stacked cards on small screens */
-@media(max-width:700px){
+/* SA / directors table: stacked cards whenever the card itself is narrow */
+.tw{container:tw/inline-size}
+@container tw (max-width:760px){
  .tw table.sat,.tw table.sat tbody{display:block;width:100%}
  .tw table.sat tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 14px;padding:10px 2px;border-bottom:1px solid var(--bd)}
  .tw table.sat tr:first-child{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:4px 2px}
@@ -659,6 +660,33 @@ textarea.ids{resize:none;overflow:hidden;min-height:38px;line-height:1.4;white-s
  .tr-root{gap:6px}
 }
 @media(max-width:640px){.mem{padding:14px}.ltdc{padding-left:12px;padding-right:12px}}
+
+/* ---- fix: mid-width windows (641-1000px) squeezed the content to ~250px ---- */
+@media(min-width:641px) and (max-width:1000px){
+ .shell{grid-template-columns:minmax(0,1fr)!important;gap:14px}
+ .sb{position:static;max-height:none;border-radius:12px}
+ .sbl{flex-direction:row;overflow-x:auto;padding:2px 10px 10px}.sbi,.sbi:hover{flex:none;width:200px}
+ .sbf{display:none}
+ body:not(.home) main{padding-right:20px!important}
+}
+/* flag-tree group headers: title and arrow share the first row, count pill sits below */
+@container mbody (max-width:560px){
+ .tr-g>summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:4px 8px;width:auto}
+ .tr-g>summary .pill{grid-column:2/-1;justify-self:start}
+ .tr-g>summary .chev{grid-column:3;grid-row:1;margin:0}
+}
+.row:has(textarea.ids){align-items:start}
+.tree+.row{margin-top:20px}
+.dn .xb{white-space:normal;overflow-wrap:normal;word-break:normal;text-align:left;line-height:1.25}
+.tw table.dtab td:first-child{min-width:128px}
+.tw table.dtab th{white-space:normal;line-height:1.2;vertical-align:bottom}
+@container tw (max-width:760px){
+ .tw table.dtab tr:first-child{display:none}
+ .tw table.dtab tr{grid-template-columns:minmax(0,1fr)}
+ .tw table.dtab td::before{flex:0 0 auto;white-space:nowrap}
+ .tw table.dtab td select{width:auto;flex:1 1 150px;max-width:260px;min-width:0}
+ .tw table.dtab td:nth-last-child(-n+3){grid-column:auto}
+}
 </style>
 </head>
 <body>
@@ -969,7 +997,7 @@ function dirTable(m,i,j,x){if(!x.directors.length)return'<p class="sm mu">Enter 
   const tri=(a,d,k)=>{const s=d[k+'S'],v=d[k]?'ok':d[k+'X']?'exp':s==='nc'?'nc':s==='un'?'un':'',L=k==='poa'?'POA':'POI';
     return `<select aria-label="${L}" class="${v==='nc'||v==='un'?v:''}" ${d.off?'disabled':''} onchange="dtri(${a},'${k}',this.value)">`+[['','–'],['ok','Done'],['exp','Expired'],['nc','Not checked'],['un','Unavailable']].map(([o,l])=>`<option value="${o}" ${v===o?'selected':''}>${l}</option>`).join('')+`</select>`+(v==='nc'&&!d.off?`<div class="rsn"><span>${esc(d[k+'R']||'No reason')}</span><button type="button" onclick="dReason(${a},'${k}')">Edit</button></div>`:'')};
   const off=x.directors.map((d,n)=>d.off?n+1:0).filter(Boolean);
-  return `<div class="tw"><table class="sat"><tr><th>Director</th><th>Type</th><th title="Proof of Address">POA</th><th title="Proof of Identity">POI</th><th>Multi bureau check</th><th>AML</th><th>Report</th></tr>`+
+  return `<div class="tw"><table class="sat dtab"><tr><th>Director</th><th>Type</th><th title="Proof of Address">POA</th><th title="Proof of Identity">POI</th><th>Multi bureau check</th><th>AML</th><th>Report</th></tr>`+
   x.directors.map((d,n)=>{const a=`${i},${j},${n}`,dis=d.off?'disabled':'';
     return `<tr class="${d.off?'doff':''}"><td><div class="dn"><b>Director ${n+1}</b><button type="button" class="xb${d.off?' sel':''}" aria-pressed="${!!d.off}" onclick="dOff(${a})">Director unavailable in share drive</button></div></td><td data-l="Type"><select aria-label="Type" ${dis} onchange="dset(${a},'isNew',this.value==='new')"><option value="new" ${d.isNew?'selected':''}>New</option><option value="old" ${d.isNew?'':'selected'}>Existing</option></select></td>
 <td data-l="POA">${tri(a,d,'poa')}</td><td data-l="POI">${tri(a,d,'poi')}</td><td data-l="Multi bureau check">${d.isNew?chk(a,'mbc',d.mbc,dis):'<span class="mu">n/a</span>'}</td><td data-l="AML">${chk(a,'aml',d.aml,dis)}</td><td data-l="Report">${chk(a,'rep',d.rep,dis)}</td></tr>`}).join('')+`</table></div>`+
