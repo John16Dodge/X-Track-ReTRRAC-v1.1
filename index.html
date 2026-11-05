@@ -644,6 +644,21 @@ body.home::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:no
 @media(max-width:640px){.wfoot{gap:10px;flex-wrap:wrap}.wfoot .r{margin-left:0}.home .eh{font-size:26px;margin-top:48px}.home .stage h1{font-size:clamp(38px,11vw,52px)}}
 @media(prefers-reduced-motion:reduce){.pulse,.tk,.home .gt{animation:none!important}}
 
+
+/* ---- fix: cramped member panel on narrow screens ---- */
+textarea.ids{resize:none;overflow:hidden;min-height:38px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere;display:block}
+.rt{flex-wrap:wrap;row-gap:6px}.rt select{flex:0 0 auto;min-width:84px}
+.mbody{container:mbody/inline-size}
+.tr-leaf,.tr-g>summary{overflow-wrap:anywhere}
+@container mbody (max-width:560px){
+ .tr-br{margin-left:8px}
+ .tr-g{margin-left:12px}.tr-g::before{left:-12px;width:10px}
+ .tr-leaves{margin-left:8px}
+ .tr-leaf{margin-left:14px;padding:8px 10px}.tr-leaf::before{left:-16px;width:14px}.tr-leaf::after{left:-20px}
+ .tr-leaf ul{padding-left:16px}
+ .tr-root{gap:6px}
+}
+@media(max-width:640px){.mem{padding:14px}.ltdc{padding-left:12px;padding-right:12px}}
 </style>
 </head>
 <body>
@@ -757,7 +772,7 @@ function editor(){
   S.members.forEach((m,i)=>{const c=calc(m),parts=[m.ltd.length?`${m.ltd.length} limited`:'',m.sa.length?`${m.sa.length} SA`:'',m.time?`${m.time} h`:''].filter(Boolean).join(' · ')||'No clients yet';
     h+=`<details class="card mem" ${m.open===false?'':'open'} ontoggle="S.members[${i}].open=this.open;save()"><summary>${avatar}<span class="who"><b>${esc(m.name)}</b><span class="sm mu">${parts}</span></span>${taskPill(m)}<button class="pdfb noprint" title="Download ${esc(m.name)}'s tasks as PDF" ${(m.ltd.length||m.sa.length)?'':'disabled'} onclick="event.preventDefault();event.stopPropagation();corrPDF(${i})">⬇ PDF</button><span class="chev" aria-hidden="true">▾</span></summary>
 <div class="mbody">${taskTree(m,i)}<div class="row"><div><label>Role</label><input value="${esc(m.role)}" onchange="mset(${i},'role',this.value,1)"></div><div style="flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap"><button onclick="renameM(${i})">Edit name</button><button class="dng" onclick="delM(${i})">Remove member</button></div></div>
-<div class="sec"><h3>Clients</h3><div class="row"><div><label>Limited company IDs</label><input placeholder="e.g. L1 to L5" value="${esc(m.ltdIds)}" onchange="setIds(${i},'ltd',this.value)"></div><div><label>SA client IDs</label><input placeholder="e.g. A1 to A10" value="${esc(m.saIds)}" onchange="setIds(${i},'sa',this.value)"></div></div>
+<div class="sec"><h3>Clients</h3><div class="row"><div><label>Limited company IDs</label><textarea class="ids" rows="1" spellcheck="false" placeholder="e.g. L1 to L5" oninput="fitIds()" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}" onchange="setIds(${i},'ltd',this.value)">${esc(m.ltdIds)}</textarea></div><div><label>SA client IDs</label><textarea class="ids" rows="1" spellcheck="false" placeholder="e.g. A1 to A10" oninput="fitIds()" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}" onchange="setIds(${i},'sa',this.value)">${esc(m.saIds)}</textarea></div></div>
 ${(m.ltd.length||m.sa.length)?`<label class="rt">Deduction per missing check <select onchange="mset(${i},'rate',+this.value)">${[1,2].map(v=>`<option value="${v}" ${(m.rate||1)==v?'selected':''}>${v}%</option>`).join('')}</select></label>`:''}
 ${m.ltd.length?secHead(i,'ltd','Limited companies',m.ltd.length):''}${m.ltdHide?'':ltdTable(m,i)}
 ${m.sa.length?secHead(i,'sa','SA clients',m.sa.length):''}${m.saHide?'':saTable(m,i)}</div>
@@ -1172,8 +1187,10 @@ function sbHTML(){const n=S.projects.length;
 function refreshSb(){const e=document.querySelector('.sb');if(e&&view!=='home')e.outerHTML=sbHTML()}
 function sbOpen(i){if(view==='report')openR(i);else{view='project';openP(i)}}
 function sbNew(){view='project';newProject()}
+function fitIds(){document.querySelectorAll('textarea.ids').forEach(t=>{t.style.height='auto';t.style.height=Math.max(t.scrollHeight+2,38)+'px'})}
+addEventListener('resize',fitIds);
 function render(anim){
-  const f={home,project,report,dash}[view];$('#app').innerHTML=view==='home'?f():'<div class="shell">'+sbHTML()+'<div class="pane">'+f()+'</div></div>';document.body.classList.toggle('home',view==='home');$('#nvp').classList.toggle('on',view==='project');$('#nvr').classList.toggle('on',view==='report');$('#nvd').classList.toggle('on',view==='dash');document.querySelectorAll('#dock [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
+  setTimeout(fitIds,0);const f={home,project,report,dash}[view];$('#app').innerHTML=view==='home'?f():'<div class="shell">'+sbHTML()+'<div class="pane">'+f()+'</div></div>';document.body.classList.toggle('home',view==='home');$('#nvp').classList.toggle('on',view==='project');$('#nvr').classList.toggle('on',view==='report');$('#nvd').classList.toggle('on',view==='dash');document.querySelectorAll('#dock [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
   if(window.anime){
     if(view==='home'){demo();startDraw('.trend polyline',2200,0)}
     if(view==='home')anime({targets:'.reveal',opacity:[0,1],translateY:[18,0],duration:600,delay:anime.stagger(90),easing:'easeOutCubic'});
