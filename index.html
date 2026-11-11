@@ -537,7 +537,7 @@ body:not(.home) main{max-width:none;padding:22px 20px 40px 14px}
 .dc.n{color:var(--er);background:color-mix(in srgb,var(--er) 11%,transparent)}
 .dc.na{color:var(--mu)}
 .l1w{overflow-x:auto;border:.5px solid var(--bd);border-radius:12px;background:color-mix(in srgb,var(--card) 80%,transparent)}
-table.l1{min-width:1320px;width:100%}
+table.l1{min-width:1180px;width:100%}
 table.l1 th{padding:10px 12px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);white-space:nowrap;text-align:left}
 table.l1 td{padding:12px;vertical-align:top;border-bottom:.5px solid var(--bd);overflow-wrap:anywhere;text-align:left}
 table.l1 tr:last-child td{border-bottom:0}
@@ -549,6 +549,9 @@ table.l1 td:nth-child(8){min-width:130px}
 table.l1 td:nth-child(9){min-width:220px}
 table.l1 td button{white-space:nowrap}
 table.l1 td .l1btns{flex-wrap:nowrap}
+table.l1 th:last-child,table.l1 td:last-child{position:sticky;right:0;z-index:2;background:var(--card);box-shadow:-10px 0 14px -12px rgba(0,0,0,.45)}
+table.l1 td:nth-child(9){min-width:0;width:1%}
+@media print{table.l1 th:last-child,table.l1 td:last-child{position:static;box-shadow:none}}
 table.l1 td button{padding:3px 10px;font-size:12.5px}
 table.l1 td select{max-width:160px;min-height:30px;padding:3px 24px 3px 8px;font-size:13px}
 .l1btns{display:flex;gap:6px;flex-wrap:wrap}
